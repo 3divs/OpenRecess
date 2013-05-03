@@ -5,12 +5,15 @@
 
 var express = require('express'),
     routes = require('./routes'),
-    user = require('./routes/user'),
     http = require('http'),
     path = require('path'),
     everyauth = require('./node_modules/everyauth'),
     exphbs  = require('express3-handlebars'),
     mongoose = require('mongoose');
+
+// Connect to mongoose database and create object schemas
+mongoose.connect('mongodb://localhost:17017/openRecess');
+var User = require('./models/user.js')(mongoose);
 
 var app = express();
 
@@ -69,9 +72,6 @@ app.get('/', function (req, res, next) {
   console.log('user: ', req.user);
   res.render('home');
 });
-
-app.get('/users', user.list);
-// everyauth.helpExpress(app);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
