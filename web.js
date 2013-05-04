@@ -17,29 +17,55 @@ var User = require('./models/user.js')(mongoose);
 
 var app = express();
 
+var uidCounter = 0;
+
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 
-/* Every Auth test code */
-everyauth.everymodule.findUserById(function() {
-  console.log('everyauth');
-});
+
+/* Every Auth authentication */
+everyauth.debug = true;
+// everyauth.everymodule.userPkey('uid');
+// everyauth.everymodule.findUserById(function() {
+//   console.log('in findUserById');
+// });
 
 everyauth.password
   .getLoginPath('/login')
   .postLoginPath('/login')
   .loginView('login')
   .authenticate(function(login, password) {
-    console.log('authenticate called');
+    console.log('authenticate called - ', login, password);
+    var promise = this.Promise();
+    // console.log(promise);
+    User.find({}, function (err, user) {
+      console.log('*** RETURNED ***', err, user);
+      if (err) return promise.fulfill([err]);
+      promise.fulfill(user);
+    });
+    return promise;
   })
-  .loginSuccessRedirect('/')
+  // .loginSuccessRedirect('/')
   .getRegisterPath('/register')
   .postRegisterPath('/register')
   .registerView('register')
   .validateRegistration(function(newUserAttributes) {
-    console.log('validate registration');
+    console.log('validate registration - ', newUserAttributes);
+    var promise = this.Promise();
+    User.find({}, function(err, user) {
+      promise.fulfill(undefined);
+    });
+    return promise;
   })
   .registerUser(function(newUserAttributes) {
-    console.log('register new user');
+    console.log('register new user - ', newUserAttributes);
+    newUserAttributes.uid = uidCounter++;
+    var promise = this.Promise();
+    User.create(newUserAttributes, function (err, user) {
+      console.log('*** CREATE ***', err, user);
+      if (err) return promise.fulfill([err]);
+      promise.fulfill(user);
+    });
+    return promise;
   })
   .registerSuccessRedirect('/');
 
