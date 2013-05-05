@@ -9,6 +9,6 @@
     "karma": "~0.8.5",
     "everyauth": "git://github.com/bnoguchi/everyauth.git#express3",
     "express3-handlebars": "~0.4.1",
-    "express-mongoose": "~0.1.0"
+    "mongoose": "~3.6.9"
   }
 }
