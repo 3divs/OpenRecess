@@ -7,8 +7,9 @@
     "stylus": "~0.32.1",
     "jasmine-node": "~1.7.0",
     "karma": "~0.8.5",
-    "everyauth": "git://github.com/bnoguchi/everyauth.git#express3",
     "express3-handlebars": "~0.4.1",
-    "mongoose": "~3.6.9"
+    "mongoose": "~3.6.9",
+    "passport": "~0.1.16",
+    "passport-local": "~0.1.6"
   }
 }
