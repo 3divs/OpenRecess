@@ -42,7 +42,7 @@ app.get('/', function (req, res, next) {
 
 app.get('/users', user.list);
 app.get('/send-sms', routes.sendSMS);
-app.post('https://demo.twilio.com/welcome/sms/', function(req, res) {
+app.post('http://fast-tundra-5165.herokuapp.com', function(req, res) {
   var msg = req.body.Body;
   var from = req.body.From;
   console.log(msg);
