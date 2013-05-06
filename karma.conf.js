@@ -10,10 +10,16 @@ basePath = '';
 files = [
   JASMINE,
   JASMINE_ADAPTER,
-  'spec/*Spec.js',
-  'tests/*Spec.js',
+
+  // Server side files
   {pattern: 'routes/*.js', included: false},
-  {pattern: 'public/javascripts/*.js', included: false}
+  {pattern: 'models/*.js', included: false},
+  // {pattern: 'tests/*Spec.js', included: true, served: true},
+  'tests/*Spec.js',
+
+  // Client side files
+  'public/javascripts/*.js',
+  'spec/*Spec.js'
 ];
 
 
