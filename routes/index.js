@@ -19,8 +19,9 @@ module.exports = function(app){
   });
 
   app.post('/register', function(req, res, next) {
-    console.log(req);
-    User.findOrCreate();
+    console.log(req.body);
+    // User.fireate();
+    res.redirect('/');
   });
 
   app.get('/logout', function(req, res, next){
