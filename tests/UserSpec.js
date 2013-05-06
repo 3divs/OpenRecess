@@ -1,55 +1,63 @@
+var mongoose = require('mongoose');
+var __ = require('underscore');
+mongoose.connect('mongodb://localhost:17017/openRecessTest');
+var User = require('../models/user.js')(mongoose);
+var user;
+
 describe('User', function() {
-  it('has functions', function() {
-    expect(createUser).toBeDefined();
-    expect(validateUser).toBeDefined();
-  });
+  // beforeEach(function() {
+  //   email = 'test@test.com';
+  //   phone = 1234567890;
+  //   password = 'password';
+  //   user = new User({email: email, phone: phone, password: password});
+  //   user.save();
+  // });
 
   describe('validation', function() {
-    it('should return true for valid phone number, email, and password', function() {
-
+    var email, phone, password;
+    beforeEach(function() {
+      email = 'test@test.com';
+      phone = 1234567890;
+      password = 'password';
     });
+
+    afterEach(function() {
+      User.remove(function() {});
+    });
+
+    it('should not error for valid phone number, email, and password', function() {
+      user = new User({email: email, phone: phone, password: password});
+      user.save(function(err) {
+        expect(err).not.toBeDefined();
+      });
+    });
+
     it('should error on invalid phone number', function() {
-
+      var invalidVals = [123, 1234214, 12345678901];
+      __.each(invalidVals, function(val) {
+        user = new User({email: email, phone: val, password: password});
+        user.save(function(err) {
+          expect(err).toBeDefined();
+        });
+      });
     });
-    it('should error on invalid password', function() {
 
+    it('should error on empty password', function() {
+      password = '';
+      user = new User({email: email, phone: phone, password: password});
+      user.save(function(err) {
+        expect(err).toBeDefined();
+      });
     });
+
     it('should error on invalid email', function() {
-
+      var invalidVals = ['asdf', 'asdf@asdf', 'asdf@asdf.asdsdff', ''];
+      __.each(invalidVals, function(val) {
+        user = new User({email: val, phone: phone, password: password});
+        user.save(function(err) {
+          expect(err).toBeDefined();
+        });
+      });
     });
-  });
-
-  describe('createUser', function() {
-    it('should create a valid user', function() {
-
-    });
-    it('should not create a user without a password', function() {
-
-    });
-    it('should not create a user without a email', function() {
-
-    });
-    it('should not create a user without a phone number', function() {
-
-    });
-  });
-
-  describe('updateUser', function() {
-    it('should update if new username is valid', function() {
-
-    });
-    it('should update if new password is valid', function() {
-
-    });
-    it('should update if new email is valid', function() {
-
-    });
-    it('should update if new phone number is valid', function() {
-
-    });
-  });
-
-  describe('login', function() {
-
   });
 });
