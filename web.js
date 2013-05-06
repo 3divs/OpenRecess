@@ -42,14 +42,7 @@ app.get('/', function (req, res, next) {
 
 app.get('/users', user.list);
 app.get('/send-sms', routes.sendSMS);
-app.post('http://fast-tundra-5165.herokuapp.com', routes.retrieveSMS);
-// {
-//   var msg = req.body.Body;
-//   var from = req.body.From;
-//   console.log(msg);
-//   console.log(from);
-// });
-// app.get('/retrieve-sms', routes.retrieveSMS);
+app.post('/retrieve-sms', routes.retrieveSMS);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
