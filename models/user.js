@@ -18,7 +18,7 @@ function validateEmail(email) {
 }
 
 module.exports = function(mongoose) {
-  var userSchema = mongoose.Schema({
+  var UserSchema = mongoose.Schema({
     'email': {type: String, validate: [validateEmail, 'email is invalid'], index: {unique: true} },
     'phone': {type: Number, validate: [validatePhone, 'phone number invalid']},
     'display_name': {type: String},
@@ -26,12 +26,12 @@ module.exports = function(mongoose) {
     'salt': String
   });
 
-  userSchema.virtual('id')
+  UserSchema.virtual('id')
     .get(function() {
       return this._id.toHexString();
     });
 
-  userSchema.virtual('password')
+  UserSchema.virtual('password')
     .set(function(password) {
       this._password = password;
       this.salt = this.makeSalt();
@@ -39,19 +39,19 @@ module.exports = function(mongoose) {
     })
     .get(function() { return this._password; });
 
-  userSchema.method('authenticate', function(plainText) {
+  UserSchema.method('authenticate', function(plainText) {
     return this.encryptPassword(plainText) === this.hashed_password;
   });
 
-  userSchema.method('makeSalt', function() {
+  UserSchema.method('makeSalt', function() {
     return Math.round((new Date().valueOf() * Math.random())) + '';
   });
 
-  userSchema.method('encryptPassword', function(password) {
+  UserSchema.method('encryptPassword', function(password) {
     return crypto.createHmac('sha1', this.salt).update(password).digest('hex');
   });
 
-  userSchema.pre('save', function(next) {
+  UserSchema.pre('save', function(next) {
     if (!validatePresenceOf(this.password)) {
       next(new Error('Invalid password'));
     } else {
@@ -59,5 +59,31 @@ module.exports = function(mongoose) {
     }
   });
 
-  return mongoose.model('User', userSchema);
+  // Stolen from vicapow's WDOS workout app
+  // UserSchema.method('setPassword', function(password) {
+  //   this.salt = bcrypt.genSaltSync(10);
+  //   this.password = bcrypt.hashSync(password, this.salt);
+  //   return this;
+  // });
+
+  UserSchema.method('checkPassword', function(password) {
+    if(!this.hashed_password || !this.salt) return false;
+    var hash = this.encryptPassword(password);
+    return (hash === this.hashed_password);
+  });
+
+  var User = mongoose.model('User', UserSchema);
+
+  User.login = function(username, password, cb){
+    console.log('User logging in: ', username, password);
+    User.findOne({email: username}, function(err, user){
+      console.log(err, user);
+      if(err) return cb(err);
+      if(!user) return cb(null, null);
+      if(user.checkPassword(password)) return cb(null, user);
+      return cb(null, null, { message : 'Invalid username or password.'});
+    });
+  };
+
+  return User;
 };

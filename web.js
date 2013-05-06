@@ -37,12 +37,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Setup passport config
 passport.use(new LocalStrategy(function(username, password, done){
-  console.log('TEST - ', username, password);
-  // User.findOne(username, password, function(err, user, msg){
-    // console.log('User login - ', user, msg);
-    // done(err, user, msg);
-    return done(null, {username: 'Mark', _id: 123});
-  // });
+  User.login(username, password, function(err, user) {
+    console.log(err, user);
+    return done(null, user);
+  });
 }));
 
 passport.serializeUser(function(user, done) {

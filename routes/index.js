@@ -10,7 +10,7 @@ module.exports = function(app){
 
   app.post('/login', passport.authenticate('local', {
     successRedirect : '/',
-    failureRedirect : '/'
+    failureRedirect : '/login'
   }));
 
   app.get('/login', function(req, res, next) {
