@@ -9,8 +9,8 @@ var express = require('express'),
     http = require('http'),
     path = require('path'),
     everyauth = require('./node_modules/everyauth'),
-    exphbs  = require('express3-handlebars'),
-    mongoose = require('express-mongoose');
+    exphbs  = require('express3-handlebars');
+    // mongoose = require('express-mongoose');
 
 var app = express();
 
@@ -42,6 +42,13 @@ app.get('/', function (req, res, next) {
 
 app.get('/users', user.list);
 app.get('/send-sms', routes.sendSMS);
+app.post('https://demo.twilio.com/welcome/sms/', function(req, res) {
+  var msg = req.body.Body;
+  var from = req.body.From;
+  console.log(msg);
+  console.log(from);
+});
+// app.get('/retrieve-sms', routes.retrieveSMS);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
