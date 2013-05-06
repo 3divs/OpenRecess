@@ -20,6 +20,7 @@ var User = require('./models/user.js')(mongoose);
 var app = express();
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('port', process.env.PORT || 5000);
+app.set('db', mongoose);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'handlebars');
 app.use(express.logger('dev'));

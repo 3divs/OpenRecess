@@ -1,6 +1,9 @@
 var passport = require('passport');
 
 module.exports = function(app){
+  var db = app.set('db');
+  var User = db.model('User');
+
   app.get('/', function (req, res, next) {
     res.render('home');
   });
@@ -19,8 +22,11 @@ module.exports = function(app){
   });
 
   app.post('/register', function(req, res, next) {
-    console.log(req.body);
-    // User.fireate();
+    newUser = new User({
+      email: req.body.username,
+      password: req.body.password
+    });
+    newUser.save();
     res.redirect('/');
   });
 
