@@ -17,7 +17,7 @@ var app = express();
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 
 // all environments
-app.set('port', "http://fast-tundra-5165.herokuapp.com");
+app.set('port', "process.env.PORT || 5000");
 app.set('views', __dirname + '/views');
 app.set('view engine', 'handlebars');
 app.use(express.favicon());
