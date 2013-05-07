@@ -10,6 +10,7 @@
     "everyauth": "git://github.com/bnoguchi/everyauth.git#express3",
     "express3-handlebars": "~0.4.1",
     "express-mongoose": "~0.1.0",
-    "twilio": "~1.1.0"
+    "twilio": "~1.1.0",
+    "underscore": "~1.4.4"
   }
 }
