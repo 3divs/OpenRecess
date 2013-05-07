@@ -3,7 +3,8 @@
  * GET home page.
  */
 
- var qs = require('querystring');
+var qs = require('querystring');
+var __ = require('underscore');
 
 exports.index = function(req, res){
   res.render('index', { title: 'Express' });
@@ -41,7 +42,7 @@ exports.retrieveSMS = function(req, res) {
   client.sms.messages.list(function(err, data) {
     // console.log(data.sms_messages);
     var messageInfo = [];
-    _.each(data.sms_messages, function(item) {
+    __.each(data.sms_messages, function(item) {
       messageData = {
         phone: item.from,
         sid : item.sid,
