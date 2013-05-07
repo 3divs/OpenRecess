@@ -10,7 +10,7 @@ module.exports = function(app){
   });
 
   app.post('/login', passport.authenticate('local', {
-    successRedirect : '/',
+    successRedirect : '/game',
     failureRedirect : '/login'
   }));
 
@@ -36,7 +36,8 @@ module.exports = function(app){
     res.redirect('/');
   });
 
-  app.get('/game', function(req, res, next) {
+  app.get('/game', ensureAuthenticated, function(req, res, next) {
+    // if(!req.isAuthenticated()) res.redirect('/login');
     res.render('game');
   });
 
@@ -61,3 +62,10 @@ module.exports = function(app){
     });
   });
 };
+
+function ensureAuthenticated(req, res, next) {
+  console.log('ensureAuthenticated called');
+  console.log('auth - ', req.isAuthenticated());
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/login');
+}
