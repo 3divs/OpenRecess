@@ -59,13 +59,6 @@ UserSchema.pre('save', function(next) {
   }
 });
 
-// Stolen from vicapow's WDOS workout app
-// UserSchema.method('setPassword', function(password) {
-//   this.salt = bcrypt.genSaltSync(10);
-//   this.password = bcrypt.hashSync(password, this.salt);
-//   return this;
-// });
-
 UserSchema.method('checkPassword', function(password) {
   if(!this.hashed_password || !this.salt) return false;
   var hash = this.encryptPassword(password);

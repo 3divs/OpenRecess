@@ -35,7 +35,16 @@ app.use(express.session({secret: 'keyboard cat'}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(app.router);
-app.use(require('stylus').middleware(__dirname + '/public'));
+app.use(require('stylus').middleware({
+  src: __dirname + '/public/stylesheets',
+  // dest: __dirname + '/public/stylesheets',
+  compile: function (str, path, fn) {
+    stylus(str)
+    .set('filename', path)
+    .set('compress', true)
+    .render(fn);
+  }
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 passport.serializeUser(function(user, done) {

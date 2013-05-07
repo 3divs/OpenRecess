@@ -10,7 +10,7 @@ module.exports = function(app){
   });
 
   app.post('/login', passport.authenticate('local', {
-    successRedirect : '/game',
+    successRedirect : '/',
     failureRedirect : '/login'
   }));
 
@@ -23,12 +23,17 @@ module.exports = function(app){
   });
 
   app.post('/register', function(req, res, next) {
+    console.log(req.body);
     newUser = new User({
       email: req.body.username,
       password: req.body.password
     });
-    newUser.save();
-    res.redirect('/');
+    newUser.save(function(err, results) {
+      if(err)
+        console.log(err);
+      else
+        res.redirect('/');
+    });
   });
 
   app.get('/logout', function(req, res, next){
