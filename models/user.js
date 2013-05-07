@@ -85,13 +85,4 @@ User.login = function(username, password, cb){
   });
 };
 
-// User.findById = function(id, cb) {
-//   console.log('findById called');
-//   User.findOne({_id: id}, function(err, user) {
-//     if(err) return cb(err);
-//     if(!user) return cb(null, null);
-//     return cb(null, user);
-//   });
-// };
-
 module.exports = User;
