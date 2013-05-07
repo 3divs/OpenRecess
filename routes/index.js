@@ -39,10 +39,9 @@ exports.retrieveSMS = function(req, res) {
   var authToken = "99143cc9267d4ad6db22cdc12856ad5a";
   var client = require('twilio')(accountSid, authToken);
   client.sms.messages.list(function(err, data) {
-    var parsedData = JSON.parse(data.sms_messages);
-    console.log(parsedData);
+    // console.log(data.sms_messages);
     var messageInfo = [];
-    _.each(parsedData, function(item) {
+    _.each(data.sms_messages, function(item) {
       messageData = {
         phone: item.from,
         sid : item.sid,
