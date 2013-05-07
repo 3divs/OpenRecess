@@ -7,7 +7,6 @@ var express = require('express'),
     routes = require('./routes'),
     http = require('http'),
     path = require('path'),
-    twil = require('./src/twilio.js');
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
     exphbs  = require('express3-handlebars'),
@@ -61,12 +60,6 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', function (req, res, next) {
-  res.render('home');
+http.createServer(app).listen(app.get('port'), function(){
+  console.log('Express server listening on port ' + app.get('port'));
 });
-
-app.get('/users', user.list);
-
-app.get('/send-sms', twil.sendSMS);
-app.post('/retrieve-sms', twil.retrieveSMS);
-
