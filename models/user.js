@@ -18,7 +18,7 @@ function validateEmail(email) {
   return validateEmailFormat(email) && validatePresenceOf(email);
 }
 
-var UserSchema = mongoose.Schema({
+var UserSchema = new mongoose.Schema({
   'email': {type: String, validate: [validateEmail, 'email is invalid'], index: {unique: true} },
   'phone': {type: Number, validate: [validatePhone, 'phone number invalid']},
   'display_name': {type: String},
