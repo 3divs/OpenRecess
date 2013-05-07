@@ -10,6 +10,7 @@ var express = require('express'),
     path = require('path'),
     everyauth = require('./node_modules/everyauth'),
     exphbs  = require('express3-handlebars');
+    twil = require('./src/twilio.js')
     // mongoose = require('express-mongoose');
 
 var app = express();
@@ -42,7 +43,7 @@ app.get('/', function (req, res, next) {
 
 app.get('/users', user.list);
 app.get('/send-sms', routes.sendSMS);
-app.post('/retrieve-sms', routes.retrieveSMS);
+app.post('/retrieve-sms', twil.retrieveSMS);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
