@@ -1,4 +1,5 @@
 var passport = require('passport');
+var twil = require('../src/twilio.js');
 
 module.exports = function(app){
   var db = app.set('db');
@@ -65,6 +66,14 @@ module.exports = function(app){
       context['Games'] = results;
       res.render('games', context);
     });
+  });
+
+  app.get('/send-sms', function(req, res) {
+    twil.sendSMS();
+  });
+
+  app.post('/retrieve-sms', function(req, res) {
+    twil.retrieveSMS();
   });
 };
 
