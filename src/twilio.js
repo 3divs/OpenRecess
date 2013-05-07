@@ -1,8 +1,10 @@
 var __ = require('underscore');
 
+
+var accountSid = "AC5933d34eda950c0bb81ed94811a9c13c";
+var authToken = "99143cc9267d4ad6db22cdc12856ad5a";
+
 exports.sendSMS = function(req, res) {
-  var accountSid = "";
-  var authToken = "";
   var client = require('twilio')(accountSid, authToken);
 
   var messageContent = "3Divs T-shirt coming soon. HackReactor special: $50!";
@@ -25,8 +27,6 @@ exports.sendSMS = function(req, res) {
 
 exports.retrieveSMS = function(req, res) {
   console.log('retrieving SMS');
-  var accountSid = "";
-  var authToken = "";
   var client = require('twilio')(accountSid, authToken);
   var allSms;
   client.sms.messages.list(function(err, data) {

@@ -42,6 +42,7 @@ app.get('/', function (req, res, next) {
 });
 
 app.get('/users', user.list);
+
 app.get('/send-sms', twil.sendSMS);
 app.post('/retrieve-sms', twil.retrieveSMS);
 
