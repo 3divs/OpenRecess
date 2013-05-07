@@ -14,7 +14,8 @@ var express = require('express'),
 
 // Connect to mongoose database and create object schemas
 mongoose.connect('mongodb://localhost:17017/openRecess');
-var User = require('./models/user.js')(mongoose);
+var User = require('./models/user.js');
+var Game = require('./models/game.js');
 
 // Setup express server
 var app = express();

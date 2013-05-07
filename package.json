@@ -12,6 +12,7 @@
     "passport": "~0.1.16",
     "passport-local": "~0.1.6",
     "underscore": "~1.4.4",
-    "crypto": "0.0.3"
+    "crypto": "0.0.3",
+    "moment": "~2.0.0"
   }
 }
