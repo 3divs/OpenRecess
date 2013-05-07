@@ -5,7 +5,7 @@ exports.sendSMS = function(req, res) {
   var authToken = "";
   var client = require('twilio')(accountSid, authToken);
 
-  var messageContent = "I hate you";
+  var messageContent = "3Divs T-shirt coming soon. HackReactor special: $50!";
   var toSMS = "+15133074346";
   var fromSMS = "+14159928245";
 
