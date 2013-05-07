@@ -4,10 +4,46 @@
     <meta charset="utf-8" />
     <title>OpenRecess</title>
     <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-  {{{body}}}
+  <div class="container-fluid header">
+    <div class="row-fluid">
+      <div class="navbar header navbar-static-top">
+        <div class="navbar-inner">
+          <a class="brand" href="/">OpenRecess</a>
+          <ul class="nav">
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="/game">Create Game</a></li>
+            <li><a href="/games">List Games</a></li>
+            <li class="right"><a href="/login">Login</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span10 offset1">
+        {{{body}}}
+      </div>
+    </div>
+  </div>
+  <div class="footer span10 offset1">
+    <ul>
+      <li class="divider"></li>
+    </ul>
+    <div class="footer-left left">
+      <span>A <a href="http://www.github.com/3divs/">3divs</a> production</span>
+    </div>
+    <div class="footer-right right">
+      <ul>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
 </body>
 </html>
