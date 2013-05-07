@@ -10,7 +10,7 @@ module.exports = function(app){
   });
 
   app.post('/login', passport.authenticate('local', {
-    successRedirect : '/game',
+    successRedirect : '/',
     failureRedirect : '/login'
   }));
 
