@@ -1,10 +1,19 @@
 {
-  "name": "application-name",
+  "name": "open-recess",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
     "express": "3.2.1",
-    "jade": "*",
-    "stylus": "*"
+    "stylus": "~0.32.1",
+    "jasmine-node": "~1.7.0",
+    "karma": "~0.8.5",
+    "express3-handlebars": "~0.4.1",
+    "mongoose": "~3.6.9",
+    "passport": "~0.1.16",
+    "passport-local": "~0.1.6",
+    "underscore": "~1.4.4",
+    "crypto": "0.0.3",
+    "moment": "~2.0.0",
+    "connect-mongo": "~0.3.2"
   }
 }
