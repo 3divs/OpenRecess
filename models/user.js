@@ -23,7 +23,9 @@ var UserSchema = new mongoose.Schema({
   'phone': {type: Number, validate: [validatePhone, 'phone number invalid']},
   'display_name': {type: String},
   'hashed_password': {type: String},
-  'salt': String
+  'salt': String,
+  'upcomingGames': [Number],
+  'gamesPlayed': [Number]
 });
 
 UserSchema.virtual('id')
