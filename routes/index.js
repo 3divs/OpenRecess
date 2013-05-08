@@ -44,7 +44,8 @@ module.exports = function(app){
     res.redirect('/');
   });
 
-  app.get('/game', ensureAuthenticated, function(req, res, next) {
+  // app.get('/game', ensureAuthenticated, function(req, res, next) {
+  app.get('/game', function(req, res, next) {
     // if(!req.isAuthenticated()) res.redirect('/login');
     res.render('game');
   });
@@ -65,10 +66,25 @@ module.exports = function(app){
   });
 
   app.get('/games', function(req, res, next) {
-    var context = {};
+    // TODO: implement error handling
+    console.log(req.xhr);
+    console.log(req.get('Content-Type'));
+
+    // Return all games
     Game.find({}, function(err, results) {
-      context['Games'] = results;
-      res.render('games', context);
+      // Respond with either HTML or JSON depending on request
+      res.format({
+        html: function() {
+          var context = {};
+          context['Games'] = results;
+          console.log('html response');
+          res.render('games', context);
+        },
+        json: function() {
+          console.log('json response');
+          res.send(results);
+        }
+      });
     });
   });
 

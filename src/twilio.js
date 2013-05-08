@@ -81,5 +81,3 @@ var getSmsContent = function(data) {
 // Combine and merge all texts from the same phone number.
 var inboundNum = function(data) {
 };
-
-module.exports = Message = mongoose.model('Message', MessageSchema);
