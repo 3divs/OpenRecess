@@ -11,13 +11,6 @@ var authToken = "99143cc9267d4ad6db22cdc12856ad5a";
 
 var client = require('twilio')(accountSid, authToken);
 
-var MessageSchema = new mongoose.Schema({
-  'body': String,
-  'recipient': Object,
-  'sender': Object,
-  'processed': { type: Boolean}
-});
-
 exports.sendSMS = function(message, userNumber, twilioNumber, req, res) {
   client.sms.messages.create({
       body: message,
@@ -46,16 +39,14 @@ exports.processRSVPs = function(req, res) {
   console.log('filtering RSVPs');
   console.log(req);
   client.sms.messages.list(function(err, data) {
-    __.each(_______________, function(){  // TODO: fix this ______
-      if (client.sms_messages.body.toLowerCase().indexOf('#yes') !== -1) {
-        // append to the confirmedPlayers attribute of our Game document
-      }
-      else if (client.sms_messages.body.toLowerCase().indexOf('#no') !== -1) {
-        // remove from players attribute of our Game document
-      } else {
-        sendSMS('Please reply #yes or #no.', client.sms.messages);
-      }
-    });
+    if (client.sms_messages.body.toLowerCase().indexOf('#yes') !== -1) {
+      // append to the confirmedPlayers attribute of our Game document
+    }
+    else if (client.sms_messages.body.toLowerCase().indexOf('#no') !== -1) {
+      // remove from players attribute of our Game document
+    } else {
+      sendSMS('Please reply #yes or #no.', client.sms.messages);
+    }
 
   });
 
@@ -81,5 +72,3 @@ var getSmsContent = function(data) {
 // Combine and merge all texts from the same phone number.
 var inboundNum = function(data) {
 };
-
-module.exports = Message = mongoose.model('Message', MessageSchema);
