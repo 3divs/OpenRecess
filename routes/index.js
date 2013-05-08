@@ -25,6 +25,7 @@ module.exports = function(app){
     res.render('register');
   });
 
+// TODO: make sure we add a +1 to the user's 10-digit phone number. 
   app.post('/register', function(req, res, next) {
     console.log(req.body);
     newUser = new User({
@@ -51,7 +52,10 @@ module.exports = function(app){
   });
 
   app.post('/game', function(req, res, next) {
+    // possible collision alert!: this generates a random 3 digit code for every game:
+    var temp = Math.floor(Math.random() * 1000);
     newGame = new Game({
+      gameCode : temp,
       gameName : req.body.gameName,
       gameType : req.body.gameType,
       gameTime : req.body.gameTime,
@@ -88,15 +92,21 @@ module.exports = function(app){
   });
 
 
-  app.get('/send-sms', function(req, res, Requester) {
+  app.get('/send-sms', function(req, res) {
     Game.find({gameType: 'Cricket'}, function(err, results) {
       if (err)
         throw error;
-      console.log(results[0].players);
-      var numbersToSMS = results[0].players;
-      var gameMessage = 'You down to play ' + results[0].gameType + " on " + results[0].gameTime + " at " + results[0].gameLocation + '?  Just reply #yes or #no to this number.';
+      console.log(results[0].invitedPlayers);
+      var numbersToSMS = results[0].invitedPlayers;
+      var gameMessage = results[0].manager.display_name + ' wants you to play ' +
+        results[0].gameType + " on " + results[0].gameTime + " at " +
+        results[0].gameLocation + '. Reply ' + results[0].gameCode +
+        '#y to join or ' + results[0].gameCode + '#n to sit this one out.';
+        if (gameMessage.length < 144) {
+          gameMessage =+ ' ~OpenRecess.com';
+        }
       for (var i = 0; i < numbersToSMS.length; i++){
-        twil.sendSMS(gameMessage, numbersToSMS[i], twilioPhoneNumber, req, res);
+        twil.sendSMS(gameMessage, numbersToSMS[i].phone, twilioPhoneNumber, req, res);
         // Add to message database a item with requester, number sent to, message, messageSID, event
       }
     });
