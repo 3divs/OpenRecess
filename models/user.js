@@ -1,6 +1,7 @@
 var crypto = require('crypto'),
     mongoose = require('mongoose'),
-    Game = require('./game.js');
+    Game = require('./game.js'),
+    Message = require('./message.js');
 
 function validatePresenceOf(value) {
   return value && value.length;
