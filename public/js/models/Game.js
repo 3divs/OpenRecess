@@ -1,8 +1,8 @@
 var Game = Backbone.Model.extend({
-  url: 'http://localhost:5000/game',
+  url: '/game',
 
-  initialize: function() {
-    console.log('init');
-    this.text = 'test text';
+  initialize: function(data) {
+    console.log('initialize game');
+    console.log(data);
   }
 });

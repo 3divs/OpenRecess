@@ -48,6 +48,7 @@ module.exports = function(app){
   });
 
   app.post('/game', function(req, res, next) {
+    console.log(req.body);
     var players = [7816401203, 6502699118];   // TODO: change from static
     newGame = new Game({
       gameName : req.body.gameName,
@@ -61,29 +62,27 @@ module.exports = function(app){
   });
 
   app.get('/games', function(req, res, next) {
-    var context = {};
+    // TODO: implement error handling
+    
     console.log(req.xhr);
     console.log(req.get('Content-Type'));
-    // // Detect request type is JSON
-    // if(req.xhr) {
-    //   res.contentType('application/json');
-    //   next(res);
-    // }
-    // //   console.log('JSON request');
-    // // else {
-    //   // Else serve HTML
-      Game.find({}, function(err, results) {
-        context['Games'] = results;
-        res.format({
-          html: function() {
-            res.render('games', context);
-          },
-          json: function() {
-            res.send({message: 'hey' });
-          }
-        });
+
+    // Return all games
+    Game.find({}, function(err, results) {
+      // Respond with either HTML or JSON depending on request
+      res.format({
+        html: function() {
+          var context = {};
+          context['Games'] = results;
+          console.log('html response');
+          res.render('games', context);
+        },
+        json: function() {
+          console.log('json response');
+          res.send(results);
+        }
       });
-    // }
+    });
   });
 
   app.get('/send-sms', function(req, res) {

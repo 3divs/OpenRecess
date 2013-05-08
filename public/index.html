@@ -1,18 +1,30 @@
 <!doctype html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <title>OpenRecess</title>
-    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
-    <script type="text/javascript" src="/js/lib/jquery.js"></script>
-    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/js/lib/underscore.js"></script>
-    <script type="text/javascript" src="/js/lib/backbone.js"></script>
-    <script type="text/javascript" src="/js/lib/backbone.marionette/backbone.marionette.min.js"></script>
-    <script type="text/javascript" src="/js/models/Game.js"></script>
-    <script type="text/javascript" src="/js/views/GameView.js"></script>
-    <script type="text/javascript" src="/js/main.js"></script>
+  <meta charset="utf-8" />
+  <title>OpenRecess</title>
+  <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+  <script type="text/javascript" src="/js/lib/jquery.js"></script>
+  <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/js/lib/underscore.js"></script>
+  <script type="text/javascript" src="/js/lib/backbone.js"></script>
+  <script type="text/javascript" src="/js/lib/backbone.marionette/backbone.marionette.min.js"></script>
+  <script type="text/javascript" src="/js/models/Game.js"></script>
+  <script type="text/javascript" src="/js/collections/Games.js"></script>
+  <script type="text/javascript" src="/js/views/GameView.js"></script>
+  <script type="text/javascript" src="/js/views/GamesView.js"></script>
+  <script type="text/javascript" src="/js/main.js"></script>
+
+  <script type="text/template" id="gameView-template">
+    <div class="game">
+      <span class="name"><%= gameName %></span>
+      <span class="time"><%= gameTime %></span>
+      <span class="type"><%= gameType %></span>
+      <span class="minimumPlayers"><%= minimumPlayers %></span>
+    </div>
+  </script>
+
 </head>
 <body>
   <div class="container-fluid header">

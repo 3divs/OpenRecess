@@ -1,4 +1,4 @@
 var GameView = Marionette.ItemView.extend({
-  template: _.template('<div><strong>TEST TEST</strong></div>'),
+  template: '#gameView-template',
   model: Game
 });
