@@ -2,7 +2,8 @@ var App = new Backbone.Marionette.Application();
 
 // Create the app regions on the page
 App.addRegions({
-  gamesRegion: '#games'
+  gamesRegion: '#games',
+  headerRegion: '#header'
 });
 
 // Initialize Game View on app initialization

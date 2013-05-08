@@ -62,10 +62,28 @@ module.exports = function(app){
 
   app.get('/games', function(req, res, next) {
     var context = {};
-    Game.find({}, function(err, results) {
-      context['Games'] = results;
-      res.render('games', context);
-    });
+    console.log(req.xhr);
+    console.log(req.get('Content-Type'));
+    // // Detect request type is JSON
+    // if(req.xhr) {
+    //   res.contentType('application/json');
+    //   next(res);
+    // }
+    // //   console.log('JSON request');
+    // // else {
+    //   // Else serve HTML
+      Game.find({}, function(err, results) {
+        context['Games'] = results;
+        res.format({
+          html: function() {
+            res.render('games', context);
+          },
+          json: function() {
+            res.send({message: 'hey' });
+          }
+        });
+      });
+    // }
   });
 
   app.get('/send-sms', function(req, res) {
