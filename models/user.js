@@ -1,7 +1,8 @@
 var crypto = require('crypto'),
     mongoose = require('mongoose'),
     Game = require('./game.js'),
-    Message = require('./message.js');
+    Message = require('./message.js'),
+    Schema = mongoose.Schema;
 
 function validatePresenceOf(value) {
   return value && value.length;
@@ -26,8 +27,8 @@ var UserSchema = new mongoose.Schema({
   'display_name': {type: String},
   'hashed_password': {type: String},
   'salt': String,
-  'upcomingGames': [Number],
-  'gamesPlayed': [Number]
+  'upcomingGames': [Schema.Types.ObjectId],
+  'gamesPlayed': [Schema.Types.ObjectId]
 });
 
 UserSchema.virtual('id')
