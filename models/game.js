@@ -1,6 +1,7 @@
-var mongoose = require('mongoose');
-var moment = require('moment');
-var User = require('./user.js');
+var mongoose = require('mongoose'),
+    moment = require('moment'),
+    User = require('./user.js'),
+    Message = require('./message.js');
 
 var validatePresenceOf = function(value) {
   return value && value.length;
