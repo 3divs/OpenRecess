@@ -1,25 +1,34 @@
-var __ = require('underscore');
+var __ = require('underscore'),
+    user = require('../models/user.js'),
+    game = require('../models/game.js'),
+    mongoose = require('mongoose'),
+    express = require('express'),
+    MongoStore = require('connect-mongo')(express);
 
+// temporary variable should be moved to a 'secrets' file
+var accountSid = "AC5933d34eda950c0bb81ed94811a9c13c";
+var authToken = "99143cc9267d4ad6db22cdc12856ad5a";
 
-var accountSid = "";
-var authToken = "";
+var client = require('twilio')(accountSid, authToken);
 
-exports.sendSMS = function(req, res) {
-  var client = require('twilio')(accountSid, authToken);
+var MessageSchema = new mongoose.Schema({
+  'body': String,
+  'recipient': Object,
+  'sender': Object,
+  'processed': { type: Boolean}
+});
 
-  var messageContent = "3Divs T-shirt coming soon. HackReactor special: $50!";
-  var toSMS = "+15133074346";
-  var fromSMS = "+14159928245";
-
+exports.sendSMS = function(message, userNumber, twilioNumber, req, res) {
   client.sms.messages.create({
-      body: messageContent,
-      to: toSMS,
-      from: fromSMS
+      body: message,
+      to: userNumber,
+      from: twilioNumber
   }, function(err, message) {
       if (err) {
         console.log('error');
       }
-      console.log('Sending SMS to: ' + message.from);
+      Message.insert(); // put all the shit below in our DB...
+      console.log('Sending SMS to: ' + message.to);
       console.log('Message content: ' + message.body);
       console.log('Status of text message is: ' + message.status);
   });
@@ -27,11 +36,29 @@ exports.sendSMS = function(req, res) {
 
 exports.retrieveSMS = function(req, res) {
   console.log('retrieving SMS');
-  var client = require('twilio')(accountSid, authToken);
   var allSms;
   client.sms.messages.list(function(err, data) {
     allSms = getSmsContent(data.sms_messages);
   });
+};
+
+exports.processRSVPs = function(req, res) {
+  console.log('filtering RSVPs');
+  console.log(req);
+  client.sms.messages.list(function(err, data) {
+    __.each(_______________, function(){  // TODO: fix this ______
+      if (client.sms_messages.body.toLowerCase().indexOf('#yes') !== -1) {
+        // append to the confirmedPlayers attribute of our Game document
+      }
+      else if (client.sms_messages.body.toLowerCase().indexOf('#no') !== -1) {
+        // remove from players attribute of our Game document
+      } else {
+        sendSMS('Please reply #yes or #no.', client.sms.messages);
+      }
+    });
+
+  });
+
 };
 
 // Packages msg content into [{dialedTo, sid, msgContent(body), date, direction}]

@@ -1,13 +1,14 @@
-var mongoose = require('mongoose');
-var moment = require('moment');
-var User = require('./user.js');
+var mongoose = require('mongoose'),
+    moment = require('moment'),
+    User = require('./user.js'),
+    Message = require('./message.js');
 
 var validatePresenceOf = function(value) {
   return value && value.length;
 };
 
 var GameSchema = new mongoose.Schema({
-  'players': [Number],
+  'players': [String],
   // 'manager': UserSchema.types.ObjectId,
   'createdAt': { type: Date, default: Date.now },
   'updatedAt': Date,
@@ -15,13 +16,15 @@ var GameSchema = new mongoose.Schema({
   'gameName': { type: String, validate: [validatePresenceOf, 'please provide a game title'] },
   'gameType': { type: String, validate: [validatePresenceOf, 'please choose a game type'] }, // eventually convert this into a foreign key for a collection of gameTypes 
   'gameDescription': String,
+  'gameLocation': { type: String, validate: [validatePresenceOf, 'if you expect people to show up, you\'d better tell them where to go'] },
   'gameAddress': { type: String, validate: [validatePresenceOf, 'if you expect people to show up, you\'d better tell them where to go'] },
   'minimumPlayers': Number,
   'confirmedPlayers': [Number],
   'confirmedPlayersCount' : Number,
   'playerLimit': Number,
   'minimumPlayersMet': Boolean,
-  'playerLimitMet': Boolean
+  'playerLimitMet': Boolean,
+  'messages': Object
 });
 
 GameSchema.pre('save', function(next) {
