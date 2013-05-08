@@ -5,18 +5,12 @@ var __ = require('underscore'),
     express = require('express'),
     MongoStore = require('connect-mongo')(express);
 
+
 // temporary variable should be moved to a 'secrets' file
 var accountSid = "AC5933d34eda950c0bb81ed94811a9c13c";
 var authToken = "99143cc9267d4ad6db22cdc12856ad5a";
 
 var client = require('twilio')(accountSid, authToken);
-
-var MessageSchema = new mongoose.Schema({
-  'body': String,
-  'recipient': Object,
-  'sender': Object,
-  'processed': { type: Boolean}
-});
 
 exports.sendSMS = function(message, userNumber, twilioNumber, req, res) {
   client.sms.messages.create({
@@ -46,16 +40,35 @@ exports.processRSVPs = function(req, res) {
   console.log('filtering RSVPs');
   console.log(req);
   client.sms.messages.list(function(err, data) {
-    __.each(_______________, function(){  // TODO: fix this ______
-      if (client.sms_messages.body.toLowerCase().indexOf('#yes') !== -1) {
-        // append to the confirmedPlayers attribute of our Game document
-      }
-      else if (client.sms_messages.body.toLowerCase().indexOf('#no') !== -1) {
-        // remove from players attribute of our Game document
-      } else {
-        sendSMS('Please reply #yes or #no.', client.sms.messages);
-      }
-    });
+    if (client.sms_messages.body.toLowerCase().indexOf('#y') !== -1) {
+      var str = client.sms_messages.body;
+      var position = str.toLowerCase().indexOf('#');
+      var code = str.slice(position - 3, position);
+      // TODO: fix this to make sure it loops throught he array of messages:
+      var digits = client.sms_messages.from.slice(3,99); 
+      var userID = User.find({phone : digits})._id;
+        // see http://docs.mongodb.org/manual/reference/command/findAndModify/
+        // also query to make sure the Game.players array contains the userName or userPhone 
+        // TODO: 'userID' may not be correct
+      Game.findAndModify( {
+        query: {
+          gameCode: code,
+          gameTime: { $gt: Date.now },
+          invitedPlayers: userID
+        }, // find any games with the response code
+        update: {
+          $pull: { invitedPlayers: userID},
+          $push: { confirmedPlayers: userID },
+          $inc: { confirmedPlayersCount: 1 }
+        }
+      });
+      // append to the confirmedPlayers attribute of our Game document
+    }
+    else if (client.sms_messages.body.toLowerCase().indexOf('#n') !== -1) {
+      // remove from players attribute of our Game document
+    } else {
+      sendSMS('Please reply [yourGameCode]#y to play or [yourGameCode]#n to sit this one out.', client.sms.messages);
+    }
 
   });
 
