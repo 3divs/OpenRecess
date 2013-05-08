@@ -1,12 +1,14 @@
 var mongoose = require('mongoose'),
     moment = require('moment'),
     User = require('./user.js'),
-    Game = require('./game.js');
+    Game = require('./game.js'),
+    Schema = mongoose.Schema;
+
 
 var MessageSchema = new mongoose.Schema({
   'body': String,
-  'recipient': Object,
-  'sender': Object,
+  'recipient': Schema.Types.ObjectId,
+  'sender': Number,
   'processed': { type: Boolean}
 });
 
