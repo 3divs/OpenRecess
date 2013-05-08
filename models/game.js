@@ -23,7 +23,7 @@ var GameSchema = new mongoose.Schema({
   'playerLimit': Number,
   'minimumPlayersMet': Boolean,
   'playerLimitMet': Boolean,
-  'messages': ObjectId
+  'messages': Object
 });
 
 GameSchema.pre('save', function(next) {

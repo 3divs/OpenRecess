@@ -13,8 +13,8 @@ var client = require('twilio')(accountSid, authToken);
 
 var MessageSchema = new mongoose.Schema({
   'body': String,
-  'recipient': ObjectId,
-  'sender': ObjectId,
+  'recipient': Object,
+  'sender': Object,
   'processed': { type: Boolean}
 });
 

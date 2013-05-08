@@ -89,7 +89,6 @@ var SMSmessage = "3Divs T-shirt coming soon. HackReactor special: $50!";
         twil.sendSMS(gameMessage, numbersToSMS[i], twilioPhoneNumber, req, res);
         // Add to message database a item with requester, number sent to, message, messageSID, event
 
-      }
     });
   });
 
