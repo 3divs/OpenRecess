@@ -12,11 +12,99 @@
   <script type="text/javascript" src="/js/lib/backbone.marionette/backbone.marionette.min.js"></script>
   <script type="text/javascript" src="/js/models/Game.js"></script>
   <script type="text/javascript" src="/js/collections/Games.js"></script>
+
+  <!-- Static Views -->
+  <script type="text/javascript" src="/js/views/static/HeaderView.js"></script>
+  <script type="text/javascript" src="/js/views/static/FooterView.js"></script>
+  <script type="text/javascript" src="/js/views/static/SplashView.js"></script>
+  <script type="text/javascript" src="/js/views/static/CreateGameView.js"></script>
+  <script type="text/javascript" src="/js/views/static/LoginView.js"></script>
+  <script type="text/javascript" src="/js/views/static/RegisterView.js"></script>
+
+  <!-- Dynamic Views -->
   <script type="text/javascript" src="/js/views/GameView.js"></script>
   <script type="text/javascript" src="/js/views/GamesView.js"></script>
   <script type="text/javascript" src="/js/main.js"></script>
 
-  <script type="text/template" id="gameView-template">
+  <script type="text/template" id="splashView-template">
+    <div class="jumbotron hero-unit">
+      <div>
+        <h1>OpenRecess!</h1><span class="superscript">Alpha</span>
+      </div>
+      <p class="lead splash-lead">Ball so hard, other players wanna find me!</p>
+      <a class="btn btn-large btn-success" href="#register">Sign up today</a>
+      <a class="btn btn-large btn-info" href="#FAQ">How It Works</a>
+    </div>
+  </script>
+
+  <script type="text/template" id="loginView-template">
+    <h1>Login</h1>
+    <form action="/login" method="POST">
+    <div>Email: <input type="text" name="username"></input></div>
+    <div>Password: <input type="password" name="password"></input></div>
+    <div><input type="submit" value="Log In"/></div>
+    </form>
+  </script>
+
+  <script type="text/template" id="registerView-template">
+    <h1>Register</h1>
+    <form action="/register" method="POST">
+    <div>Email: <input type="text" name="username"/></div>
+    <div>Password: <input type="password" name="password"/></div>
+    <div><input type="submit" value="Sign up"/></div>
+    </form>
+  </script>
+
+  <script type="text/template" id="headerView-template">
+    <div class="container-fluid header">
+      <div class="row-fluid">
+        <div class="navbar header navbar-static-top">
+          <div class="navbar-inner">
+            <a class="brand" href="#splash">OpenRecess</a>
+            <ul class="nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#game">Create Game</a></li>
+              <li><a href="#games">List Games</a></li>
+              <li class="right"><a href="#login">Login</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/template" id="footerView-template">
+    <div id="footer" class="footer span10 offset1">
+      <ul>
+        <li class="divider"></li>
+      </ul>
+      <div class="footer-left left">
+        <span>A <a href="http://www.github.com/3divs/">3divs</a> production</span>
+      </div>
+      <div class="footer-right right">
+        <ul>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/template" id="create-gameView-template">
+    <h1>Create a New Game</h1>
+    <form action="/game" method="POST">
+      Name: <input type="textbox" name="gameName"></input>
+      Game Time: <input type="textbox" name="gameTime"></input>
+      Game Type: <input type="textbox" name="gameType"></input>
+      Number of Players needed: <input type="number" name="minimumPlayers"></input>
+      Player Phone Numbers: <input type="textbox" name="players"></input>
+      Location: <input type="textbox" name="gameLocation"></index>
+      Maximum Number of Players: <input type="number" name="PlayerLimit"></input>
+      <input type="submit"></input>
+    </form>
+  </script>
+
+  <script type="text/template" id="show-gameView-template">
     <div class="game">
       <span class="name"><%= gameName %></span>
       <span class="time"><%= gameTime %></span>
@@ -27,41 +115,14 @@
 
 </head>
 <body>
-  <div class="container-fluid header">
-    <div class="row-fluid">
-      <div class="navbar header navbar-static-top">
-        <div class="navbar-inner">
-          <a class="brand" href="/">OpenRecess</a>
-          <ul class="nav">
-            <li class="active"><a href="/">Home</a></li>
-            <li><a href="/game">Create Game</a></li>
-            <li><a href="/games">List Games</a></li>
-            <li class="right"><a href="/login">Login</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div id="header"></div>
   <div class="container-fluid">
     <div class="row-fluid">
       <div class="span10 offset1">
-        <div id="games">Hello World!</div>
+        <div id="main">Hello World!</div>
       </div>
     </div>
   </div>
-  <div class="footer span10 offset1">
-    <ul>
-      <li class="divider"></li>
-    </ul>
-    <div class="footer-left left">
-      <span>A <a href="http://www.github.com/3divs/">3divs</a> production</span>
-    </div>
-    <div class="footer-right right">
-      <ul>
-        <li><a href="/about">About</a></li>
-        <li><a href="/contact">Contact</a></li>
-      </ul>
-    </div>
-  </div>
+  <div id="footer"></div>
 </body>
 </html>

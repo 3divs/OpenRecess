@@ -2,17 +2,68 @@ var App = new Backbone.Marionette.Application();
 
 // Create the app regions on the page
 App.addRegions({
-  gamesRegion: '#games',
-  headerRegion: '#header'
+  mainRegion: '#main',
+  headerRegion: '#header',
+  footerRegion: '#footer'
 });
 
-// Initialize Game View on app initialization
+// Routes
+var controller = {
+  // Display games list
+  showGames: function() {
+    console.log('listGames shown');
+    var games = new Games();
+    games.fetch();
+    App.mainRegion.show(new GamesView({ collection: games }));
+  },
+
+  showSplash: function() {
+    console.log('showSplash shown');
+    App.mainRegion.show(new SplashView());
+  },
+
+  showCreateGame: function() {
+    console.log('createGame shown');
+    App.mainRegion.show(new CreateGameView());
+  },
+
+  showRegister: function() {
+    console.log('showRegister shown');
+    App.mainRegion.show(new RegisterView());
+  },
+
+  showLogin: function() {
+    console.log('showLogin shown');
+    App.mainRegion.show(new LoginView());
+  }
+};
+
+var Router = Marionette.AppRouter.extend({
+  appRoutes: {
+    'games':        'showGames',
+    'splash':       'showSplash',
+    'game':         'showCreateGame',
+    'register':     'showRegister',
+    'login':        'showLogin'
+  },
+
+  controller: controller
+});
+
+
+// Initialize regions with views
 App.addInitializer(function() {
-  var myView = new GameView({ model: new Game() });
-  var games = new Games();
-  games.fetch();
-  var gamesView = new GamesView({ collection: games });
-  App.gamesRegion.show(gamesView);
+  App.headerRegion.show(new HeaderView());
+  // App.mainRegion.show(new GamesView({ collection: games }));
+  App.footerRegion.show(new FooterView());
+  new Router();
+});
+
+App.on('initialize:after', function() {
+  if(Backbone.history) {
+    console.log('starting Backbone history');
+    Backbone.history.start();
+  }
 });
 
 $(function() {

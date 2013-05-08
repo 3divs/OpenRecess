@@ -44,7 +44,8 @@ module.exports = function(app){
     res.redirect('/');
   });
 
-  app.get('/game', ensureAuthenticated, function(req, res, next) {
+  // app.get('/game', ensureAuthenticated, function(req, res, next) {
+  app.get('/game', function(req, res, next) {
     // if(!req.isAuthenticated()) res.redirect('/login');
     res.render('game');
   });
@@ -66,7 +67,6 @@ module.exports = function(app){
 
   app.get('/games', function(req, res, next) {
     // TODO: implement error handling
-    
     console.log(req.xhr);
     console.log(req.get('Content-Type'));
 
