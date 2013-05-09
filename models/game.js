@@ -9,7 +9,7 @@ var validatePresenceOf = function(value) {
 };
 
 var InvitedUser = new Schema({
-  'phone' : String,
+  'phone' : Number,
   'userId' : Schema.Types.ObjectId
 });
 
