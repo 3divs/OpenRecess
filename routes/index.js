@@ -91,9 +91,10 @@ module.exports = function(app){
     });
   });
 
+var game = 'Cricket';
 
-  app.get('/send-sms', function(req, res) {
-    Game.find({gameType: 'Cricket'}, function(err, results) {
+  app.get('/send-sms', function(game, req, res) {
+    Game.find({gameType: game}, function(err, results) {
       if (err)
         throw error;
       console.log(results[0].invitedPlayers);
