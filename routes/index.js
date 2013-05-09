@@ -40,6 +40,18 @@ module.exports = function(app){
     });
   });
 
+  app.get('/user/current', function(req, res ,next){
+    if(req.user) {
+      // Return subset of fields
+      var user = {};
+      user.email = req.user.email;
+      user.phone = req.user.phone;
+      user.display_name = req.user.display_name;
+      return res.json(user);
+    }
+    else return res.send();
+  });
+
   app.get('/logout', function(req, res, next){
     // req.logout()
     res.redirect('/');
@@ -71,7 +83,6 @@ module.exports = function(app){
   app.get('/games', function(req, res, next) {
     // TODO: implement error handling
     console.log(req.xhr);
-    console.log(req.get('Content-Type'));
 
     // Return all games
     Game.find({}, function(err, results) {
@@ -85,7 +96,7 @@ module.exports = function(app){
         },
         json: function() {
           console.log('json response');
-          res.send(results);
+          res.json(results);
         }
       });
     });

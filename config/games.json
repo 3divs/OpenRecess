@@ -1,0 +1,34 @@
+[
+  {
+    "gameName": "Mark's Soccer Game",
+    "gameType": "Soccer",
+    "gameDescription": "Pickup soccer game",
+    "minimumPlayers": 12,
+    "playerLimit": 24,
+    "gameTime": "Monday",
+    "invitedPlayers": [
+      {
+        "phone": 6502699118,
+        "userId": null
+      }
+    ],
+    "createdAt": "2013-05-01T10:00:11Z",
+    "updatedAt": "2013-05-01T10:00:11Z"
+  },
+  {
+    "gameName": "Andrew's Cricket Game",
+    "gameType": "Cricket",
+    "gameDescription": "Organized cricket game",
+    "minimumPlayers": 5,
+    "playerLimit": 10,
+    "gameTime": "Monday",
+    "invitedPlayers": [
+      {
+        "phone": 6502699118,
+        "userId": null
+      }
+    ],
+    "createdAt": "2013-05-01T12:00:11Z",
+    "updatedAt": "2013-05-01T12:00:11Z"
+  }
+];

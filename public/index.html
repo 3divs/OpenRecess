@@ -10,10 +10,14 @@
   <script type="text/javascript" src="/js/lib/underscore.js"></script>
   <script type="text/javascript" src="/js/lib/backbone.js"></script>
   <script type="text/javascript" src="/js/lib/backbone.marionette/backbone.marionette.min.js"></script>
+
+  <!-- Models -->
+  <script type="text/javascript" src="/js/models/User.js"></script>
   <script type="text/javascript" src="/js/models/Game.js"></script>
   <script type="text/javascript" src="/js/collections/Games.js"></script>
 
   <!-- Static Views -->
+  <script type="text/javascript" src="/js/views/static/UserProfileView.js"></script>
   <script type="text/javascript" src="/js/views/static/HeaderView.js"></script>
   <script type="text/javascript" src="/js/views/static/FooterView.js"></script>
   <script type="text/javascript" src="/js/views/static/SplashView.js"></script>
@@ -62,10 +66,14 @@
           <div class="navbar-inner">
             <a class="brand" href="#splash">OpenRecess</a>
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#">Home</a></li>
               <li><a href="#game">Create Game</a></li>
               <li><a href="#games">List Games</a></li>
-              <li class="right"><a href="#login">Login</a></li>
+              <% if(email) { %>
+                <li><a href="#userProfile">Profile</a></li>
+              <% } else { %>
+                <li class="right"><a href="#login">Login</a></li>
+              <% } %>
             </ul>
           </div>
         </div>
@@ -110,6 +118,13 @@
       <span class="time"><%= gameTime %></span>
       <span class="type"><%= gameType %></span>
       <span class="minimumPlayers"><%= minimumPlayers %></span>
+    </div>
+  </script>
+
+  <script type="text/template" id="show-userProfileView-template">
+    <div class="userProfile">
+      <h3>user profile</h3>
+      Email: <%= email %>
     </div>
   </script>
 

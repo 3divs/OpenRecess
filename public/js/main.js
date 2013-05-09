@@ -2,8 +2,8 @@ var App = new Backbone.Marionette.Application();
 
 // Create the app regions on the page
 App.addRegions({
-  mainRegion: '#main',
   headerRegion: '#header',
+  mainRegion: '#main',
   footerRegion: '#footer'
 });
 
@@ -23,8 +23,12 @@ var controller = {
   },
 
   showCreateGame: function() {
-    console.log('createGame shown');
-    App.mainRegion.show(new CreateGameView());
+    if(App.currentUser) {
+      console.log('createGame shown');
+      App.mainRegion.show(new CreateGameView());
+    } else {
+      App.router.navigate('login', true);
+    }
   },
 
   showRegister: function() {
@@ -35,6 +39,15 @@ var controller = {
   showLogin: function() {
     console.log('showLogin shown');
     App.mainRegion.show(new LoginView());
+  },
+
+  showUserProfile: function() {
+    console.log('showUserProfile shown');
+    // TODO: Create a conditional case that checks to see if user is logged on
+    if(App.currentUser)
+      App.mainRegion.show(new UserProfileView({ model: App.currentUser }));
+    else
+      App.router.navigate('login', true);
   }
 };
 
@@ -44,19 +57,29 @@ var Router = Marionette.AppRouter.extend({
     'splash':       'showSplash',
     'game':         'showCreateGame',
     'register':     'showRegister',
-    'login':        'showLogin'
+    'login':        'showLogin',
+    'userProfile':  'showUserProfile'
   },
 
   controller: controller
 });
 
-
 // Initialize regions with views
 App.addInitializer(function() {
-  App.headerRegion.show(new HeaderView());
+
+  // Grab user information on page load
+  var user = new User();
+  user.fetch({
+    success: function() {
+      if(user.get('email'))
+        App.currentUser = user;
+    }
+  });
+
+  App.headerRegion.show(new HeaderView({ model: user }));
   // App.mainRegion.show(new GamesView({ collection: games }));
   App.footerRegion.show(new FooterView());
-  new Router();
+  App.router = new Router();
 });
 
 App.on('initialize:after', function() {
