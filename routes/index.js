@@ -25,7 +25,7 @@ module.exports = function(app){
     res.render('register');
   });
 
-// TODO: make sure we add a +1 to the user's 10-digit phone number. 
+// TODO: make sure we add a +1 to the user's 10-digit phone number.
   app.post('/register', function(req, res, next) {
     console.log(req.body);
     newUser = new User({

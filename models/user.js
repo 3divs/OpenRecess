@@ -56,7 +56,7 @@ UserSchema.method('encryptPassword', function(password) {
   return crypto.createHmac('sha1', this.salt).update(password).digest('hex');
 });
 
-UserSchema.pre('save', function(next) {
+UserSchema.pre('save', function(next) { // let's prepend a +1 to all phone numbers here
   if (!validatePresenceOf(this.password)) {
     next(new Error('Invalid password'));
   } else {
