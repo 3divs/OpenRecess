@@ -11,17 +11,18 @@ var express = require('express'),
     LocalStrategy = require('passport-local').Strategy,
     hbs  = require('express3-handlebars'),
     mongoose = require('mongoose'),
-    MongoStore = require('connect-mongo')(express);
+    MongoStore = require('connect-mongo')(express),
+    config = require('./config/config.js');
 
 // Connect to mongoose database and create object schemas
-mongoose.connect('mongodb://localhost:17017/openRecess');
+mongoose.connect(config.db);
 var User = require('./models/user.js');
 var Game = require('./models/game.js');
 
 // Setup express server
 var app = express();
 app.engine('handlebars', hbs({defaultLayout: 'main'}));
-app.set('port', process.env.PORT || 5000);
+app.set('port', config.port);
 app.set('db', mongoose);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'handlebars');
