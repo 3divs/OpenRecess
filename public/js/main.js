@@ -7,6 +7,17 @@ App.addRegions({
   footerRegion: '#footer'
 });
 
+var getUser = function() {
+    // Grab user information on page load
+  var user = new User();
+  user.fetch({
+    success: function() {
+      if(user.get('email'))
+        App.currentUser = user;
+    }
+  });
+};
+
 // Routes
 var controller = {
   // Display games list
@@ -23,6 +34,7 @@ var controller = {
   },
 
   showCreateGame: function() {
+    getUser();
     if(App.currentUser) {
       console.log('createGame shown');
       App.mainRegion.show(new CreateGameView());
@@ -33,7 +45,8 @@ var controller = {
 
   showRegister: function() {
     console.log('showRegister shown');
-    App.mainRegion.show(new RegisterView());
+    var user = new User();
+    App.mainRegion.show(new RegisterView({ model: user }));
   },
 
   showLogin: function() {
@@ -43,6 +56,7 @@ var controller = {
 
   showUserProfile: function() {
     console.log('showUserProfile shown');
+    getUser();
     // TODO: Create a conditional case that checks to see if user is logged on
     if(App.currentUser)
       App.mainRegion.show(new UserProfileView({ model: App.currentUser }));
@@ -66,16 +80,7 @@ var Router = Marionette.AppRouter.extend({
 
 // Initialize regions with views
 App.addInitializer(function() {
-
-  // Grab user information on page load
   var user = new User();
-  user.fetch({
-    success: function() {
-      if(user.get('email'))
-        App.currentUser = user;
-    }
-  });
-
   App.headerRegion.show(new HeaderView({ model: user }));
   // App.mainRegion.show(new GamesView({ collection: games }));
   App.footerRegion.show(new FooterView());
@@ -84,7 +89,6 @@ App.addInitializer(function() {
 
 App.on('initialize:after', function() {
   if(Backbone.history) {
-    console.log('starting Backbone history');
     Backbone.history.start();
   }
 });
