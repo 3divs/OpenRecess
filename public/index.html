@@ -51,12 +51,42 @@
   </script>
 
   <script type="text/template" id="registerView-template">
-    <h1>Register</h1>
-    <form action="/register" method="POST">
-    <div>Email: <input type="text" name="username"/></div>
-    <div>Password: <input type="password" name="password"/></div>
-    <div><input type="submit" value="Sign up"/></div>
-    </form>
+    <div class="span8 offset2">
+      <h1>Register</h1>
+      <form class="form-horizontal">
+        <div class="control-group">
+          <div class="control-label" for="display_name">Full Name:</div>
+          <div class="controls">
+            <input class="input-field" type="text" name="display_name" required/>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="control-label" for="email">Email:</div>
+          <div class="controls">
+            <input class="input-field" type="text" name="email" required/>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="control-label" for="inputPhone">Phone:</div>
+          <div class="controls">
+            <input class="input-mini input-field" type='tel' pattern='\d{3}' name="phone1" required/>-
+            <input class="input-mini input-field" type='tel' pattern='\d{3}' name="phone2" required/>-
+            <input class="input-mini input-field" type='tel' pattern='\d{4}' name="phone3" required/>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="control-label" for="inputPassword">Password: </div>
+          <div class="controls">
+            <input class="input-field" type="password" name="password" required/>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <button id="register" class="btn btn-primary">Register</button>
+          </div>
+        </div>
+      </form>
+    </div>
   </script>
 
   <script type="text/template" id="headerView-template">
@@ -138,6 +168,12 @@
       </div>
     </div>
   </div>
-  <div id="footer"></div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span10 offset1">
+        <div id="footer"></div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
