@@ -23,7 +23,7 @@ function validateEmail(email) {
 
 var UserSchema = new mongoose.Schema({
   'email': {type: String, validate: [validateEmail, 'email is invalid'], index: {unique: true} },
-  'phone': {type: Number, validate: [validatePhone, 'phone number invalid']},
+  'phone': {type: String, validate: [validatePhone, 'phone number invalid']},
   'display_name': {type: String},
   'hashed_password': {type: String},
   'salt': String,

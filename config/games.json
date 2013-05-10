@@ -2,13 +2,19 @@
   {
     "gameName": "Mark's Soccer Game",
     "gameType": "Soccer",
+    "gameCode": 123,
     "gameDescription": "Pickup soccer game",
     "minimumPlayers": 12,
     "playerLimit": 24,
+    "gameLocation": "Rucker Park",
     "gameTime": "Monday",
     "invitedPlayers": [
       {
-        "phone": 6502699118,
+        "phone": "+17816401203",
+        "userId": null
+      },
+      {
+        "phone": "+15133074346",
         "userId": null
       }
     ],
@@ -18,13 +24,14 @@
   {
     "gameName": "Andrew's Cricket Game",
     "gameType": "Cricket",
+    "gameCode": 567,
     "gameDescription": "Organized cricket game",
     "minimumPlayers": 5,
     "playerLimit": 10,
     "gameTime": "Monday",
     "invitedPlayers": [
       {
-        "phone": 6502699118,
+        "phone": "+15133074346",
         "userId": null
       }
     ],
