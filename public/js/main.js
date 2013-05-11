@@ -15,20 +15,17 @@ var ensureAuthenticated = function() {
 var controller = {
   // Display games list
   showGames: function() {
-    console.log('listGames shown');
     var games = new Games();
     games.fetch();
     App.mainRegion.show(new GamesView({ collection: games }));
   },
 
   showSplash: function() {
-    console.log('showSplash shown');
     App.mainRegion.show(new SplashView());
   },
 
   showCreateGame: function() {
     if(ensureAuthenticated()) {
-      console.log('createGame shown');
       App.mainRegion.show(new CreateGameView());
     } else {
       App.router.navigate('login', true);
@@ -36,20 +33,16 @@ var controller = {
   },
 
   showRegister: function() {
-    console.log('showRegister shown');
     App.currentUser = App.currentUser || new User();
     App.mainRegion.show(new RegisterView({ model: user }));
   },
 
   showLogin: function() {
-    console.log('showLogin shown');
     App.currentUser = App.currentUser || new User();
     App.mainRegion.show(new LoginView({ model: App.currentUser }));
   },
 
   showUserProfile: function() {
-    console.log('showUserProfile shown');
-    // TODO: Create a conditional case that checks to see if user is logged on
     if(ensureAuthenticated())
       App.mainRegion.show(new UserProfileView({ model: App.currentUser }));
     else
