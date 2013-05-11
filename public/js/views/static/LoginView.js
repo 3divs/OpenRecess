@@ -5,6 +5,17 @@ var LoginView = Marionette.ItemView.extend({
     'click #login': 'loginUser'
   },
 
+  displayErrors: function(className, html) {
+    var $form = this.$('form');
+    $form.find('.alert').remove();
+    $form.prepend('\
+      <div class="alert ' + className + '" id="alert">' +
+        '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+          html +
+      '</div>'
+    );
+  },
+
   loginUser: function(e) {
     console.log('Logging user in');
     e.preventDefault();
@@ -16,21 +27,9 @@ var LoginView = Marionette.ItemView.extend({
       params[param.name] = param.value;
     });
 
-    console.log(params);
-
-    // Ajax call to login user
-    $.ajax('/login', {
-      data: params,
-      type: 'POST',
-      success: function(data) {
-        console.log('successful login');
-        console.log(data);
-      },
-      error: function(err) {
-        console.log('unsuccessful login');
-        console.log(err);
-      }
+    var that = this;
+    this.model.login(params, function(err) {
+      that.displayErrors('alert-error', err);
     });
-
   }
 });
