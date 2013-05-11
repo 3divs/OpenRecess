@@ -63,12 +63,17 @@ passport.deserializeUser(function(_id, done) {
 });
 
 // Setup passport config
-passport.use(new LocalStrategy(function(username, password, done) {
-  User.login(username, password, function(err, user) {
-    // console.log(err, user);
-    return done(null, user);
-  });
-}));
+passport.use(new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password'
+  },
+  function(username, password, done) {
+    User.login(username, password, function(err, user) {
+      // console.log(err, user);
+      return done(null, user);
+    });
+  })
+);
 
 require('./routes')(app);
 
