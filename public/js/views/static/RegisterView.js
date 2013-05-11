@@ -39,8 +39,6 @@ var RegisterView = Marionette.ItemView.extend({
       console.log('valid user');
       this.model.save(null, {
         error: function(model, response, options) {
-          console.log(response.responseText);
-          console.log(this);
           that.displayErrors('alert-error', response.responseText) ;
         },
         success: function(model, response, options) {

@@ -51,7 +51,8 @@ var controller = {
 
   showLogin: function() {
     console.log('showLogin shown');
-    App.mainRegion.show(new LoginView());
+    App.currentUser = App.currentUser || new User();
+    App.mainRegion.show(new LoginView({ model: App.currentUser }));
   },
 
   showUserProfile: function() {

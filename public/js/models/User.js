@@ -50,5 +50,9 @@ var User = Backbone.Model.extend({
     }, this);
 
     return _.size(messages) > 0 ? {isValid: false, messages: messages} : {isValid: true};
+  },
+
+  login: function() {
+    // Send ajax call to /login
   }
 });

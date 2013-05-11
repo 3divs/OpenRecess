@@ -13,10 +13,9 @@ module.exports = function(app){
     res.render('home');
   });
 
-  app.post('/login', passport.authenticate('local', {
-    successRedirect : '/',
-    failureRedirect : '/login'
-  }));
+  app.post('/login', passport.authenticate('local'), function(req, res) {
+    console.log(req, res);
+  });
 
   app.get('/login', function(req, res, next) {
     res.render('login');

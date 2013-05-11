@@ -42,12 +42,28 @@
   </script>
 
   <script type="text/template" id="loginView-template">
-    <h1>Login</h1>
-    <form action="/login" method="POST">
-    <div>Email: <input type="text" name="username"></input></div>
-    <div>Password: <input type="password" name="password"></input></div>
-    <div><input type="submit" value="Log In"/></div>
-    </form>
+    <div class="span8 offset2">
+      <h1>Login</h1>
+      <form class="form-horizontal">
+        <div class="control-group">
+          <div class="control-label" for="email">Email:</div>
+          <div class="controls">
+            <input class="input-field" type="text" name="email" required/>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="control-label" for="inputPassword">Password: </div>
+          <div class="controls">
+            <input class="input-field" type="password" name="password" required/>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <button id="login" class="btn btn-primary">Login</button>
+          </div>
+        </div>
+      </form>
+    </div>
   </script>
 
   <script type="text/template" id="registerView-template">
