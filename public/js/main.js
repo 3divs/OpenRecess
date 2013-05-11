@@ -12,9 +12,21 @@ var controller = {
   // Display games list
   showGames: function() {
     console.log('listGames shown');
+
     var games = new Games();
     games.fetch();
-    App.mainRegion.show(new GamesView({ collection: games }));
+
+    var layout = new GameLayoutView();
+    
+    layout.game.show(new GamesView({ collection: games }));
+    layout.gmap.show(new MapsView());
+
+    App.mainRegion.show(layout);
+    initialize();
+    // var games = new Games();
+    // games.fetch();
+    // var gamesView = new GamesView({ collection: games });
+    // App.mainRegion.show();
   },
 
   showSplash: function() {
@@ -48,6 +60,12 @@ var controller = {
       App.mainRegion.show(new UserProfileView({ model: App.currentUser }));
     else
       App.router.navigate('login', true);
+  },
+
+  showMap: function() {
+    console.log('showMap shown');
+    App.mainRegion.show(new MapsView());
+    initialize();
   }
 };
 

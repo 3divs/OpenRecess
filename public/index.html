@@ -5,6 +5,8 @@
   <title>OpenRecess</title>
   <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCedMF4wwQSrQDAw6nlYr7dS7ozhRSvYHQ&sensor=true"></script>
+  <script type="text/javascript" src="/js/lib/maps.js"></script>
   <script type="text/javascript" src="/js/lib/jquery.js"></script>
   <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="/js/lib/underscore.js"></script>
@@ -17,6 +19,7 @@
   <script type="text/javascript" src="/js/collections/Games.js"></script>
 
   <!-- Static Views -->
+  <script type="text/javascript" src="/js/views/static/GameLayoutView.js"></script>
   <script type="text/javascript" src="/js/views/static/UserProfileView.js"></script>
   <script type="text/javascript" src="/js/views/static/HeaderView.js"></script>
   <script type="text/javascript" src="/js/views/static/FooterView.js"></script>
@@ -24,6 +27,7 @@
   <script type="text/javascript" src="/js/views/static/CreateGameView.js"></script>
   <script type="text/javascript" src="/js/views/static/LoginView.js"></script>
   <script type="text/javascript" src="/js/views/static/RegisterView.js"></script>
+  <script type="text/javascript" src="/js/views/static/MapsView.js"></script>
 
   <!-- Dynamic Views -->
   <script type="text/javascript" src="/js/views/GameView.js"></script>
@@ -39,6 +43,11 @@
       <a class="btn btn-large btn-success" href="#register">Sign up today</a>
       <a class="btn btn-large btn-info" href="#FAQ">How It Works</a>
     </div>
+  </script>
+
+  <script type="text/template" id="layout-template">
+    <div id="game"></div>
+    <div id="map-canvas"></div>
   </script>
 
   <script type="text/template" id="loginView-template">
@@ -110,6 +119,10 @@
       Maximum Number of Players: <input type="number" name="PlayerLimit"></input>
       <input type="submit"></input>
     </form>
+  </script>
+
+  <script type="text/template" id="show-mapView-template">
+    <div id="map-canvas"></div>
   </script>
 
   <script type="text/template" id="show-gameView-template">
