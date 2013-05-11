@@ -12,23 +12,15 @@ var controller = {
   // Display games list
   showGames: function() {
     console.log('listGames shown');
-
     var games = new Games();
     games.fetch();
-
-    var layout = new GameLayoutView();
     
-    layout.game.show(new GamesView({ collection: games }));
-    layout.gmap.show(new MapsView());
-
+    var layout = new GameLayoutView();
     App.mainRegion.show(layout);
+    layout.gmap.show(new MapsView());
+    layout.game.show(new GamesView({ collection: games }));
     initialize();
-    // var games = new Games();
-    // games.fetch();
-    // var gamesView = new GamesView({ collection: games });
-    // App.mainRegion.show();
   },
-
   showSplash: function() {
     console.log('showSplash shown');
     App.mainRegion.show(new SplashView());
@@ -65,7 +57,7 @@ var controller = {
   showMap: function() {
     console.log('showMap shown');
     App.mainRegion.show(new MapsView());
-    initialize();
+    // initialize();
   }
 };
 
@@ -84,7 +76,6 @@ var Router = Marionette.AppRouter.extend({
 
 // Initialize regions with views
 App.addInitializer(function() {
-
   // Grab user information on page load
   var user = new User();
   user.fetch({

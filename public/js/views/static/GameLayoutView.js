@@ -3,6 +3,6 @@ GameLayoutView = Backbone.Marionette.Layout.extend({
 
   regions: {
     gmap: "#map-canvas",
-    game: "#game"
+    game: '#game'
   }
 });
