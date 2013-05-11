@@ -34,7 +34,7 @@ var controller = {
 
   showRegister: function() {
     App.currentUser = App.currentUser || new User();
-    App.mainRegion.show(new RegisterView({ model: user }));
+    App.mainRegion.show(new RegisterView({ model: App.currentUser }));
   },
 
   showLogin: function() {
@@ -47,6 +47,13 @@ var controller = {
       App.mainRegion.show(new UserProfileView({ model: App.currentUser }));
     else
       App.router.navigate('login', true);
+  },
+
+  showTeams: function() {
+    if(ensureAuthenticated()) {
+      App.mainRegion.show();
+    } else
+      App.router.navigate('login', true);
   }
 };
 
@@ -57,7 +64,8 @@ var Router = Marionette.AppRouter.extend({
     'game':         'showCreateGame',
     'register':     'showRegister',
     'login':        'showLogin',
-    'userProfile':  'showUserProfile'
+    'userProfile':  'showUserProfile',
+    'teams':        'showTeams'
   },
 
   controller: controller
