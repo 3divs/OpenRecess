@@ -62,12 +62,26 @@ var User = Backbone.Model.extend({
         that.set(data);
 
         // trigger App redirect on successful login
-        that.trigger('loggedIn');
+        that.trigger('redirectSplash');
       },
       error: function(err) {
         cb('Invalid Username/Password');
       }
     });
+  },
 
+  signOut: function() {
+    var that = this;
+    $.ajax('/logout', {
+      type: 'GET',
+      success: function(data) {
+        // Clear App.currentUser model
+        that.clear({ silent: true });
+        that.set('email', '');
+
+        // trigger App redirect on successful logout
+        that.trigger('redirectSplash');
+      }
+    });
   }
 });

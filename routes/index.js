@@ -13,6 +13,10 @@ module.exports = function(app){
     res.render('home');
   });
 
+  /*******************
+  *** LOGIN/LOGOUT ***
+  *******************/
+
   app.post('/login', passport.authenticate('local'), function(req, res) {
     var user = {};
     user.email = req.user.email;
@@ -23,6 +27,11 @@ module.exports = function(app){
 
   app.get('/login', function(req, res, next) {
     res.render('login');
+  });
+
+  app.get('/logout', function(req, res, next) {
+    req.logout();
+    res.json(200, 'Logged Out');
   });
 
   /***********

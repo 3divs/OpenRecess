@@ -13,6 +13,10 @@ var ensureAuthenticated = function() {
 
 // Routes
 var controller = {
+  signOut: function() {
+    App.currentUser.signOut();
+  },
+
   // Display games list
   showGames: function() {
     var games = new Games();
@@ -65,7 +69,8 @@ var Router = Marionette.AppRouter.extend({
     'register':     'showRegister',
     'login':        'showLogin',
     'userProfile':  'showUserProfile',
-    'teams':        'showTeams'
+    'teams':        'showTeams',
+    'signout':      'signOut'
   },
 
   controller: controller
@@ -78,7 +83,7 @@ App.addInitializer(function() {
   // App.mainRegion.show(new GamesView({ collection: games }));
   App.footerRegion.show(new FooterView());
   App.router = new Router();
-  App.currentUser.on('loggedIn', function() {
+  App.currentUser.on('redirectSplash', function() {
     App.router.navigate('splash', true);
   });
 });

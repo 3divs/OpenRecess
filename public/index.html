@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <title>OpenRecess</title>
   <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
   <link rel="stylesheet" type="text/css" href="/stylesheets/flat-ui.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
   <script type="text/javascript" src="/js/lib/jquery.js"></script>
   <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="/js/lib/underscore.js"></script>
@@ -145,8 +145,19 @@
             <ul class="nav span8">
               <li class="span3"><a href="#games">List Games</a></li>
               <li class="span3"><a href="#game">Create Game</a></li>
+              <li class="span3"><a href="#teams">Teams</a></li>
               <% if(email) { %>
-                <li class="span3"><a href="#userProfile">Profile</a></li>
+                <li class="span3 dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="dropdown-toggle">
+                    <span class="username"><%= email %></span>
+                    <b class="caret"></b>
+                  </a>
+                  <ul class="dropdown-menu" id="login-dropdown">
+                    <li><a href="#userProfile">Settings</a></li>
+                    <li class="divider"/>
+                    <li><a href="#signout">Sign Out</a></li>
+                  </ul>
+                </li>
               <% } else { %>
                 <li class="span3"><a href="#login">Login</a></li>
               <% } %>
