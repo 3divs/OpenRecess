@@ -2,11 +2,12 @@
 // Displays and locates the user's location
 var geocoder;
 var map;
+
+// Defaults to San Francisco
 var lat = 37.783;
 var lng = -122.409;
 var markerArray = [];
 
-// Locates the user on the map
 function initialize() {
   // Translate address to Lat and Lng
   geocoder = new google.maps.Geocoder();
@@ -23,10 +24,14 @@ function initialize() {
     placeMarker(event.latLng);
   });
 
+
+  // Locates the user on the map
   if(navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       var pos = new google.maps.LatLng(position.coords.latitude,
                                        position.coords.longitude);
+
+      //marker pop-ups
       var infowindow = new google.maps.InfoWindow({
         map: map,
         position: pos,
@@ -40,6 +45,45 @@ function initialize() {
   // If GeoLocation is not supported, calls the handleNoGeoLocation function
     handleNoGeolocation(false);
   }
+
+  // Search Box
+  var input = (document.getElementById('target'));
+  var searchBox = new google.maps.places.SearchBox(input);
+  var markers = [];
+  google.maps.event.addListener(searchBox, 'places_changed', function() {
+    var places = searchBox.getPlaces();
+
+    for (var i = 0, marker; marker = markers[i]; i++) {
+      marker.setMap(null);
+    }
+
+    markers = [];
+    var bounds = new google.maps.LatLngBounds();
+    for (var i = 0, place; place = places[i]; i++) {
+      var image = {
+        url: place.icon,
+        size: new google.maps.Size(71, 71),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 34),
+        scaledSize: new google.maps.Size(25, 25)
+      };
+
+      var marker = new google.maps.Marker({
+        map: map,
+        icon: image,
+        title: place.name,
+        position: place.geometry.location
+      });
+      markers.push(marker);
+      bounds.extend(place.geometry.location);
+    }
+    map.fitBounds(bounds);
+  });
+
+  google.maps.event.addListener(map, 'bounds_changed', function() {
+    var bounds = map.getBounds();
+    searchBox.setBounds(bounds);
+  });
 }
 
 var handleNoGeolocation = function(errorFlag) {
@@ -81,8 +125,6 @@ var clearMarker = function() {
   markerArray = [];
   }
 };
-
-// google.maps.event.addDomListener(window, 'load', initialize);
 
 // Helper function to translate address to LatLng
 // Need to input #address
