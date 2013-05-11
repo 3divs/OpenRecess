@@ -17,7 +17,6 @@ var LoginView = Marionette.ItemView.extend({
   },
 
   loginUser: function(e) {
-    console.log('Logging user in');
     e.preventDefault();
 
     // Grab username and password
@@ -28,6 +27,7 @@ var LoginView = Marionette.ItemView.extend({
     });
 
     var that = this;
+    // Log user in and display errors, if available
     this.model.login(params, function(err) {
       that.displayErrors('alert-error', err);
     });
