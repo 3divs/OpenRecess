@@ -5,6 +5,7 @@
   <title>OpenRecess</title>
   <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/flat-ui.css">
   <script type="text/javascript" src="/js/lib/jquery.js"></script>
   <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="/js/lib/underscore.js"></script>
@@ -35,13 +36,35 @@
   <script type="text/javascript" src="/js/main.js"></script>
 
   <script type="text/template" id="splashView-template">
-    <div class="jumbotron hero-unit">
-      <div>
-        <h1>OpenRecess!</h1><span class="superscript">Alpha</span>
+    <div class="jumbotron hero-unit span10 offset1">
+      <div class="inner-jumbotron">
+        <div>
+          <h1>OpenRecess!</h1><span class="superscript">Alpha</span>
+        </div>
+        <p class="lead splash-lead">Ball so hard, other players wanna find me!</p>
+        <a class="btn btn-large btn-success" href="#register">Sign up today</a>
       </div>
-      <p class="lead splash-lead">Ball so hard, other players wanna find me!</p>
-      <a class="btn btn-large btn-success" href="#register">Sign up today</a>
-      <a class="btn btn-large btn-info" href="#FAQ">How It Works</a>
+    </div>
+    <div class="row-fluid">
+      <div class="span10 offset1">
+        <div class="splash-steps">
+          <div class="span4 step">
+            <div class="step-inner">
+              <h3 class="text-center">Step 1</h3>
+            </div>
+          </div>
+          <div class="span4 step">
+            <div class="step-inner">
+              <h3 class="text-center">Step 2</h3>
+            </div>
+          </div>
+          <div class="span4 step">
+            <div class="step-inner">
+              <h3 class="text-center">Step 3</h3>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </script>
 
@@ -114,17 +137,18 @@
   <script type="text/template" id="headerView-template">
     <div class="container-fluid header">
       <div class="row-fluid">
-        <div class="navbar header navbar-static-top">
-          <div class="navbar-inner">
-            <a class="brand" href="#splash">OpenRecess</a>
-            <ul class="nav">
-              <li><a href="#">Home</a></li>
-              <li><a href="#game">Create Game</a></li>
-              <li><a href="#games">List Games</a></li>
+        <div class="navbar header navbar-static-top navbar-inverse">
+          <div class="navbar-inner span10 offset1 header-inner" id="header-inner">
+            <div class="span2 offset1">
+              <a class="brand" href="#splash">OpenRecess</a>
+            </div>
+            <ul class="nav span8">
+              <li class="span3"><a href="#games">List Games</a></li>
+              <li class="span3"><a href="#game">Create Game</a></li>
               <% if(email) { %>
-                <li><a href="#userProfile">Profile</a></li>
+                <li class="span3"><a href="#userProfile">Profile</a></li>
               <% } else { %>
-                <li class="right"><a href="#login">Login</a></li>
+                <li class="span3"><a href="#login">Login</a></li>
               <% } %>
             </ul>
           </div>
