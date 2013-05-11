@@ -11,7 +11,7 @@ var HeaderView = Marionette.ItemView.extend({
   },
 
   highlightMenu: function(link) {
-    console.log('link selected: ', $(link)[0].target);
+    // console.log('link selected: ', $(link)[0].target);
 
     // Highlight link
     this.$el.find('li.active').removeClass('active');

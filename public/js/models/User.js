@@ -50,5 +50,24 @@ var User = Backbone.Model.extend({
     }, this);
 
     return _.size(messages) > 0 ? {isValid: false, messages: messages} : {isValid: true};
+  },
+
+  login: function(params, cb) {
+    // Ajax call to login user
+    var that = this;
+    $.ajax('/login', {
+      data: params,
+      type: 'POST',
+      success: function(data) {
+        that.set(data);
+
+        // trigger App redirect on successful login
+        that.trigger('loggedIn');
+      },
+      error: function(err) {
+        cb('Invalid Username/Password');
+      }
+    });
+
   }
 });

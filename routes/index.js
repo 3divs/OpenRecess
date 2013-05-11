@@ -13,10 +13,28 @@ module.exports = function(app){
     res.render('home');
   });
 
-  app.post('/login', passport.authenticate('local', {
-    successRedirect : '/',
-    failureRedirect : '/login'
-  }));
+  // app.post('/login', function(req, res, next) {
+  //   passport.authenticate('local', function(err, user, info) {
+  //     if (err) { return res.json(401, err); }
+  //     if (!user) { return res.json(401, 'User does not exist'); }
+  //     req.logIn(user, function(err) {
+  //       if (err) { return next(err); }
+  //       var user = {};
+  //       user.email = req.user.email;
+  //       user.phone = req.user.phone;
+  //       user.display_name = req.user.display_name;
+  //       res.json(user);
+  //     });
+  //   })(req, res, next);
+  // });
+
+  app.post('/login', passport.authenticate('local'), function(req, res) {
+    var user = {};
+    user.email = req.user.email;
+    user.phone = req.user.phone;
+    user.display_name = req.user.display_name;
+    res.json(user);
+  });
 
   app.get('/login', function(req, res, next) {
     res.render('login');
