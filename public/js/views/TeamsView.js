@@ -1,3 +1,5 @@
-var TeamsView = Marionette.CollectionView.extend({
-  itemView: TeamView
+var TeamsView = Marionette.CompositeView.extend({
+  itemView: TeamView,
+  itemViewContainer: '#teams',
+  template: '#teamsView-template'
 });

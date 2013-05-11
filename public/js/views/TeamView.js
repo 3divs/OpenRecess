@@ -1,3 +1,4 @@
 var TeamView = Marionette.ItemView.extend({
-  model: Team
+  model: Team,
+  template: '#teamView-template'
 });
