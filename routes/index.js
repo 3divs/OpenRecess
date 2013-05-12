@@ -1,6 +1,7 @@
 var passport = require('passport'),
     twil = require('../src/twilio.js'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    users = require('./users.js');
 
 module.exports = function(app){
   var db = app.set('db');
@@ -12,33 +13,36 @@ module.exports = function(app){
     res.render('home');
   });
 
-  app.post('/login', passport.authenticate('local', {
-    successRedirect : '/',
-    failureRedirect : '/login'
-  }));
+  /*******************
+  *** LOGIN/LOGOUT ***
+  *******************/
+
+  app.post('/login', passport.authenticate('local'), function(req, res) {
+    var user = {};
+    user.email = req.user.email;
+    user.phone = req.user.phone;
+    user.display_name = req.user.display_name;
+    res.json(user);
+  });
 
   app.get('/login', function(req, res, next) {
     res.render('login');
   });
 
-  app.get('/register', function(req, res, next) {
-    res.render('register');
+  app.get('/logout', function(req, res, next) {
+    req.logout();
+    res.json(200, 'Logged Out');
   });
 
-// TODO: make sure we add a +1 to the user's 10-digit phone number. 
-  app.post('/register', function(req, res, next) {
-    console.log(req.body);
-    newUser = new User({
-      email: req.body.username,
-      password: req.body.password
-    });
-    newUser.save(function(err, results) {
-      if(err)
-        console.log(err);
-      else
-        res.redirect('/');
-    });
-  });
+  /***********
+  *** USER ***
+  ***********/
+
+  app.get('/users/:id', users.findById);
+  app.get('/users', users.findAll);
+  app.post('/users', users.createUser);
+  app.put('/users', users.updateUser);
+  app.delete('/users/:id', users.deleteUser);
 
   app.get('/user/current', function(req, res ,next){
     if(req.user) {
