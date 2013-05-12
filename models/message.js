@@ -6,6 +6,7 @@ var mongoose = require('mongoose'),
 
 
 var MessageSchema = new mongoose.Schema({
+  'sid': String,
   'body': String,
   'recipient': Schema.Types.ObjectId,
   'sender': Number,

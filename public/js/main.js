@@ -35,9 +35,8 @@ var controller = {
   showCreateGame: function() {
     if(ensureAuthenticated()) {
       App.mainRegion.show(new CreateGameView());
-    } else {
+    } else
       App.router.navigate('login', true);
-    }
   },
 
   showRegister: function() {
