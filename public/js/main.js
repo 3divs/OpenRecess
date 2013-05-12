@@ -14,12 +14,12 @@ var controller = {
     console.log('listGames shown');
     var games = new Games();
     games.fetch();
-    
+
     var layout = new GameLayoutView();
     App.mainRegion.show(layout);
     layout.gmap.show(new MapsView());
     layout.game.show(new GamesView({ collection: games }));
-    initialize();
+    initialize(games);
   },
   showSplash: function() {
     console.log('showSplash shown');

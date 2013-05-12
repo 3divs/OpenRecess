@@ -1,4 +1,3 @@
-
 // Displays and locates the user's location
 var geocoder;
 var map;
@@ -8,10 +7,7 @@ var lat = 37.783;
 var lng = -122.409;
 var markerArray = [];
 
-function initialize() {
-  // Translate address to Lat and Lng
-  geocoder = new google.maps.Geocoder();
-
+function initialize(gameData) {
   var mapOptions = {
     zoom: 12,
     mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -24,7 +20,6 @@ function initialize() {
     placeMarker(event.latLng);
   });
 
-
   // Locates the user on the map
   if(navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -32,11 +27,11 @@ function initialize() {
                                        position.coords.longitude);
 
       //marker pop-ups
-      var infowindow = new google.maps.InfoWindow({
-        map: map,
-        position: pos,
-        content: 'Lat: ' + position.coords.latitude + '\n\nLong: ' + position.coords.longitude
-      });
+      // var infowindow = new google.maps.InfoWindow({
+      //   map: map,
+      //   position: pos,
+      //   content: 'Lat: ' + position.coords.latitude + '\n\nLong: ' + position.coords.longitude
+      // });
       map.setCenter(pos);
     }, function() {
       handleNoGeolocation(true);
@@ -45,6 +40,29 @@ function initialize() {
   // If GeoLocation is not supported, calls the handleNoGeoLocation function
     handleNoGeolocation(false);
   }
+
+  var createMarker;
+  var infowindow = new google.maps.InfoWindow();
+  gameData.on('sync', function(){
+    for (var i = 0; i < gameData.length; i++) {
+      createMarker = new google.maps.Marker({
+        title: gameData.at(i).get('gameName'),
+        position: new google.maps.LatLng(gameData.at(i).get('coord').lat, gameData.at(i).get('coord').lon),
+        map: map
+      });
+      makeInfoWindowEvent(map, infowindow, createMarker.title, createMarker);
+      markerArray.push(createMarker);
+    }
+  });
+
+
+  // Displays pop-up when clicked on marker
+  var makeInfoWindowEvent = function(map, infowindow, contentString, marker) {
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.setContent(contentString);
+      infowindow.open(map, this);
+    });
+  };
 
   // Search Box
   var input = (document.getElementById('target'));
@@ -104,17 +122,17 @@ var handleNoGeolocation = function(errorFlag) {
 };
 
 // If clicked, draws marker
-var placeMarker = function(location) {
-  // Clears the marker (does not delete) from the map before placing the new marker
-  clearMarker();
-  var marker = new google.maps.Marker({
-    position: location,
-    map: map
-  });
-  markerArray.push(marker);
-  // map.setCenter(marker.getPosition());
-  console.log('marker location: ' + marker.getPosition());
-};
+// Should be used for Create Game
+// var placeMarker = function(location) {
+//   // Clears the marker (does not delete) from the map before placing the new marker
+//   clearMarker();
+//   var marker = new google.maps.Marker({
+//     position: location,
+//     map: map
+//   });
+//   markerArray.push(marker);
+//   console.log('marker location: ' + marker.getPosition());
+// };
 
 // Clear markers
 var clearMarker = function() {
