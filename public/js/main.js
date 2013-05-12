@@ -7,60 +7,54 @@ App.addRegions({
   footerRegion: '#footer'
 });
 
-var getUser = function() {
-    // Grab user information on page load
-  var user = new User();
-  user.fetch({
-    success: function() {
-      if(user.get('email'))
-        App.currentUser = user;
-    }
-  });
+var ensureAuthenticated = function() {
+  return App.currentUser && App.currentUser.get('email');
 };
 
 // Routes
 var controller = {
+  signOut: function() {
+    App.currentUser.signOut();
+  },
+
   // Display games list
   showGames: function() {
-    console.log('listGames shown');
     var games = new Games();
     games.fetch();
     App.mainRegion.show(new GamesView({ collection: games }));
   },
 
   showSplash: function() {
-    console.log('showSplash shown');
     App.mainRegion.show(new SplashView());
   },
 
   showCreateGame: function() {
-    getUser();
-    // if(App.currentUser) {
-      console.log('createGame shown');
+    if(ensureAuthenticated()) {
       App.mainRegion.show(new CreateGameView());
-    // } else {
-      // App.router.navigate('login', true);
-    // }
+    }
   },
 
   showRegister: function() {
-    console.log('showRegister shown');
-    var user = new User();
-    App.mainRegion.show(new RegisterView({ model: user }));
+    App.currentUser = App.currentUser || new User();
+    App.mainRegion.show(new RegisterView({ model: App.currentUser }));
   },
 
   showLogin: function() {
-    console.log('showLogin shown');
-    App.mainRegion.show(new LoginView());
+    App.currentUser = App.currentUser || new User();
+    App.mainRegion.show(new LoginView({ model: App.currentUser }));
   },
 
   showUserProfile: function() {
-    console.log('showUserProfile shown');
-    getUser();
-    // TODO: Create a conditional case that checks to see if user is logged on
-    if(App.currentUser)
+    if(ensureAuthenticated())
       App.mainRegion.show(new UserProfileView({ model: App.currentUser }));
     else
+      App.router.navigate('login', true);
+  },
+
+  showTeams: function() {
+    if(ensureAuthenticated()) {
+      App.mainRegion.show();
+    } else
       App.router.navigate('login', true);
   }
 };
@@ -72,7 +66,9 @@ var Router = Marionette.AppRouter.extend({
     'game':         'showCreateGame',
     'register':     'showRegister',
     'login':        'showLogin',
-    'userProfile':  'showUserProfile'
+    'userProfile':  'showUserProfile',
+    'teams':        'showTeams',
+    'signout':      'signOut'
   },
 
   controller: controller
@@ -80,11 +76,14 @@ var Router = Marionette.AppRouter.extend({
 
 // Initialize regions with views
 App.addInitializer(function() {
-  var user = new User();
-  App.headerRegion.show(new HeaderView({ model: user }));
+  App.currentUser = App.currentUser || new User();
+  App.headerRegion.show(new HeaderView({ model: App.currentUser }));
   // App.mainRegion.show(new GamesView({ collection: games }));
   App.footerRegion.show(new FooterView());
   App.router = new Router();
+  App.currentUser.on('redirectSplash', function() {
+    App.router.navigate('splash', true);
+  });
 });
 
 App.on('initialize:after', function() {
