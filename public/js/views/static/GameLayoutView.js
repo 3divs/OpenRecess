@@ -1,6 +1,6 @@
 GameLayoutView = Backbone.Marionette.Layout.extend({
   template: "#layout-template",
-  id: "main-container",
+  className: 'span10 offset1',
 
   regions: {
     gmap: "#map-canvas",
