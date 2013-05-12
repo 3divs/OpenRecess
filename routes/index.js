@@ -53,7 +53,7 @@ module.exports = function(app){
       user.display_name = req.user.display_name;
       return res.json(user);
     }
-    else return res.send();
+    else return res.json();
   });
 
   app.get('/logout', function(req, res, next){

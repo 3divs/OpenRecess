@@ -8,6 +8,7 @@ var User = Backbone.Model.extend({
   initialize: function() {
     this.validators = {};
 
+    // Model validations for client-side form validation
     this.validators.display_name = function (value) {
       return value.length > 0 ? {isValid: true} : {isValid: false, message: "You must enter a name"};
     };
@@ -24,6 +25,15 @@ var User = Backbone.Model.extend({
     this.validators.password = function (value) {
       return value.length > 0 ? {isValid: true} : {isValid: false, message: "You must enter a password"};
     };
+
+    // Fetch previous user profile if user closed window/tab
+    var that = this;
+    $.ajax('/user/current', {
+      type: 'GET',
+      success: function(data) {
+        that.set(data);
+      }
+    });
   },
 
   sanitizePhoneNumber: function() {

@@ -209,9 +209,45 @@
   </script>
 
   <script type="text/template" id="show-userProfileView-template">
-    <div class="userProfile">
-      <h3>user profile</h3>
-      Email: <%= email %>
+    <div class="span10 offset1">
+      <div class="row-fluid">
+        <div class="span6 offset3">
+          <div class="userProfile">
+            <h3 class="text-center">Edit Profile</h3>
+            <form class="form-horizontal">
+        <div class="control-group">
+          <div class="control-label" for="display_name">Full Name:</div>
+          <div class="controls">
+            <input class="input-field" type="text" name="display_name" value="<%= display_name %>" required></input>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="control-label" for="email">Email:</div>
+          <div class="controls">
+            <input class="input-field" type="text" name="email" value="<%= email %>" required/>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="control-label" for="inputPhone">Phone:</div>
+          <div class="controls">
+            <input class="input-field" type='tel' pattern='\d{10}' name="phone" value="<%= phone %>" required></input>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="control-label" for="inputPassword">Password: </div>
+          <div class="controls">
+            <input class="input-field" type="password" name="password" required placeholder="New Password"/>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <button id="register" class="btn btn-primary">Register</button>
+          </div>
+        </div>
+      </form>
+          </div>
+        </div>
+      </div>
     </div>
   </script>
 
