@@ -33,7 +33,6 @@ exports.sendSMS = function(message, userNumber, twilioNumber, req, res) {
 exports.retrieveSMS = function(req, res) {
   var textMessage = req.body.Body;
   var senderPhone = req.body.From;
-  console.log(req.body, textMessage, senderPhone);
   processRSVPs(textMessage, senderPhone);
   res.send(200, ' thanks for your reply.');
 };
@@ -85,7 +84,11 @@ var rsvpUser = function(digits, code){
     },
     function(err, thisGame){
       if(err) throw 'wtf?';
-      exports.sendSMS('Game on for ' + thisGame.gameType + '#' + thisGame.gameCode + ' on ' + thisGame.gameDate + ' at ' + thisGame.gameTime + '. Stay tuned for more text message updates.', digits, twilioPhoneNumber);
+      if (!thisGame) {
+        exports.sendSMS('Thanks for the message, but it looks like you\'ve already RSVP\'d to this game. ~OpenRecess.com.', digits, twilioPhoneNumber);
+      } else {
+        exports.sendSMS('Game on for ' + thisGame.gameType + '#' + thisGame.gameCode + ' on ' + thisGame.gameDate + ' at ' + thisGame.gameTime + '. Stay tuned for more text message updates.', digits, twilioPhoneNumber);        
+      }
     }
   );
 
@@ -101,7 +104,7 @@ var removeUser = function(digits, code){
   }, function(err, data){
     if (err) throw err;
     console.log(data);
-    exports.sendSMS('Thanks for your reply. ' + data.gameType + 'won\'t be the same without you.', digits, twilioPhoneNumber);
+    exports.sendSMS('Thanks for your reply. ' + data.gameType + ' won\'t be the same without you.', digits, twilioPhoneNumber);
   });
 };
 
