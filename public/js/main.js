@@ -35,12 +35,12 @@ var controller = {
 
   showCreateGame: function() {
     getUser();
-    if(App.currentUser) {
+    // if(App.currentUser) {
       console.log('createGame shown');
       App.mainRegion.show(new CreateGameView());
-    } else {
-      App.router.navigate('login', true);
-    }
+    // } else {
+      // App.router.navigate('login', true);
+    // }
   },
 
   showRegister: function() {

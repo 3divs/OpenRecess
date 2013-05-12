@@ -131,13 +131,15 @@
   <script type="text/template" id="create-gameView-template">
     <h1>Create a New Game</h1>
     <form action="/game" method="POST">
-      Name: <input type="textbox" name="gameName"></input>
-      Game Time: <input type="textbox" name="gameTime"></input>
+      Game Name: <input type="textbox" name="gameName"></input>
+      Game Date: <input type="date" name="gameDate"></input>
+      Game Time: <input type="time" name="gameTime"></input>
       Game Type: <input type="textbox" name="gameType"></input>
-      Number of Players needed: <input type="number" name="minimumPlayers"></input>
-      Player Phone Numbers: <input type="textbox" name="players"></input>
       Location: <input type="textbox" name="gameLocation"></index>
+      Number of Players needed: <input type="number" name="minimumPlayers"></input>
       Maximum Number of Players: <input type="number" name="PlayerLimit"></input>
+      Player Phone Numbers: (+1) <input type="textbox" class='players' name="players"></input><img src="..." class="icon-plus"><br>
+      <input type='textbox' name='playerArray' class='invitees' style='display:none' ></input><div class='inviteeList'>Invited Players</div>
       <input type="submit"></input>
     </form>
   </script>

@@ -60,8 +60,7 @@ var processRSVPs = function(message, sender) {
     console.log('hell yes');
     var position = message.toLowerCase().indexOf('#');
     var code = message.slice(position - 3, position);
-    var digits = sender.slice(2, 99);
-    rsvpUser(digits, code);
+    rsvpUser(sender, code);
   }
   else if (messageArray[i].body.toLowerCase().indexOf('#n') !== -1) {
     return console.log('hell no');

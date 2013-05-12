@@ -58,15 +58,21 @@ module.exports = function(app){
   app.post('/game', function(req, res, next) {
     // possible collision alert!: this generates a random 3 digit code for every game:
     var temp = Math.floor(Math.random() * 1000);
+    console.log(req.body);
+    // console.log('params', req.params, 'param', req.param);
+    // console.log('jquery', $('.players').attr());
+    // console.log('jquery', $('.players').attr());
     newGame = new Game({
+      invitedPlayers: req.body.playerArray.split(','),
+      manager: req.user._id,
       gameCode : temp,
+      gameDate : req.body.gameDate,
+      gameTime : req.body.gameTime,
       gameName : req.body.gameName,
       gameType : req.body.gameType,
-      gameTime : req.body.gameTime,
+      gameLocation: req.body.gameLocation,
       minimumPlayers : req.body.minimumPlayers,
-      players: req.body.players,
-      playerLimit: req.body.playerLimit,
-      gameLocation: req.body.gameLocation
+      playerLimit: req.body.playerLimit
     });
     newGame.save();
     res.redirect('/games');
