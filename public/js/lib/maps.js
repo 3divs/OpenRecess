@@ -25,7 +25,6 @@ function initialize(gameData) {
     navigator.geolocation.getCurrentPosition(function(position) {
       var pos = new google.maps.LatLng(position.coords.latitude,
                                        position.coords.longitude);
-
       //marker pop-ups
       // var infowindow = new google.maps.InfoWindow({
       //   map: map,
@@ -41,9 +40,9 @@ function initialize(gameData) {
     handleNoGeolocation(false);
   }
 
-  // Creates a marker 
+  // Creates a marker
   var createMarker;
-  var infowindow = new google.maps.InfoWindow();
+  var infowindow = new google.maps.InfoWindow({map: map});
   var gameList = document.getElementById('places');
   gameData.on('sync', function(){
     for (var i = 0; i < gameData.length; i++) {
@@ -51,71 +50,87 @@ function initialize(gameData) {
         title: gameData.at(i).get('gameName'),
         position: new google.maps.LatLng(gameData.at(i).get('coord').lat, gameData.at(i).get('coord').lon),
         map: map,
+        animation: google.maps.Animation.DROP,
         min: gameData.at(i).get('minimumPlayers')
       });
       makeInfoWindowEvent(map, infowindow, createMarker.title, createMarker);
       markerArray.push(createMarker);
-      gameList.innerHTML += '<li data-id=' + createMarker.__gm_id + '>'  + '<h4 class="todo-name">' + createMarker.title + '</h4>' + 'Need ' + createMarker.min + ' to play' + '</li>';
+      gameList.innerHTML += '<li data-id='
+        + createMarker.__gm_id
+        + '>'
+        + '<h4 class="todo-name">'
+        + createMarker.title + '</h4>'
+        + 'Need ' + createMarker.min
+        + ' to play' + '</li>';
     }
   });
 
-  // $('#results').on('click', 'li', function(){
-  //   var co = ($(this).text());
-  //   var da = $(this).data("id");
-  //   for (var i=0; i < markerArray.length; i++) {
-  //     if (da === markerArray[])
-  //   }
-  //   console.log(markerArray);
-  //   console.log(da);
-  //   console.log(this);
-  //   // infowindow.open(map, )
-  // });
+  // Connect side-panel with events on the map
+  $('#results').on('click', 'li', function(){
+    var getId = $(this).data("id");
+    for (var i = 0; i < markerArray.length; i++) {
+      if (getId === markerArray[i].__gm_id) {
+        var holder = markerArray[i];
+      }
+    }
+    infowindow.setContent(holder.title);
+    infowindow.open(map, holder);
+  });
+
   // Displays pop-up when marker is clicked
   var makeInfoWindowEvent = function(map, infowindow, contentString, marker) {
     google.maps.event.addListener(marker, 'click', function() {
       infowindow.setContent(contentString);
       infowindow.open(map, this);
-      console.log('info: ' + this.__gm_id);
     });
   };
 
+  // Clear markers
+  var clearMarker = function() {
+    if (markerArray) {
+      for (var i = 0; i < markerArray.length; i++) {
+        markerArray[i].setMap(null);
+      }
+    markerArray = [];
+    }
+  };
   // Search Box
-  var input = (document.getElementById('target'));
-  var searchBox = new google.maps.places.SearchBox(input);
-  var markers = [];
-  google.maps.event.addListener(searchBox, 'places_changed', function() {
-    var places = searchBox.getPlaces();
-    for (var i = 0, marker; marker = markers[i]; i++) {
-      marker.setMap(null);
-    }
+  // var input = (document.getElementById('target'));
+  // var searchBox = new google.maps.places.SearchBox(input);
+  // var markers = [];
+  // google.maps.event.addListener(searchBox, 'places_changed', function() {
+  //   var places = searchBox.getPlaces();
+  //   for (var i = 0, marker; marker = markers[i]; i++) {
+  //     marker.setMap(null);
+  //   }
 
-    markers = [];
-    var bounds = new google.maps.LatLngBounds();
-    for (var i = 0, place; place = places[i]; i++) {
-      var image = {
-        url: place.icon,
-        size: new google.maps.Size(71, 71),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 34),
-        scaledSize: new google.maps.Size(25, 25)
-      };
+  //   markers = [];
+  //   var bounds = new google.maps.LatLngBounds();
+  //   for (var i = 0, place; place = places[i]; i++) {
+  //     var image = {
+  //       url: place.icon,
+  //       size: new google.maps.Size(71, 71),
+  //       origin: new google.maps.Point(0, 0),
+  //       anchor: new google.maps.Point(17, 34),
+  //       scaledSize: new google.maps.Size(25, 25)
+  //     };
 
-      var marker = new google.maps.Marker({
-        map: map,
-        icon: image,
-        title: place.name,
-        position: place.geometry.location
-      });
-      markers.push(marker);
-      bounds.extend(place.geometry.location);
-    }
-    map.fitBounds(bounds);
-  });
+  //     var marker = new google.maps.Marker({
+  //       map: map,
+  //       icon: image,
+  //       title: place.name,
+  //       position: place.geometry.location
+  //     });
+  //     markers.push(marker);
+  //     bounds.extend(place.geometry.location);
+  //   }
+  //   map.fitBounds(bounds);
+  // });
 
-  google.maps.event.addListener(map, 'bounds_changed', function() {
-    var bounds = map.getBounds();
-    searchBox.setBounds(bounds);
-  });
+  // google.maps.event.addListener(map, 'bounds_changed', function() {
+  //   var bounds = map.getBounds();
+  //   searchBox.setBounds(bounds);
+  // });
 }
 
 var handleNoGeolocation = function(errorFlag) {
@@ -147,16 +162,6 @@ var handleNoGeolocation = function(errorFlag) {
 //   markerArray.push(marker);
 //   console.log('marker location: ' + marker.getPosition());
 // };
-
-// Clear markers
-var clearMarker = function() {
-  if (markerArray) {
-    for (var i = 0; i < markerArray.length; i++) {
-      markerArray[i].setMap(null);
-    }
-  markerArray = [];
-  }
-};
 
 // Helper function to translate address to LatLng
 // Need to input #address
