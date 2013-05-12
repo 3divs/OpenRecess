@@ -21,9 +21,13 @@ var controller = {
   showGames: function() {
     var games = new Games();
     games.fetch();
-    App.mainRegion.show(new GamesView({ collection: games }));
-  },
 
+    var layout = new GameLayoutView();
+    App.mainRegion.show(layout);
+    layout.gmap.show(new MapsView());
+    // layout.game.show(new GamesView({ collection: games }));
+    initialize(games);
+  },
   showSplash: function() {
     App.mainRegion.show(new SplashView());
   },
