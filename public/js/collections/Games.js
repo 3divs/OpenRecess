@@ -1,6 +1,6 @@
 var Games = Backbone.Collection.extend({
   url: '/games',
-  model: 'Game',
+  model: Game,
 
   parse: function(data) {
     console.log('new games - ', data);
