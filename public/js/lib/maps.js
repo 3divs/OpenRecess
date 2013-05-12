@@ -50,20 +50,32 @@ function initialize(gameData) {
       createMarker = new google.maps.Marker({
         title: gameData.at(i).get('gameName'),
         position: new google.maps.LatLng(gameData.at(i).get('coord').lat, gameData.at(i).get('coord').lon),
-        map: map
+        map: map,
+        min: gameData.at(i).get('minimumPlayers')
       });
       makeInfoWindowEvent(map, infowindow, createMarker.title, createMarker);
       markerArray.push(createMarker);
-      gameList.innerHTML += '<li>' + createMarker.title + '</li>';
+      gameList.innerHTML += '<li data-id=' + createMarker.__gm_id + '>'  + '<h4 class="todo-name">' + createMarker.title + '</h4>' + 'Need ' + createMarker.min + ' to play' + '</li>';
     }
   });
 
-
+  // $('#results').on('click', 'li', function(){
+  //   var co = ($(this).text());
+  //   var da = $(this).data("id");
+  //   for (var i=0; i < markerArray.length; i++) {
+  //     if (da === markerArray[])
+  //   }
+  //   console.log(markerArray);
+  //   console.log(da);
+  //   console.log(this);
+  //   // infowindow.open(map, )
+  // });
   // Displays pop-up when marker is clicked
   var makeInfoWindowEvent = function(map, infowindow, contentString, marker) {
     google.maps.event.addListener(marker, 'click', function() {
       infowindow.setContent(contentString);
       infowindow.open(map, this);
+      console.log('info: ' + this.__gm_id);
     });
   };
 
