@@ -41,8 +41,10 @@ function initialize(gameData) {
     handleNoGeolocation(false);
   }
 
+  // Creates a marker 
   var createMarker;
   var infowindow = new google.maps.InfoWindow();
+  var gameList = document.getElementById('places');
   gameData.on('sync', function(){
     for (var i = 0; i < gameData.length; i++) {
       createMarker = new google.maps.Marker({
@@ -52,11 +54,12 @@ function initialize(gameData) {
       });
       makeInfoWindowEvent(map, infowindow, createMarker.title, createMarker);
       markerArray.push(createMarker);
+      gameList.innerHTML += '<li>' + createMarker.title + '</li>';
     }
   });
 
 
-  // Displays pop-up when clicked on marker
+  // Displays pop-up when marker is clicked
   var makeInfoWindowEvent = function(map, infowindow, contentString, marker) {
     google.maps.event.addListener(marker, 'click', function() {
       infowindow.setContent(contentString);
@@ -70,7 +73,6 @@ function initialize(gameData) {
   var markers = [];
   google.maps.event.addListener(searchBox, 'places_changed', function() {
     var places = searchBox.getPlaces();
-
     for (var i = 0, marker; marker = markers[i]; i++) {
       marker.setMap(null);
     }

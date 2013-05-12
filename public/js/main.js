@@ -18,7 +18,7 @@ var controller = {
     var layout = new GameLayoutView();
     App.mainRegion.show(layout);
     layout.gmap.show(new MapsView());
-    layout.game.show(new GamesView({ collection: games }));
+    // layout.game.show(new GamesView({ collection: games }));
     initialize(games);
   },
   showSplash: function() {

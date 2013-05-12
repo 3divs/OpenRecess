@@ -38,5 +38,25 @@
       "lat" : 37.784929,
       "lon" : -122.429416
     }
+  },
+  {
+    "gameName": "Playing ball in the park",
+    "gameType": "Basketball",
+    "gameDescription": "Organized basketball game",
+    "minimumPlayers": 5,
+    "playerLimit": 10,
+    "gameTime": "Monday",
+    "invitedPlayers": [
+      {
+        "phone": 6502699118,
+        "userId": null
+      }
+    ],
+    "createdAt": "2013-05-01T12:00:11Z",
+    "updatedAt": "2013-05-01T12:00:11Z",
+    "coord" : {
+      "lat" : 37.884929,
+      "lon" : -122.529416
+    }
   }
 ];
