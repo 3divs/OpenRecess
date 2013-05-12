@@ -23,6 +23,7 @@ module.exports = {
   },
 
   updateUser: function(req, res, next) {
+    console.log('Update user');
     res.json(200, 'Update stub');
   },
 
