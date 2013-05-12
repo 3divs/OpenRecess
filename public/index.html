@@ -6,6 +6,9 @@
   <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/stylesheets/flat-ui.css">
   <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCedMF4wwQSrQDAw6nlYr7dS7ozhRSvYHQ&sensor=true"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCedMF4wwQSrQDAw6nlYr7dS7ozhRSvYHQ&sensor=false&libraries=places"></script>
+  <script type="text/javascript" src="/js/lib/maps.js"></script>
   <script type="text/javascript" src="/js/lib/jquery.js"></script>
   <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="/js/lib/underscore.js"></script>
@@ -20,6 +23,7 @@
   <script type="text/javascript" src="/js/collections/Teams.js"></script>
 
   <!-- Static Views -->
+  <script type="text/javascript" src="/js/views/static/GameLayoutView.js"></script>
   <script type="text/javascript" src="/js/views/static/UserProfileView.js"></script>
   <script type="text/javascript" src="/js/views/static/HeaderView.js"></script>
   <script type="text/javascript" src="/js/views/static/FooterView.js"></script>
@@ -27,6 +31,7 @@
   <script type="text/javascript" src="/js/views/static/CreateGameView.js"></script>
   <script type="text/javascript" src="/js/views/static/LoginView.js"></script>
   <script type="text/javascript" src="/js/views/static/RegisterView.js"></script>
+  <script type="text/javascript" src="/js/views/static/MapsView.js"></script>
 
   <!-- Dynamic Views -->
   <script type="text/javascript" src="/js/views/GameView.js"></script>
@@ -66,6 +71,17 @@
         </div>
       </div>
     </div>
+  </script>
+
+  <script type="text/template" id="layout-template">
+    <div id='results' class="span3 todo mrm">
+      <ul id="places"></ul>
+    </div>
+   <div id="panel">
+    <input id="target"  class="todo-search" type="text" placeholder="Search Box">
+  </div>
+  <div id='game'></div>
+  <div id="map-canvas" class="span10"></div>
   </script>
 
   <script type="text/template" id="loginView-template">
@@ -199,12 +215,20 @@
     </form>
   </script>
 
+  <script type="text/template" id="show-mapView-template">
+    <div id="panel">
+      <input id="target" type="text" placeholder="Search Box">
+    </div>
+    <div id="map-canvas"></div>
+  </script>
+
   <script type="text/template" id="show-gameView-template">
     <div class="game">
       <span class="name"><%= gameName %></span>
       <span class="time"><%= gameTime %></span>
       <span class="type"><%= gameType %></span>
       <span class="minimumPlayers"><%= minimumPlayers %></span>
+      <span class="latLng"><%= coord.lat%><%= coord.lon %></span>
     </div>
   </script>
 
