@@ -9,8 +9,10 @@ var __ = require('underscore'),
 // temporary variables should be reset and moved to a 'secrets' file
 var accountSid = "AC5933d34eda950c0bb81ed94811a9c13c";
 var authToken = "99143cc9267d4ad6db22cdc12856ad5a";
+var twilioPhoneNumber = '+14159928245';
 
 var client = require('twilio')(accountSid, authToken);
+
 
 exports.sendSMS = function(message, userNumber, twilioNumber, req, res) {
   client.sms.messages.create({
@@ -55,41 +57,51 @@ var getSmsContent = function(data) {
 
 // Combine and merge all texts from the same phone number.
 var processRSVPs = function(message, sender) {
-  console.log('filtering RSVPs');
+  var position = message.toLowerCase().indexOf('#');
+  var code = message.slice(position - 3, position);
   if (message.indexOf('#y') !== -1) {
     console.log('hell yes');
-    var position = message.toLowerCase().indexOf('#');
-    var code = message.slice(position - 3, position);
     rsvpUser(sender, code);
   }
-  else if (messageArray[i].body.toLowerCase().indexOf('#n') !== -1) {
-    return console.log('hell no');
-    // remove from players attribute of our Game document
+  else if (message.indexOf('#n') !== -1) {
+    removeUser(sender, code);
+    console.log('hell no');
   } else {
-    sendSMS('Please reply [yourGameCode]#y to play or [yourGameCode]#n to sit this one out.', messageArray[i].phone);
+    exports.sendSMS('Please reply [yourGameCode]#y to play or [yourGameCode]#n to sit this one out.', sender, twilioPhoneNumber);
   }
     // append to the confirmedPlayers attribute of our Game document
 };
 
 var rsvpUser = function(digits, code){
-  User.findOne({phone : digits}, function(err, user){
-    if(err) throw err;
-    if(!user) throw new Error("user for digits " + digits + " not found");
-    // see http://docs.mongodb.org/manual/reference/command/findAndModify/
-    // also query to make sure the Game.players array contains the userName or userPhone 
-    // TODO: 'userID' may not be correct
-    console.log(Object.keys(Game));
-    Game.findOneAndUpdate( {
-        gameCode: code,
-        // gameTime: { $gt: Date.now },
-        invitedPlayers: user._id
-      }, // find any games with the response code
-      {
-        $pull: { invitedPlayers: user._id },
-        $push: { confirmedPlayers: user._id },
-        $inc: { confirmedPlayersCount: 1 }
-      }, function(){ console.log("asdnfkalds"); });
-    console.log('success');
+  Game.findOneAndUpdate( {
+      gameCode : code,
+      // gameTime: { $gt: Date.now },
+      invitedPlayers : digits
+    },
+    {
+      $pull : { invitedPlayers : digits },
+      $push : { confirmedPlayers : digits },
+      $inc : { confirmedPlayersCount : 1 }
+    },
+    function(err, thisGame){
+      if(err) throw 'wtf?';
+      exports.sendSMS('Game on for ' + thisGame.gameType + '#' + thisGame.gameCode + ' on ' + thisGame.gameDate + ' at ' + thisGame.gameTime + '. Stay tuned for more text message updates.', digits, twilioPhoneNumber);
+    }
+  );
+
+};
+
+var removeUser = function(digits, code){
+  Game.findOneAndUpdate({
+    gameCode : code,
+    invitedPlayers : digits
+  },
+  {
+    $pull : {invitedPlayers : digits}
+  }, function(err, data){
+    if (err) throw err;
+    console.log(data);
+    exports.sendSMS('Thanks for your reply. ' + data.gameType + 'won\'t be the same without you.', digits, twilioPhoneNumber);
   });
 };
 

@@ -8,10 +8,10 @@ var validatePresenceOf = function(value) {
   return value && value.length;
 };
 
-var InvitedUser = new Schema({
-  'phone' : String,
-  'userId' : Schema.Types.ObjectId
-});
+// var InvitedUser = new Schema({
+//   'phone' : String,
+//   'userId' : Schema.Types.ObjectId
+// });
 
 // TODO: Alert we need to validate the gameTime on the client before sending to the model as a Date.
 var GameSchema = new Schema({
@@ -31,7 +31,7 @@ var GameSchema = new Schema({
     'lon' : Number
   },
   'minimumPlayers': Number,
-  'confirmedPlayers': [InvitedUser],
+  'confirmedPlayers': Array,
   'confirmedPlayersCount' : Number,
   'playerLimit': Number,
   'minimumPlayersMet': Boolean,

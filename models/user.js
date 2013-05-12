@@ -8,8 +8,9 @@ function validatePresenceOf(value) {
   return value && value.length;
 }
 
-function validatePhone(number) {
-  return (number + '').replace(/\-/g, '').length === 10;
+function validatePhone(string) {
+  console.log(string);
+  return (string).length === 12;
 }
 
 function validateEmailFormat(email) {
@@ -23,7 +24,7 @@ function validateEmail(email) {
 
 var UserSchema = new mongoose.Schema({
   'email': {type: String, unique: true, index: true, validate: [validateEmail, 'email is invalid'], lowercase: true, trim: true },
-  'phone': {type: Number, validate: [validatePhone, 'phone number invalid']},
+  'phone': {type: String, validate: [validatePhone, 'phone number invalid']},
   'display_name': {type: String},
   'hashed_password': {type: String},
   'salt': String,

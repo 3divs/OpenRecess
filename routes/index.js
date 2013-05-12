@@ -115,7 +115,6 @@ module.exports = function(app){
 var twilioPhoneNumber = '+14159928245';
 //add the actual id to this URL and later request params.id in Games.findById(params.id)
 // make sure to authenticate access to this page for the Manager only...
-  // talk to mark if this is right: manager: req.user._id
   app.get('/send-sms/:id', function(req, res) {
     if(!req.user) return res.send(401);
     Game.findOne({ _id: req.params.id, manager: req.user._id }, function(err, game) {
@@ -123,8 +122,7 @@ var twilioPhoneNumber = '+14159928245';
         throw error; // we need a 404 error page to serve if game and user ID don't exist...
       if(!game) return res.send(404);
       console.log('game', game);
-      console.log('phone numbers', game.invitedPlayers.phone);
-      var numbersToSMS = game.invitedPlayers;
+      console.log('phone numbers', game.invitedPlayers);
       var gameMessage = game.manager + ' wants you to play ' +
         game.gameType + " on " + game.gameTime + " at " +
         game.gameLocation + '. Reply ' + game.gameCode +
@@ -133,8 +131,8 @@ var twilioPhoneNumber = '+14159928245';
           gameMessage = gameMessage + ' ~OpenRecess.com';
         }
       for (var i = 0; i < game.invitedPlayers.length; i++){
-        console.log(gameMessage, game.invitedPlayers[i].phone, twilioPhoneNumber);
-        // twil.sendSMS(gameMessage, numbersToSMS[i].phone, twilioPhoneNumber, req, res);
+        console.log(gameMessage, game.invitedPlayers[i], twilioPhoneNumber);
+        twil.sendSMS(gameMessage, game.invitedPlayers[i], twilioPhoneNumber, req, res);
         // Add to message database a item with requester, number sent to, message, messageSID, event
       }
     });

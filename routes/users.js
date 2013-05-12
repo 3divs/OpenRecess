@@ -6,7 +6,7 @@ module.exports = {
     newUser = new User({
       email: req.body.email,
       display_name: req.body.display_name,
-      phone: req.body.phone,
+      phone: '+1' + req.body.phone,
       password: req.body.password
     });
     newUser.save(function(err, results) {
