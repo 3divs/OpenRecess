@@ -1,16 +1,18 @@
 var __ = require('underscore'),
+    mongoose = require('mongoose'),
     User = require('../models/user.js'),
     Game = require('../models/game.js'),
-    mongoose = require('mongoose'),
+    Message = require('../models/message.js'),
     express = require('express'),
-    MongoStore = require('connect-mongo')(express),
-    smsIDs = [];
+    MongoStore = require('connect-mongo')(express);
 
-// temporary variable should be moved to a 'secrets' file
+// temporary variables should be reset and moved to a 'secrets' file
 var accountSid = "AC5933d34eda950c0bb81ed94811a9c13c";
 var authToken = "99143cc9267d4ad6db22cdc12856ad5a";
+var twilioPhoneNumber = '+14159928245';
 
 var client = require('twilio')(accountSid, authToken);
+
 
 exports.sendSMS = function(message, userNumber, twilioNumber, req, res) {
   client.sms.messages.create({
@@ -21,7 +23,7 @@ exports.sendSMS = function(message, userNumber, twilioNumber, req, res) {
       if (err) {
         console.log('error');
       }
-      Message.insert(); // put all the shit below in our DB...
+      // Message.insert(); // put all the shit below in our DB...
       console.log('Sending SMS to: ' + message.to);
       console.log('Message content: ' + message.body);
       console.log('Status of text message is: ' + message.status);
@@ -29,12 +31,10 @@ exports.sendSMS = function(message, userNumber, twilioNumber, req, res) {
 };
 
 exports.retrieveSMS = function(req, res) {
-  console.log('retrieving SMS');
-  var allSms;
-  client.sms.messages.list(function(err, data) {
-    allSms = getSmsContent(data.sms_messages);
-    processRSVPs(allSms);
-  });
+  var textMessage = req.body.Body;
+  var senderPhone = req.body.From;
+  processRSVPs(textMessage, senderPhone);
+  res.send(200, ' thanks for your reply.');
 };
 
 // Packages msg content into [{dialedTo, sid, msgContent(body), date, direction}]
@@ -55,59 +55,56 @@ var getSmsContent = function(data) {
 };
 
 // Combine and merge all texts from the same phone number.
-var processRSVPs = function(messageArray) {
-  console.log('filtering RSVPs');
-  //console.log(messageArray);
-  //console.log(smsIDs);
-  var contains;
-
-  for (var i = 0; i < messageArray.length; i++) {
-    console.log(JSON.stringify(messageArray[i], null, 2));
-    contains = __.contains(smsIDs, messageArray[i].sid);
-    while (!contains) {
-      console.log('how many times does this run?');
-      smsIDs.push(messageArray[i].sid);
-      if (messageArray[i].body.indexOf('#y') !== -1) {
-        console.log('hell yes');
-        var str = messageArray[i].body;
-        var position = str.toLowerCase().indexOf('#');
-        var code = str.slice(position - 3, position);
-        // TODO: fix this to make sure it loops throught he array of messages:
-        var digits = messageArray[i].phone.slice(3,99);
-        rsvpUser(digits, code);
-        contains = __.contains(smsIDs, messageArray[i].sid);
-      }
-      else if (messageArray[i].body.toLowerCase().indexOf('#n') !== -1) {
-        return console.log('hell no');
-        // remove from players attribute of our Game document
-      } else {
-        return;
-        // sendSMS('Please reply [yourGameCode]#y to play or [yourGameCode]#n to sit this one out.', messageArray[i].phone);
-      }
-        // append to the confirmedPlayers attribute of our Game document
-    }
+var processRSVPs = function(message, sender) {
+  var position = message.toLowerCase().indexOf('#');
+  var code = message.slice(position - 3, position);
+  if (message.indexOf('#y') !== -1) {
+    console.log('hell yes');
+    rsvpUser(sender, code);
   }
+  else if (message.indexOf('#n') !== -1) {
+    removeUser(sender, code);
+    console.log('hell no');
+  } else {
+    exports.sendSMS('Please reply [yourGameCode]#y to play or [yourGameCode]#n to sit this one out.', sender, twilioPhoneNumber);
+  }
+    // append to the confirmedPlayers attribute of our Game document
 };
 
 var rsvpUser = function(digits, code){
-  User.findOne({phone : digits}, function(err, user){
-    if(err) throw err;
-    if(!user) throw new Error("user for digits " + digits + " not found");
-    // see http://docs.mongodb.org/manual/reference/command/findAndModify/
-    // also query to make sure the Game.players array contains the userName or userPhone 
-    // TODO: 'userID' may not be correct
-    Game.findAndModify( {
-      query: {
-        gameCode: code,
-        gameTime: { $gt: Date.now },
-        invitedPlayers: user._id
-      }, // find any games with the response code
-      update: {
-        $pull: { invitedPlayers: user._id },
-        $push: { confirmedPlayers: user._id },
-        $inc: { confirmedPlayersCount: 1 }
+  Game.findOneAndUpdate( {
+      gameCode : code,
+      // gameTime: { $gt: Date.now },
+      invitedPlayers : digits
+    },
+    {
+      $pull : { invitedPlayers : digits },
+      $push : { confirmedPlayers : digits },
+      $inc : { confirmedPlayersCount : 1 }
+    },
+    function(err, thisGame){
+      if(err) throw 'wtf?';
+      if (!thisGame) {
+        exports.sendSMS('Thanks for the message, but it looks like you\'ve already RSVP\'d to this game. ~OpenRecess.com.', digits, twilioPhoneNumber);
+      } else {
+        exports.sendSMS('Game on for ' + thisGame.gameType + '#' + thisGame.gameCode + ' on ' + thisGame.gameDate + ' at ' + thisGame.gameTime + '. Stay tuned for more text message updates.', digits, twilioPhoneNumber);        
       }
-    });
+    }
+  );
+
+};
+
+var removeUser = function(digits, code){
+  Game.findOneAndUpdate({
+    gameCode : code,
+    invitedPlayers : digits
+  },
+  {
+    $pull : {invitedPlayers : digits}
+  }, function(err, data){
+    if (err) throw err;
+    console.log(data);
+    exports.sendSMS('Thanks for your reply. ' + data.gameType + ' won\'t be the same without you.', digits, twilioPhoneNumber);
   });
 };
 

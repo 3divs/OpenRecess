@@ -1,8 +1,8 @@
 [
   {
     "email": "test@test.com",
-    "phone": 1234567890,
-    "display_name": "Test User 1",
+    "phone": "+17816401203",
+    "display_name": "Andrew User 1",
     "hashed_password": "b15a1c85e49060cda1345e06cc2b6efac76685f5",
     "salt": "674417255693",
     "upcomingGames": [],
@@ -10,7 +10,7 @@
   },
   {
     "email": "test2@test.com",
-    "phone": 0987654321,
+    "phone": "+10987654321",
     "display_name": "Test User 2",
     "hashed_password": "b15a1c85e49060cda1345e06cc2b6efac76685f5",
     "salt": "674417255693",
