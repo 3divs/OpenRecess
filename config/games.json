@@ -8,16 +8,7 @@
     "playerLimit": 24,
     "gameLocation": "Rucker Park",
     "gameTime": "Monday",
-    "invitedPlayers": [
-      {
-        "phone": "+17816401203",
-        "userId": null
-      },
-      {
-        "phone": "+15133074346",
-        "userId": null
-      }
-    ],
+    "invitedPlayers": ["+17816401203","+15133074346"],
     "createdAt": "2013-05-01T10:00:11Z",
     "updatedAt": "2013-05-01T10:00:11Z"
   },
@@ -29,12 +20,7 @@
     "minimumPlayers": 5,
     "playerLimit": 10,
     "gameTime": "Monday",
-    "invitedPlayers": [
-      {
-        "phone": "+15133074346",
-        "userId": null
-      }
-    ],
+    "invitedPlayers": ["+15133074346"],
     "createdAt": "2013-05-01T12:00:11Z",
     "updatedAt": "2013-05-01T12:00:11Z"
   }
