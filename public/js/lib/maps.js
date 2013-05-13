@@ -120,6 +120,7 @@ function initialize(gameData) {
   });
 
   // Search Box in List Games
+  // TODO: use regex to search for games.  Convert markerArray to lowercase
   $('.todo-search-field').keypress(function (e) {
     if (e.which == 13) {
       var search = $('.todo-search-field').val();
@@ -130,6 +131,7 @@ function initialize(gameData) {
       }
       infowindow.setContent(holder.title);
       infowindow.open(map, holder);
+      $('.todo-search-field').val("");
       return false;
     }
   });
