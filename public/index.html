@@ -307,34 +307,46 @@
   </script>
 
   <script type="text/template" id="teamsView-template">
-    <div class="span10 offset1">
+    <div class="span10 offset1 team-page">
       <h1 class="text-center">My Teams</h1>
+      <button class="btn btn-large btn-info" id="createTeam"><span class="fui-plus-24"/>Create Team</button>
       <div class="teams" id="teams"></div>
     </div>
   </script>
 
   <script type="text/template" id="teamView-template">
     <h4 class="name"><%= name + ' (' + type + ')' %></h4>
+    <button id="deleteTeam" class="btn btn-danger btn-small"><span class="fui-cross-24"/>Delete</button>
     <div class="details">
       <ul>
         <li><span class="field">Manager: </span><span class="value"><%= managerName %></span></li>
         <div class="roster">
-          <span class="roster">Roster:</span><span class="fui-plus-16"></span>
+          <span class="roster">Roster:</span>
+          <div class="add-roster-player">
+            <button id="add-player" class="btn btn-info btn-mini"><span class="fui-plus-16"></span>Add</button>
+          </div>
           <ol>
             <% _.each(players, function(player) { %>
-              <li>
-                <span class="fui-menu-16"/><%= player.name + ' - ' + player.phone %>
-                <span class="fui-cross-16"></span>
+              <li class="roster-player">
+                <%= player.name + ' - ' + player.phone %>
+                <span class="fui-new-16" data-phone="<%= player.phone %>" data-name="<%= player.name %>"/>
+                <span class="fui-cross-16" data-phone="<%= player.phone %>" data-name="<%= player.name %>"/>
               </li>
             <% }); %>
+            <div class="new-roster-player">
+              <form id="player-form">
+                <input class="input-small" type="text" name="name"/> - 
+                <input class="input-small" type="text" name="phone"/>
+              </form>
+            </div>
           </ol>
         </div>
       </ul>
     </div>
     <div class="sms-buttons">
-      <button class="btn btn-info btn-mini text-center" id="createSms">Group Text</button>
+      <button class="btn btn-info btn-danger text-center btn-small" id="createSms">Group Text</button>
       <div class="sms-form">
-        <span class="alert alert-warning sms-warning">NOTE: Message will be sent to entire roster</span>
+        <span class="alert alert-warning sms-warning">NOTE: Message will be sent to the entire roster</span>
         <button class="btn btn-success btn-mini" id="sendSms">Send</button>
         <button class="btn btn-danger btn-mini" id="cancelSms">Cancel</button>
         <textarea rows="3" cols="50" class="sms-input"/>

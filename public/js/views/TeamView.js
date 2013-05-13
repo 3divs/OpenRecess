@@ -1,27 +1,62 @@
 var TeamView = Marionette.ItemView.extend({
   model: Team,
   template: '#teamView-template',
-  className: 'team',
+  className: 'span5 team',
 
   events: {
     'click .name': 'showDetails',
     'click #createSms': 'showSmsForm',
     'click #sendSms': 'sendSms',
-    'click #cancelSms': 'cancelSms'
+    'click #cancelSms': 'cancelSms',
+    'click .fui-new-16': 'editRosterPlayer',
+    'click .fui-cross-16': 'deleteRosterPlayer',
+    'click #add-player': 'addRosterPlayer',
+    'keypress form': 'submitRosterPlayer'
   },
 
   initialize: function() {
-    // this.
+    this.transitionTime = 500;
+  },
+
+  addRosterPlayer: function() {
+    this.$('.new-roster-player').slideDown();
+  },
+
+  submitRosterPlayer: function(e) {
+    // Check whether enter was pressed
+    if(e.which === 13) {
+      this.$(e.target).closest('form').slideUp(this.transitionTime);
+      // Save data to model
+      // Re render model
+      // this.render();
+    }
+  },
+
+  editRosterPlayer: function(e) {
+    // Store temp local player names
+    var $node = $(e.target).closest('li.roster-player');
+    var name = $(e.target).data('name');
+    var phone = $(e.target).data('phone');
+
+    // Replace li with inline-form
+    var html = '<form><input class="input-small" type="text" name="name" value="' + name + '"/> - ' +
+               '<input class="input-small" type="text" name="phone" value="' + phone + '"/></form>';
+    $node.html(html);
+  },
+
+  deleteRosterPlayer: function(e) {
+    console.log(e.target);
+    $(e.target).closest('li.roster-player').fadeOut(this.transitionTime);
   },
 
   showSmsForm: function(e) {
     this.$('#createSms').hide();
-    this.$('.details').slideDown(500);
-    this.$('.sms-form').fadeIn(500);
+    this.$('.details').slideDown(this.transitionTime);
+    this.$('.sms-form').fadeIn(this.transitionTime);
   },
 
   hideSmsForm: function() {
-    this.$('.sms-form').fadeOut(500);
+    this.$('.sms-form').fadeOut(this.transitionTime);
     this.$('#createSms').show();
   },
 
@@ -35,12 +70,13 @@ var TeamView = Marionette.ItemView.extend({
 
   showDetails: function(e) {
     console.log('show details');
-    this.$('.details').slideToggle(500);
+    this.$('.details').slideToggle(this.transitionTime);
   },
 
   onRender: function() {
     // Hide the details
     this.$('.details').hide();
     this.$('.sms-form').hide();
+    this.$('.new-roster-player').hide();
   }
 });

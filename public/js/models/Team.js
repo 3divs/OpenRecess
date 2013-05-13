@@ -5,12 +5,24 @@ var Team = Backbone.Model.extend({
     name: 'Team Cool Guys',
     type: 'Soccer',
     players: [
-      {name: 'John', phone:'+1234567890'},
-      {name: 'Bob', phone:'+1234567890'},
-      {name: 'Mary', phone:'+1234567890'}
+      {name: 'John', phone:'+2345678901'},
+      {name: 'Bob', phone:'+3456789012'},
+      {name: 'Mary', phone:'+4567890123'}
     ],
     numOfPlayers: 3,
     managerId: '12345',
     managerName: 'Mark'
+  },
+
+  addRosterPlayer: function(name, phone) {
+
+  },
+
+  deleteRosterPlayer: function(name, phone) {
+
+  },
+
+  sendSms: function(msg) {
+    
   }
 });

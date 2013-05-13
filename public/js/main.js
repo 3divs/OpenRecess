@@ -71,10 +71,9 @@ var controller = {
   showTeams: function() {
     // if(ensureAuthenticated()) {
       var teams = new Teams();
-      var team1 = new Team();
-      var team2 = new Team();
-      teams.add(team1);
-      teams.add(team2);
+      for(var i = 0; i < 6; i++)
+        teams.add(new Team());
+
       App.mainRegion.show(new TeamsView({ collection: teams }));
     // } else
     //   App.router.navigate('login', true);
