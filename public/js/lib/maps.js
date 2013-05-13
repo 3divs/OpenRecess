@@ -47,30 +47,30 @@ function initialize(gameData) {
   gameData.on('sync', function(){
     for (var i = 0; i < gameData.length; i++) {
       createMarker = new google.maps.Marker({
-        title: gameData.at(i).get('gameName'),
         position: new google.maps.LatLng(gameData.at(i).get('coord').lat, gameData.at(i).get('coord').lon),
         map: map,
-        animation: google.maps.Animation.DROP,
-        min: gameData.at(i).get('minimumPlayers')
+        title: gameData.at(i).get('gameName'),
+        time: gameData.at(i).get('gameTime'),
+        date: gameData.at(i).get('gameDate'),
+        min: gameData.at(i).get('minimumPlayers'),
+        animation: google.maps.Animation.DROP
       });
-      makeInfoWindowEvent(map, infowindow, createMarker.title, createMarker);
+      var content = createMarker.title + ' At' + createMarker.time + ' on ' + createMarker.date + ' ' + createMarker.min;
+      makeInfoWindowEvent(map, infowindow, content, createMarker);
       markerArray.push(createMarker);
-      gameList.innerHTML += '<li data-id='
-        + createMarker.__gm_id
-        + '>'
-        + '<h4 class="todo-name">'
-        + createMarker.title + '</h4>'
-        + 'Need ' + createMarker.min
-        + ' to play' + '</li>';
+      gameList.innerHTML += '<li data-id=' + createMarker.__gm_id + '>' +
+        '<span class="gamelist-title todo-name">' + createMarker.title + '</span>' +
+        '<button class="btn-mini btn btn-danger">Join Game</button></li>';
     }
   });
 
   // Connect side-panel with events on the map
+  var holder;
   $('#results').on('click', 'li', function(){
     var getId = $(this).data("id");
     for (var i = 0; i < markerArray.length; i++) {
       if (getId === markerArray[i].__gm_id) {
-        var holder = markerArray[i];
+        holder = markerArray[i];
       }
     }
     infowindow.setContent(holder.title);
@@ -79,8 +79,10 @@ function initialize(gameData) {
 
   // Displays pop-up when marker is clicked
   var makeInfoWindowEvent = function(map, infowindow, contentString, marker) {
+    console.log(contentString);
     google.maps.event.addListener(marker, 'click', function() {
-      infowindow.setContent(contentString);
+      var html = '<div class="infobox">' + contentString + '</div>';
+      infowindow.setContent(html);
       infowindow.open(map, this);
     });
   };
