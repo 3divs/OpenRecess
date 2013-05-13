@@ -172,20 +172,24 @@ var placeMarker = function(location) {
   console.log('marker location: ' + marker.getPosition());
 };
 
+var loc = marker.getPosition();
+$('.lon').val(loc.lb);
+$('.lat').val(loc.kb);
+
 // Helper function to translate address to LatLng
 // Need to input #address
-// var codeAddress = function() {
-//   var address = '944 market st., san francisco, ca'
-//   // var address = document.getElementById("address").value;
-//   geocoder.geocode( { 'address': address}, function(results, status) {
-//     if (status == google.maps.GeocoderStatus.OK) {
-//       map.setCenter(results[0].geometry.location);
-//       var marker = new google.maps.Marker({
-//           map: map,
-//           position: results[0].geometry.location
-//       });
-//     } else {
-//       alert("Geocode was not successful for the following reason: " + status);
-//     }
-//   });
-// }
+var codeAddress = function() {
+  // var address = '944 market st., san francisco, ca'
+  var address = document.getElementById("address").value;
+  geocoder.geocode( { 'address': address}, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      map.setCenter(results[0].geometry.location);
+      var marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location
+      });
+    } else {
+      alert("Geocode was not successful for the following reason: " + status);
+    }
+  });
+};

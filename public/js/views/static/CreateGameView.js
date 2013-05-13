@@ -15,8 +15,6 @@ var CreateGameView = Marionette.ItemView.extend({
       $('.invitees').val(numberArray);
       $('.inviteeList').append('<div>+1 (' + value.slice(0,3) + ')' + ' ' + value.slice(3,6) + '-' + value.slice(6,10) + ' </div>');
     }
-
   }
-
 });
 
