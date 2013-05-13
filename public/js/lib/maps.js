@@ -37,14 +37,53 @@ function initialize(gameData) {
     handleNoGeolocation(false);
   }
 
-  // Creates a marker
+  // Creates a marker for games in database
   var infowindow = new google.maps.InfoWindow({map: map});
   var gameList = document.getElementById('places');
   gameData.on('sync', function() {
+
     if (!gameList) {
       // Adds marker on click only on Create Game
       google.maps.event.addListener(map, 'click', function(event) {
         placeMarker(event.latLng);
+      });
+
+      // add Search Box in Create Game section
+      var input = (document.getElementById('target'));
+      var searchBox = new google.maps.places.SearchBox(input);
+      var markers = [];
+      google.maps.event.addListener(searchBox, 'places_changed', function() {
+        var places = searchBox.getPlaces();
+        for (var i = 0, marker; marker = markers[i]; i++) {
+          marker.setMap(null);
+        }
+
+        markers = [];
+        var bounds = new google.maps.LatLngBounds();
+        for (var i = 0, place; place = places[i]; i++) {
+          var image = {
+            url: place.icon,
+            size: new google.maps.Size(71, 71),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17, 34),
+            scaledSize: new google.maps.Size(25, 25)
+          };
+
+          var marker = new google.maps.Marker({
+            map: map,
+            icon: image,
+            title: place.name,
+            position: place.geometry.location
+          });
+          markers.push(marker);
+          bounds.extend(place.geometry.location);
+        }
+        map.fitBounds(bounds);
+      });
+
+      google.maps.event.addListener(map, 'bounds_changed', function() {
+        var bounds = map.getBounds();
+        searchBox.setBounds(bounds);
       });
     }
     markerArray = [];
