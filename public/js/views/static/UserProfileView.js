@@ -7,6 +7,7 @@ var UserProfileView = Marionette.ItemView.extend({
   },
 
   updateUser: function(e) {
+    e.preventDefault();
     console.log('updating user');
   }
 });

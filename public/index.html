@@ -6,8 +6,7 @@
   <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/stylesheets/flat-ui.css">
   <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCedMF4wwQSrQDAw6nlYr7dS7ozhRSvYHQ&sensor=true"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCedMF4wwQSrQDAw6nlYr7dS7ozhRSvYHQ&sensor=false&libraries=places"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCedMF4wwQSrQDAw6nlYr7dS7ozhRSvYHQ&sensor=true&libraries=places"></script>
   <script type="text/javascript" src="/js/lib/maps.js"></script>
   <script type="text/javascript" src="/js/lib/jquery.js"></script>
   <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
@@ -213,7 +212,7 @@
       Location: <input type="textbox" name="gameLocation"></index>
       Number of Players needed: <input type="number" name="minimumPlayers"></input>
       Maximum Number of Players: <input type="number" name="PlayerLimit"></input>
-      Player Phone Numbers: (+1) <input type="textbox" class='players' name="players"></input><img src="..." class="icon-plus"><br>
+      Player Phone Numbers: (+1) <input type="textbox" class='players' name="players"></input><img class="icon-plus"><br>
       <input type='textbox' name='playerArray' class='invitees' style='display:none' ></input><div class='inviteeList'>Invited Players</div>
       <input type="submit"></input>
     </form>
@@ -243,36 +242,36 @@
           <div class="userProfile">
             <h3 class="text-center">Edit Profile</h3>
             <form class="form-horizontal">
-        <div class="control-group">
-          <div class="control-label" for="display_name">Full Name:</div>
-          <div class="controls">
-            <input class="input-field" type="text" name="display_name" value="<%= display_name %>" required></input>
-          </div>
-        </div>
-        <div class="control-group">
-          <div class="control-label" for="email">Email:</div>
-          <div class="controls">
-            <input class="input-field" type="text" name="email" value="<%= email %>" required/>
-          </div>
-        </div>
-        <div class="control-group">
-          <div class="control-label" for="inputPhone">Phone:</div>
-          <div class="controls">
-            <input class="input-field" type='tel' pattern='\d{10}' name="phone" value="<%= phone %>" required></input>
-          </div>
-        </div>
-        <div class="control-group">
-          <div class="control-label" for="inputPassword">Password: </div>
-          <div class="controls">
-            <input class="input-field" type="password" name="password" required placeholder="New Password"/>
-          </div>
-        </div>
-        <div class="control-group">
-          <div class="controls">
-            <button id="register" class="btn btn-primary">Register</button>
-          </div>
-        </div>
-      </form>
+              <div class="control-group">
+                <div class="control-label" for="display_name">Full Name:</div>
+                <div class="controls">
+                  <input class="input-field" type="text" name="display_name" value="<%= display_name %>" required></input>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="control-label" for="email">Email:</div>
+                <div class="controls">
+                  <input class="input-field" type="text" name="email" value="<%= email %>" required/>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="control-label" for="inputPhone">Phone:</div>
+                <div class="controls">
+                  <input class="input-field" type='tel' pattern='\d{10}' name="phone" value="<%= phone %>" required></input>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="control-label" for="inputPassword">Password: </div>
+                <div class="controls">
+                  <input class="input-field" type="password" name="password" required placeholder="New Password"/>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="controls">
+                  <button id="update" class="btn btn-primary">Update</button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
