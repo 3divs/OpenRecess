@@ -87,6 +87,9 @@
   <script type="text/template" id="layout-template">
     <div class="list-games">
       <div id='results' class="span3 todo mrm">
+        <div class="todo-search">
+          <input class="todo-search-field" type="search" value placeholder="Game Name">
+        </div>
         <ul id="places"></ul>
       </div>
       <div id="map-canvas" class="span9"></div>
@@ -237,6 +240,9 @@
 
   <script type="text/template" id="create-gameLayoutView">
     <div id="createGame"></div>
+    <div id="panel">
+      <input id="target" type="text" placeholder="Search Box">
+    </div>
     <div id="map-canvas"></div>
   </script>
 
@@ -264,36 +270,36 @@
           <div class="userProfile">
             <h3 class="text-center">Edit Profile</h3>
             <form class="form-horizontal">
-        <div class="control-group">
-          <div class="control-label" for="display_name">Full Name:</div>
-          <div class="controls">
-            <input class="input-field" type="text" name="display_name" value="<%= display_name %>" required></input>
-          </div>
-        </div>
-        <div class="control-group">
-          <div class="control-label" for="email">Email:</div>
-          <div class="controls">
-            <input class="input-field" type="text" name="email" value="<%= email %>" required/>
-          </div>
-        </div>
-        <div class="control-group">
-          <div class="control-label" for="inputPhone">Phone:</div>
-          <div class="controls">
-            <input class="input-field" type='tel' pattern='\d{10}' name="phone" value="<%= phone %>" required></input>
-          </div>
-        </div>
-        <div class="control-group">
-          <div class="control-label" for="inputPassword">Password: </div>
-          <div class="controls">
-            <input class="input-field" type="password" name="password" required placeholder="New Password"/>
-          </div>
-        </div>
-        <div class="control-group">
-          <div class="controls">
-            <button id="register" class="btn btn-primary">Register</button>
-          </div>
-        </div>
-      </form>
+              <div class="control-group">
+                <div class="control-label" for="display_name">Full Name:</div>
+                <div class="controls">
+                  <input class="input-field" type="text" name="display_name" value="<%= display_name %>" required></input>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="control-label" for="email">Email:</div>
+                <div class="controls">
+                  <input class="input-field" type="text" name="email" value="<%= email %>" required/>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="control-label" for="inputPhone">Phone:</div>
+                <div class="controls">
+                  <input class="input-field" type='tel' pattern='\d{10}' name="phone" value="<%= phone %>" required></input>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="control-label" for="inputPassword">Password: </div>
+                <div class="controls">
+                  <input class="input-field" type="password" name="password" required placeholder="New Password"/>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="controls">
+                  <button id="update" class="btn btn-primary">Update</button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>

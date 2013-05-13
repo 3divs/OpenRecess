@@ -39,11 +39,14 @@ var controller = {
 
   showCreateGame: function() {
     if(ensureAuthenticated()) {
+      var games = new Games();
+      games.fetch();
+
       var layout = new CreateGameLayoutView();
       App.mainRegion.show(layout);
       layout.gameCreate.show(new CreateGameView());
       layout.gmap.show(new MapsView());
-      initialize();
+      initialize(games);
     } else
       App.router.navigate('login', true);
   },
