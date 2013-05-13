@@ -25,7 +25,6 @@ var controller = {
     var layout = new GameLayoutView();
     App.mainRegion.show(layout);
     layout.gmap.show(new MapsView());
-    // layout.game.show(new GamesView({ collection: games }));
     initialize(games);
   },
   showSplash: function() {
@@ -34,7 +33,11 @@ var controller = {
 
   showCreateGame: function() {
     if(ensureAuthenticated()) {
-      App.mainRegion.show(new CreateGameView());
+      var layout = new CreateGameLayoutView();
+      App.mainRegion.show(layout);
+      layout.gameCreate.show(new CreateGameView());
+      layout.gmap.show(new MapsView());
+      initialize();
     } else
       App.router.navigate('login', true);
   },
