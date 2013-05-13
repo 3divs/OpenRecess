@@ -86,7 +86,7 @@ function initialize(gameData) {
         searchBox.setBounds(bounds);
       });
     }
-    markerArray = [];
+    // markerArray = [];
     for (var i = 0; i < gameData.length; i++) {
       var createMarker = new google.maps.Marker({
         position: new google.maps.LatLng(gameData.at(i).get('coord').lat, gameData.at(i).get('coord').lon),
@@ -112,10 +112,26 @@ function initialize(gameData) {
     for (var i = 0; i < markerArray.length; i++) {
       if (getId === markerArray[i].__gm_id) {
         holder = markerArray[i];
+        console.log(markerArray[0].title)
       }
     }
     infowindow.setContent(holder.title);
     infowindow.open(map, holder);
+  });
+
+  // Search Box in List Games
+  $('.todo-search-field').keypress(function (e) {
+    if (e.which == 13) {
+      var search = $('.todo-search-field').val();
+      for (var i = 0; i < markerArray.length; i++) {
+        if (search === markerArray[i].title) {
+          holder = markerArray[i];
+        }
+      }
+      infowindow.setContent(holder.title);
+      infowindow.open(map, holder);
+      return false;
+    }
   });
 
   // Displays pop-up when marker is clicked
