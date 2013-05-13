@@ -16,9 +16,9 @@ function initialize(gameData) {
     mapOptions);
 
   // Adds marker on click
-  google.maps.event.addListener(map, 'click', function(event) {
-    placeMarker(event.latLng);
-  });
+    google.maps.event.addListener(map, 'click', function(event) {
+      placeMarker(event.latLng);
+    });
 
   // Locates the user on the map
   if(navigator.geolocation) {
@@ -147,7 +147,7 @@ var handleNoGeolocation = function(errorFlag) {
 var placeMarker = function(location) {
   // Clears the marker (does not delete) from the map before placing the new marker
   clearMarker();
-  var marker = new google.maps.Marker({
+  marker = new google.maps.Marker({
     position: location,
     map: map
   });
