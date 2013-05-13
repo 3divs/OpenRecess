@@ -308,18 +308,30 @@
   </script>
 
   <script type="text/template" id="teamView-template">
-    <div class="team">
-      <div class="name"><h4><%= name %><h4></div>
-      <div class="details">
-        <ul>
-          <li><%= type %></li>
-          <li><%= managerName %></li>
+    <h4 class="name"><%= name + ' (' + type + ')' %></h4>
+    <div class="details">
+      <ul>
+        <li><span class="field">Manager: </span><span class="value"><%= managerName %></span></li>
+        <div class="roster">
+          <span class="roster">Roster:</span><span class="fui-plus-16"></span>
           <ol>
             <% _.each(players, function(player) { %>
-              <li><%= player.name %></li>
+              <li>
+                <span class="fui-menu-16"/><%= player.name + ' - ' + player.phone %>
+                <span class="fui-cross-16"></span>
+              </li>
             <% }); %>
           </ol>
-        </ul>
+        </div>
+      </ul>
+    </div>
+    <div class="sms-buttons">
+      <button class="btn btn-info btn-mini text-center" id="createSms">Group Text</button>
+      <div class="sms-form">
+        <span class="alert alert-warning sms-warning">NOTE: Message will be sent to entire roster</span>
+        <button class="btn btn-success btn-mini" id="sendSms">Send</button>
+        <button class="btn btn-danger btn-mini" id="cancelSms">Cancel</button>
+        <textarea rows="3" cols="50" class="sms-input"/>
       </div>
     </div>
   </script>
