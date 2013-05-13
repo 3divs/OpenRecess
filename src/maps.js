@@ -1,4 +1,3 @@
-
 // Displays and locates the user's location
 var geocoder;
 var map;

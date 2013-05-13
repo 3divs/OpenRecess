@@ -1,6 +1,7 @@
 // Displays and locates the user's location
 var geocoder;
 var map;
+var createMarker;;
 
 // Defaults to San Francisco
 var lat = 37.783;
@@ -16,9 +17,9 @@ function initialize(gameData) {
     mapOptions);
 
   // Adds marker on click
-  google.maps.event.addListener(map, 'click', function(event) {
-    placeMarker(event.latLng);
-  });
+  // google.maps.event.addListener(map, 'click', function(event) {
+  //   placeMarker(event.latLng);
+  // });
 
   // Locates the user on the map
   if(navigator.geolocation) {
@@ -41,7 +42,6 @@ function initialize(gameData) {
   }
 
   // Creates a marker
-  var createMarker;
   var infowindow = new google.maps.InfoWindow({map: map});
   var gameList = document.getElementById('places');
   gameData.on('sync', function(){
@@ -62,6 +62,12 @@ function initialize(gameData) {
         '<span class="gamelist-title todo-name">' + createMarker.title + '</span>' +
         '<button class="btn-mini btn btn-danger">Join Game</button></li>';
     }
+    console.log(createMarker);
+    if (!createMarker) {
+      google.maps.event.addListener(map, 'click', function(event) {
+        placeMarker(event.latLng);
+      });
+    }
   });
 
   // Connect side-panel with events on the map
@@ -79,7 +85,6 @@ function initialize(gameData) {
 
   // Displays pop-up when marker is clicked
   var makeInfoWindowEvent = function(map, infowindow, contentString, marker) {
-    console.log(contentString);
     google.maps.event.addListener(marker, 'click', function() {
       var html = '<div class="infobox">' + contentString + '</div>';
       infowindow.setContent(html);
@@ -87,15 +92,6 @@ function initialize(gameData) {
     });
   };
 
-  // Clear markers
-  var clearMarker = function() {
-    if (markerArray) {
-      for (var i = 0; i < markerArray.length; i++) {
-        markerArray[i].setMap(null);
-      }
-    markerArray = [];
-    }
-  };
   // Search Box
   // var input = (document.getElementById('target'));
   // var searchBox = new google.maps.places.SearchBox(input);
@@ -154,16 +150,27 @@ var handleNoGeolocation = function(errorFlag) {
 
 // If clicked, draws marker
 // Should be used for Create Game
-// var placeMarker = function(location) {
-//   // Clears the marker (does not delete) from the map before placing the new marker
-//   clearMarker();
-//   var marker = new google.maps.Marker({
-//     position: location,
-//     map: map
-//   });
-//   markerArray.push(marker);
-//   console.log('marker location: ' + marker.getPosition());
-// };
+
+// Clear markers
+var clearMarker = function() {
+  if (markerArray) {
+    for (var i = 0; i < markerArray.length; i++) {
+      markerArray[i].setMap(null);
+    }
+  markerArray = [];
+  }
+};
+
+var placeMarker = function(location) {
+  // Clears the marker (does not delete) from the map before placing the new marker
+  clearMarker();
+  var marker = new google.maps.Marker({
+    position: location,
+    map: map
+  });
+  markerArray.push(marker);
+  console.log('marker location: ' + marker.getPosition());
+};
 
 // Helper function to translate address to LatLng
 // Need to input #address
