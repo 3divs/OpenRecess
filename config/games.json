@@ -9,7 +9,7 @@
     "gameLocation": "Rucker Park",
     "gameTime": "1:00pm",
     "gameDate": "6/12/13",
-    "invitedPlayers": ["+17816401203","+15133074346"],
+    "invitedPlayers": ["ObjectId(5678)", "ObjectId(5678)"],
     "createdAt": "2013-05-01T10:00:11Z",
     "updatedAt": "2013-05-01T10:00:11Z",
     "coord" : {
@@ -25,7 +25,7 @@
     "minimumPlayers": 5,
     "playerLimit": 10,
     "gameTime": "Monday",
-    "invitedPlayers": ["+15133074346"],
+    "invitedPlayers": ["ObjectId(5678)"],
     "createdAt": "2013-05-01T12:00:11Z",
     "updatedAt": "2013-05-01T12:00:11Z",
     "coord" : {

@@ -1,0 +1,23 @@
+
+[
+  {
+    "_id": 11,
+    "name": "Spitball Wizards",
+    "manager": "ObjectId(1234)",
+    "roster": ["ObjectId(5678)", "ObjectId(5678)"],
+    "playerCount": 2,
+    "sports": ["baseball", "basketball"],
+    "createdAt": "2013-05-07T10:00:01Z",
+    "updatedAt": "2013-05-07T10:00:01Z"
+  },
+  {
+    "_id": 22,
+    "name": "3divs",
+    "manager": "ObjectId(5678)",
+    "roster": ["ObjectId(5678)"],
+    "playerCount": 1,
+    "sports": ["volleyball", "tag"],
+    "createdAt": "2013-05-08T11:00:11Z",
+    "updatedAt": "2013-05-08T11:00:11Z"
+  },
+];
