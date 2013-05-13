@@ -6,7 +6,11 @@
   <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/stylesheets/flat-ui.css">
   <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+<<<<<<< HEAD
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCedMF4wwQSrQDAw6nlYr7dS7ozhRSvYHQ&sensor=true&libraries=places"></script>
+=======
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCedMF4wwQSrQDAw6nlYr7dS7ozhRSvYHQ&sensor=false&libraries=places"></script>
+>>>>>>> e3a5b90bf2032c133306a99c7a109ebd8ba29331
   <script type="text/javascript" src="/js/lib/maps.js"></script>
   <script type="text/javascript" src="/js/lib/jquery.js"></script>
   <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
@@ -22,6 +26,7 @@
   <script type="text/javascript" src="/js/collections/Teams.js"></script>
 
   <!-- Static Views -->
+  <script type="text/javascript" src="/js/views/static/CreateGameLayoutView.js"></script>
   <script type="text/javascript" src="/js/views/static/GameLayoutView.js"></script>
   <script type="text/javascript" src="/js/views/static/UserProfileView.js"></script>
   <script type="text/javascript" src="/js/views/static/HeaderView.js"></script>
@@ -49,22 +54,32 @@
         <a class="btn btn-large btn-success" href="#register">Sign up today</a>
       </div>
     </div>
+  </div>
     <div class="row-fluid">
       <div class="span10 offset1">
         <div class="splash-steps">
           <div class="span4 step">
             <div class="step-inner">
-              <h3 class="text-center">Step 1</h3>
+              <h3 class="text-center">Sign Up</h3>
+              <div class="step-img">
+                <img src="images/illustrations/clipboard.png"/>
+              </div>
             </div>
           </div>
           <div class="span4 step">
             <div class="step-inner">
-              <h3 class="text-center">Step 2</h3>
+              <h3 class="text-center">Find Games</h3>
+              <div class="step-img">
+                <img src="images/illustrations/map.png"/>
+              </div>
             </div>
           </div>
           <div class="span4 step">
             <div class="step-inner">
-              <h3 class="text-center">Step 3</h3>
+              <h3 class="text-center">Get Notified</h3>
+              <div class="step-img">
+                <img src="images/notify.png"/>
+              </div>
             </div>
           </div>
         </div>
@@ -73,16 +88,12 @@
   </script>
 
   <script type="text/template" id="layout-template">
-  <div id='results' class="span3 todo mrm">
-    <ul id="places"></ul>
-  </div>
-  <!--
-   <div id="panel">
-    <input id="target"  class="todo-search" type="text" placeholder="Search Box">
-  </div>
-  //-->
-  <div id='game'></div>
-  <div id="map-canvas" class="span10"></div>
+    <div class="list-games">
+      <div id='results' class="span3 todo mrm">
+        <ul id="places"></ul>
+      </div>
+      <div id="map-canvas" class="span9"></div>
+    </div>
   </script>
 
   <script type="text/template" id="loginView-template">
@@ -204,18 +215,32 @@
 
   <script type="text/template" id="create-gameView-template">
     <h1>Create a New Game</h1>
-    <form action="/game" method="POST">
-      Game Name: <input type="textbox" name="gameName"></input>
-      Game Date: <input type="date" name="gameDate"></input>
-      Game Time: <input type="time" name="gameTime"></input>
-      Game Type: <input type="textbox" name="gameType"></input>
-      Location: <input type="textbox" name="gameLocation"></index>
-      Number of Players needed: <input type="number" name="minimumPlayers"></input>
-      Maximum Number of Players: <input type="number" name="PlayerLimit"></input>
-      Player Phone Numbers: (+1) <input type="textbox" class='players' name="players"></input><img class="icon-plus"><br>
-      <input type='textbox' name='playerArray' class='invitees' style='display:none' ></input><div class='inviteeList'>Invited Players</div>
+    <form action="/game" method="POST" class="span6">
+      Game Name: <input type="textbox" placeholder="Game Name" class="span3" name="gameName"></input><br>
+      Game Type: <select>
+                  <option>select a game</option>
+                  <option value="flag football">flag football</option>
+                  <option value="volleyball">volleyball</option>
+                  <option value="basketball">basketball</option>
+                  <option value="baseball">baseball</option>
+                  <option value="soccer">soccer</option>
+                  <option value="tag">tag</option>
+                </select><br>
+      Game Date: <input type="date" class="span3" name="gameDate"></input>
+      Game Time: <input type="time" class="span3" name="gameTime"></input><br>
+      Min. # of Players: <input type="number" class="span2" name="minimumPlayers"></input>
+      Max. Player #: <input type="number" class="span2" name="PlayerLimit"></input><br>
+      Player Phone Numbers: (+1) <input type="textbox" class='players span3' name="players"></input><img src="..." class="icon-plus"><br>
+      <input type='textbox' name='playerArray' class='invitees' style='display:none' ></input><div class='inviteeList span3'>Invited Players</div><br>
+      Lat: <input type='textbox' class='lat' name='latitude' style=''></input><br>
+      Long: <input type='textbox' class='lon' name='longitude' style=''></input>
       <input type="submit"></input>
     </form>
+  </script>
+
+  <script type="text/template" id="create-gameLayoutView">
+    <div id="createGame"></div>
+    <div id="map-canvas"></div>
   </script>
 
   <script type="text/template" id="show-mapView-template">
@@ -290,7 +315,7 @@
   </div>
   <div class="container-fluid">
     <div class="row-fluid">
-      <div class="span10 offset1">
+      <div class="span12">
         <div id="footer"></div>
       </div>
     </div>
