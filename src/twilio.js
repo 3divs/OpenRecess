@@ -30,28 +30,12 @@ exports.sendSMS = function(message, userNumber, twilioNumber, req, res) {
   });
 };
 
+// function that is run upon a Twilio POST request
 exports.retrieveSMS = function(req, res) {
   var textMessage = req.body.Body;
   var senderPhone = req.body.From;
   processRSVPs(textMessage, senderPhone);
-  res.send(200, ' thanks for your reply.');
-};
-
-// Packages msg content into [{dialedTo, sid, msgContent(body), date, direction}]
-var getSmsContent = function(data) {
-  var messageInfo = [];
-  __.each(data, function(item) {
-    if (item.direction === 'inbound') {
-      messageData = {
-        phone: item.from,
-        sid : item.sid,
-        body: item.body,
-        date: item.date_created
-      };
-      messageInfo.push(messageData);
-    }
-  });
-  return messageInfo;
+  res.send(200, ' Thanks for your reply. ~OpenRecess.com');
 };
 
 // Combine and merge all texts from the same phone number.
@@ -71,15 +55,22 @@ var processRSVPs = function(message, sender) {
     // append to the confirmedPlayers attribute of our Game document
 };
 
+// function that processes sms replies from users 
 var rsvpUser = function(digits, code){
+  var userID;
+
+  User.findOne({ phone: digits }, function(result) {
+    userID = result;
+  })
+
   Game.findOneAndUpdate( {
       gameCode : code,
       // gameTime: { $gt: Date.now },
-      invitedPlayers : digits
+      invitedPlayers : userID
     },
     {
-      $pull : { invitedPlayers : digits },
-      $push : { confirmedPlayers : digits },
+      $pull : { invitedPlayers : userID },
+      $push : { confirmedPlayers : userID },
       $inc : { confirmedPlayersCount : 1 }
     },
     function(err, thisGame){

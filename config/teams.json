@@ -5,7 +5,7 @@
     "name": "Spitball Wizards",
     "manager": "ObjectId(1234)",
     "roster": ["ObjectId(5678)", "ObjectId(5678)"],
-    "numberOfPlayers": 2,
+    "playerCount": 2,
     "sports": ["baseball", "basketball"],
     "createdAt": "2013-05-07T10:00:01Z",
     "updatedAt": "2013-05-07T10:00:01Z"
@@ -15,7 +15,7 @@
     "name": "3divs",
     "manager": "ObjectId(5678)",
     "roster": ["ObjectId(5678)"],
-    "numberOfPlayers": 1,
+    "playerCount": 1,
     "sports": ["volleyball", "tag"],
     "createdAt": "2013-05-08T11:00:11Z",
     "updatedAt": "2013-05-08T11:00:11Z"

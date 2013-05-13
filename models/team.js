@@ -12,8 +12,8 @@ var validatePresenceOf = function(value) {
 var TeamSchema = new mongoose.Schema({
   'name': { type: String, validate: [validatePresenceOf, 'please provide a team name'] },
   'manager': Schema.Types.ObjectId,
-  'roster': { type: [User], validate: [validatePresenceOf, 'you can\'t play alone']
-  'numberOfPlayers': Number,
+  'roster': { type: [User], validate: [validatePresenceOf, 'you can\'t play alone'] },
+  'playerCount': Number,
   'sports': [String],
   'games' : [Game],
   'createdAt': { type: Date, 'default': Date.now },
