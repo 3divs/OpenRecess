@@ -15,6 +15,7 @@ var TeamSchema = new mongoose.Schema({
   'roster': { type: [User], validate: [validatePresenceOf, 'you can\'t play alone']
   'numberOfPlayers': Number,
   'sports': [String],
+  'games' : [Game],
   'createdAt': { type: Date, 'default': Date.now },
   'updatedAt': Date
 });
@@ -25,7 +26,7 @@ TeamSchema.pre('save', function(next) {
   this.updatedAt = new Date();
 
   this.numberOfPlayers = this.roster.length;
-  
+
   next();
 });
 

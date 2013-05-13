@@ -2,6 +2,7 @@ var mongoose = require('mongoose'),
     moment = require('moment'),
     User = require('./user.js'),
     Message = require('./message.js'),
+    Team = require('./team.js'),
     Schema = mongoose.Schema;
 
 var validatePresenceOf = function(value) {
@@ -31,6 +32,7 @@ var GameSchema = new Schema({
   },
   'minimumPlayers': Number,
   'confirmedPlayers': Array,
+  'confirmedTeams': [Team],
   'confirmedPlayersCount' : Number,
   'playerLimit': Number,
   'minimumPlayersMet': Boolean,
