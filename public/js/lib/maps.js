@@ -16,9 +16,9 @@ function initialize(gameData) {
     mapOptions);
 
   // Adds marker on click
-  google.maps.event.addListener(map, 'click', function(event) {
-    placeMarker(event.latLng);
-  });
+    google.maps.event.addListener(map, 'click', function(event) {
+      placeMarker(event.latLng);
+    });
 
   // Locates the user on the map
   if(navigator.geolocation) {
@@ -87,15 +87,7 @@ function initialize(gameData) {
     });
   };
 
-  // Clear markers
-  var clearMarker = function() {
-    if (markerArray) {
-      for (var i = 0; i < markerArray.length; i++) {
-        markerArray[i].setMap(null);
-      }
-    markerArray = [];
-    }
-  };
+
   // Search Box
   // var input = (document.getElementById('target'));
   // var searchBox = new google.maps.places.SearchBox(input);
@@ -154,31 +146,41 @@ var handleNoGeolocation = function(errorFlag) {
 
 // If clicked, draws marker
 // Should be used for Create Game
-// var placeMarker = function(location) {
-//   // Clears the marker (does not delete) from the map before placing the new marker
-//   clearMarker();
-//   var marker = new google.maps.Marker({
-//     position: location,
-//     map: map
-//   });
-//   markerArray.push(marker);
-//   console.log('marker location: ' + marker.getPosition());
-// };
-
+var placeMarker = function(location) {
+  // Clears the marker (does not delete) from the map before placing the new marker
+  clearMarker();
+  marker = new google.maps.Marker({
+    position: location,
+    map: map
+  });
+  markerArray.push(marker);
+  var loc = marker.getPosition();
+  $('.lon').val(loc.lb);
+  $('.lat').val(loc.kb);
+};
+  // Clear markers
+  var clearMarker = function() {
+    if (markerArray) {
+      for (var i = 0; i < markerArray.length; i++) {
+        markerArray[i].setMap(null);
+      }
+    markerArray = [];
+    }
+  };
 // Helper function to translate address to LatLng
 // Need to input #address
-// var codeAddress = function() {
-//   var address = '944 market st., san francisco, ca'
-//   // var address = document.getElementById("address").value;
-//   geocoder.geocode( { 'address': address}, function(results, status) {
-//     if (status == google.maps.GeocoderStatus.OK) {
-//       map.setCenter(results[0].geometry.location);
-//       var marker = new google.maps.Marker({
-//           map: map,
-//           position: results[0].geometry.location
-//       });
-//     } else {
-//       alert("Geocode was not successful for the following reason: " + status);
-//     }
-//   });
-// }
+var codeAddress = function() {
+  // var address = '944 market st., san francisco, ca'
+  var address = document.getElementById("address").value;
+  geocoder.geocode( { 'address': address}, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      map.setCenter(results[0].geometry.location);
+      var marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location
+      });
+    } else {
+      alert("Geocode was not successful for the following reason: " + status);
+    }
+  });
+};
