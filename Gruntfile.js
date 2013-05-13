@@ -19,6 +19,9 @@ module.exports = function(grunt) {
       },
       games: {
         cmd: 'mongoimport --jsonArray --drop --upsert --port 17017 --db openRecess --collection games --file ./config/games.json'
+      },
+      teams: {
+        cmd: 'mongoimport --jsonArray --drop --upsert --port 17017 --db openRecess --collection teams --file ./config/teams.json'
       }
     }
   });
