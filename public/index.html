@@ -13,6 +13,7 @@
   <script type="text/javascript" src="/js/lib/underscore.js"></script>
   <script type="text/javascript" src="/js/lib/backbone.js"></script>
   <script type="text/javascript" src="/js/lib/backbone.marionette/backbone.marionette.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
   <!-- Models -->
   <script type="text/javascript" src="/js/models/User.js"></script>
@@ -280,6 +281,30 @@
       </form>
           </div>
         </div>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/template" id="teamsView-template">
+    <div class="span10 offset1">
+      <h1 class="text-center">My Teams</h1>
+      <div class="teams" id="teams"></div>
+    </div>
+  </script>
+
+  <script type="text/template" id="teamView-template">
+    <div class="team">
+      <div class="name"><h4><%= name %><h4></div>
+      <div class="details">
+        <ul>
+          <li><%= type %></li>
+          <li><%= managerName %></li>
+          <ol>
+            <% _.each(players, function(player) { %>
+              <li><%= player.name %></li>
+            <% }); %>
+          </ol>
+        </ul>
       </div>
     </div>
   </script>

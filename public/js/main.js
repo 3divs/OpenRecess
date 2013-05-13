@@ -7,6 +7,12 @@ App.addRegions({
   footerRegion: '#footer'
 });
 
+// App.mainRegion.open = function(view){
+//   this.$el.hide("slide", { direction: "left" }, 1000);
+//   this.$el.html(view.el);
+//   this.$el.animate.show("slide", { direction: "left" }, 1000);
+// };
+
 var ensureAuthenticated = function() {
   return App.currentUser && App.currentUser.get('email');
 };
@@ -57,10 +63,15 @@ var controller = {
   },
 
   showTeams: function() {
-    if(ensureAuthenticated()) {
-      App.mainRegion.show();
-    } else
-      App.router.navigate('login', true);
+    // if(ensureAuthenticated()) {
+      var teams = new Teams();
+      var team1 = new Team();
+      var team2 = new Team();
+      teams.add(team1);
+      teams.add(team2);
+      App.mainRegion.show(new TeamsView({ collection: teams }));
+    // } else
+    //   App.router.navigate('login', true);
   }
 };
 
