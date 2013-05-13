@@ -1,7 +1,8 @@
 // Displays and locates the user's location
 var geocoder;
 var map;
-var createMarker;;
+var createMarker;
+
 
 // Defaults to San Francisco
 var lat = 37.783;
@@ -15,11 +16,6 @@ function initialize(gameData) {
   };
   map = new google.maps.Map(document.getElementById('map-canvas'),
     mapOptions);
-
-  // Adds marker on click
-  // google.maps.event.addListener(map, 'click', function(event) {
-  //   placeMarker(event.latLng);
-  // });
 
   // Locates the user on the map
   if(navigator.geolocation) {
@@ -44,9 +40,16 @@ function initialize(gameData) {
   // Creates a marker
   var infowindow = new google.maps.InfoWindow({map: map});
   var gameList = document.getElementById('places');
-  gameData.on('sync', function(){
+  gameData.on('sync', function() {
+    if (!gameList) {
+      // Adds marker on click only on Create Game
+      google.maps.event.addListener(map, 'click', function(event) {
+        placeMarker(event.latLng);
+      });
+    }
+    markerArray = [];
     for (var i = 0; i < gameData.length; i++) {
-      createMarker = new google.maps.Marker({
+      var createMarker = new google.maps.Marker({
         position: new google.maps.LatLng(gameData.at(i).get('coord').lat, gameData.at(i).get('coord').lon),
         map: map,
         title: gameData.at(i).get('gameName'),
@@ -62,14 +65,7 @@ function initialize(gameData) {
         '<span class="gamelist-title todo-name">' + createMarker.title + '</span>' +
         '<button class="btn-mini btn btn-danger">Join Game</button></li>';
     }
-    console.log(createMarker);
-    if (!createMarker) {
-      google.maps.event.addListener(map, 'click', function(event) {
-        placeMarker(event.latLng);
-      });
-    }
   });
-
   // Connect side-panel with events on the map
   var holder;
   $('#results').on('click', 'li', function(){
@@ -129,7 +125,7 @@ function initialize(gameData) {
   //   var bounds = map.getBounds();
   //   searchBox.setBounds(bounds);
   // });
-}
+};
 
 var handleNoGeolocation = function(errorFlag) {
   if (errorFlag) {
@@ -172,9 +168,9 @@ var placeMarker = function(location) {
   console.log('marker location: ' + marker.getPosition());
 };
 
-var loc = marker.getPosition();
-$('.lon').val(loc.lb);
-$('.lat').val(loc.kb);
+// var loc = marker.getPosition();
+// $('.lon').val(loc.lb);
+// $('.lat').val(loc.kb);
 
 // Helper function to translate address to LatLng
 // Need to input #address
