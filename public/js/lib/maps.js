@@ -12,7 +12,8 @@ var markerArray = [];
 function initialize(gameData) {
   var mapOptions = {
     zoom: 12,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    styles: style
   };
   map = new google.maps.Map(document.getElementById('map-canvas'),
     mapOptions);
@@ -246,3 +247,10 @@ var codeAddress = function() {
     }
   });
 };
+
+var style = [{
+  stylers: [
+    { hue: "#00ffe6"},
+    { lightness: 10 }
+  ]
+}];
