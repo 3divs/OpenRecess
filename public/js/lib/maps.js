@@ -120,11 +120,15 @@ function initialize(gameData) {
   });
 
   $('#places').on('click', '.btn-mini', function () {
-    var phone = App.currentUser.attributes.phone;
-    User.find({ phone : phone }, function (err, results) {
-      if (err) throw err;
-      console.log(results);
-    });
+    if (App.currentUser.attributes.phone.length > 0) {
+      var phone = App.currentUser.attributes.phone;
+      User.find({ phone : phone }, function (err, results) {
+        if (err) throw err;
+        console.log(results);
+    } else {
+      // direct user to login or create an account...
+    }
+
   });
 
   // Search Box in List Games
