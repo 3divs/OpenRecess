@@ -298,9 +298,18 @@ display
 .todo-search-field {
   overflow: scroll;
   font-size: 105%;
+  width: 150px;
 }
 .infobox-wrapper {
   display: none;
+}
+#showMore {
+  color: #000;
+  font-weight: 700;
+  font-family: "Lato", sans-serif;
+  margin-top: 12px;
+  border: solid 1px #357d94;
+  box-shadow: 1px 1px 1px #357d94;
 }
 #infobox {
   border: 5px solid #000;
