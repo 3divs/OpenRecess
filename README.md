@@ -3,7 +3,7 @@ OpenRecess
 
 Remember recess?  Kids play everyday, but few adults find time for fun and games together. OpenRecess is here to help. Join on-demand soccer, baseball, volleyball, doubles tennis, tag or any game you can imagine.  What are you playing?
 
-To help managers and players, OpenRecess allows easy RSVPs and notifications via text messaging. Here is a brief overview of our project:
+OpenRecess facilitates game management with easy sign-up and text message notifications. Below is a brief overview of the project:
 
 1. Create a public or private game
 1. Add phone numbers for friends you want to invite or open enrollment to anyone
