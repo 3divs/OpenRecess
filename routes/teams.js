@@ -38,9 +38,9 @@ module.exports = {
   },
 
   findTeams: function(req, res) {
-    // console.log('Getting teams for user: ', req.user.email);
-    // Team.find({managerEmail: req.user.email}, function(err, results) {
-    Team.find({}, function(err, results) {
+    console.log('Getting teams for user: ', req.user.email);
+    Team.find({managerEmail: req.user.email}, function(err, results) {
+    // Team.find({}, function(err, results) {
       if(err)
         res.json(400, err.err);
       else {

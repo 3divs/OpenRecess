@@ -69,19 +69,19 @@ var controller = {
   },
 
   showManage: function() {
-    // if(ensureAuthenticated()) {
+    if(ensureAuthenticated()) {
       var manageView = new ManageLayoutView();
       var teams = new Teams();
       var games = new Games();
       teams.fetch();
       games.fetch();
-      // games.getMyGames();
+      // games.getMyGames();  // TODO: call this instead of games.fetch()
 
       App.mainRegion.show(manageView);
       manageView.myGames.show(new GamesView({ collection: games }));
       manageView.myTeams.show(new TeamsView({ collection: teams }));
-    // } else
-      // App.router.navigate('login', true);
+    } else
+      App.router.navigate('login', true);
   }
 };
 
