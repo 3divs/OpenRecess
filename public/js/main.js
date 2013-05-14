@@ -71,8 +71,6 @@ var controller = {
   showTeams: function() {
     if(ensureAuthenticated()) {
       var teams = new Teams();
-      // for(var i = 0; i < 6; i++)
-      //   teams.add(new Team());
       teams.fetch();
 
       App.mainRegion.show(new TeamsView({ collection: teams }));

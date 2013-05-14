@@ -362,16 +362,16 @@
       <ul>
         <li><span class="field">Manager: </span><span class="value"><%= managerName %></span></li>
         <div class="roster">
-          <span class="roster">Roster (<%= rosterCount %>):</span>
+          <span class="field">Roster:</span>
           <div class="add-roster-player">
             <button id="add-player" class="btn btn-info btn-mini"><span class="fui-plus-16"></span>Add</button>
           </div>
           <ol>
             <% _.each(roster, function(player) { %>
               <li class="roster-player">
-                <%= player.name + ' - ' + player.phone %>
                 <span class="fui-new-16" data-phone="<%= player.phone %>" data-name="<%= player.name %>"/>
                 <span class="fui-cross-16" data-phone="<%= player.phone %>" data-name="<%= player.name %>"/>
+                <%= player.name + ' - ' + player.phone %>
               </li>
             <% }); %>
             <div class="new-roster-player">
