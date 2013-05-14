@@ -139,8 +139,9 @@ function initialize(gameData) {
           holder = markerArray[i];
         }
       }
-      infowindow.setContent(holder.title);
-      infowindow.open(map, holder);
+      boxText.innerHTML = holder.title;
+      ib.open(map, holder);
+
       $('.todo-search-field').val("");
       return false;
     }

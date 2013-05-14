@@ -350,4 +350,13 @@ display
 }
 #target:hover {
   opacity: 1;
+  border: 2px solid #000;
+}
+.login-form {
+  margin-top: 10em;
+  background-color: #a2a2a2;
+  color: #fff;
+  text-align: center;
+  width: 39em;
+  margin-left: 25em;
 }
