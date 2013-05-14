@@ -95,16 +95,27 @@ function initialize(gameData) {
         time: gameData.at(i).get('gameTime'),
         date: gameData.at(i).get('gameDate'),
         min: gameData.at(i).get('minimumPlayers'),
+        code: gameData.at(i).get('gameCode'),
         animation: google.maps.Animation.DROP
       });
-      var content = createMarker.title + ' At' + createMarker.time + ' on ' + createMarker.date + ' ' + createMarker.min;
+      var content = createMarker.title;
       makeInfoWindowEvent(map, infowindow, content, createMarker);
       markerArray.push(createMarker);
       gameList.innerHTML += '<li data-id=' + createMarker.__gm_id + '>' +
         '<span class="gamelist-title todo-name">' + createMarker.title + '</span>' +
-        '<button class="btn-mini btn btn-danger">Join Game</button></li>';
+        '<button class="btn-mini btn btn-danger" data-code=' + createMarker.code +'>Join Game</button></li>';
     }
   });
+
+  var step = 100;
+  var scrolling = false;
+  $("#showMore").bind("click", function(event) {
+    event.preventDefault();
+    $("#places").animate({
+        scrollTop: "+=" + step + "px"
+    });
+  });
+
   // Connect side-panel with events on the map
   var holder;
   $('#results').on('click', 'li', function(){
@@ -112,11 +123,36 @@ function initialize(gameData) {
     for (var i = 0; i < markerArray.length; i++) {
       if (getId === markerArray[i].__gm_id) {
         holder = markerArray[i];
-        console.log(markerArray[0].title)
+        console.log(markerArray[0].title);
       }
     }
     infowindow.setContent(holder.title);
     infowindow.open(map, holder);
+  });
+
+  $('#places').one('click', '.btn-mini', function (e) {
+    var code = $(this).data().code;
+    var phone = App.currentUser.attributes.phone;
+    if (App.currentUser.attributes.phone) {
+      phone.length === 10 ? phone = '+1' + phone : phone = phone;
+      $.ajax({
+        url: '/game',
+        contentType: 'application/json',
+        type: 'PUT',
+        data: JSON.stringify({
+          code: code,
+          phone: phone
+        }),
+        dataType: 'json',
+        error: function(error) { alert(error); },
+        success: function() {
+          $(e.target).closest('button').text('Joined').css('background-color','green');
+        }
+      });
+    } else {
+      App.currentUser.trigger('redirectLogin');
+    }
+
   });
 
   // Search Box in List Games
@@ -223,11 +259,12 @@ var placeMarker = function(location) {
   });
   markerArray.push(marker);
   console.log('marker location: ' + marker.getPosition());
+  var loc = marker.getPosition();
+  $('.lon').val(loc.lb);
+  $('.lat').val(loc.kb);
 };
 
-// var loc = marker.getPosition();
-// $('.lon').val(loc.lb);
-// $('.lat').val(loc.kb);
+
 
 // Helper function to translate address to LatLng
 // Need to input #address

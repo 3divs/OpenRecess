@@ -44,6 +44,7 @@ var processRSVPs = function(message, sender) {
   var code = message.slice(position - 3, position);
   if (message.indexOf('#y') !== -1) {
     console.log('hell yes');
+    console.log(sender, code);
     rsvpUser(sender, code);
   }
   else if (message.indexOf('#n') !== -1) {
@@ -55,30 +56,24 @@ var processRSVPs = function(message, sender) {
     // append to the confirmedPlayers attribute of our Game document
 };
 
-// function that processes sms replies from users 
+// function that processes sms replies from users
 var rsvpUser = function(digits, code){
-  var userID;
-
-  User.findOne({ phone: digits }, function(result) {
-    userID = result;
-  })
-
   Game.findOneAndUpdate( {
       gameCode : code,
       // gameTime: { $gt: Date.now },
-      invitedPlayers : userID
+      invitedPlayers : digits
     },
     {
-      $pull : { invitedPlayers : userID },
-      $push : { confirmedPlayers : userID },
+      $pull : { invitedPlayers : digits },
+      $push : { confirmedPlayers : digits },
       $inc : { confirmedPlayersCount : 1 }
     },
     function(err, thisGame){
       if(err) throw 'wtf?';
       if (!thisGame) {
-        exports.sendSMS('Thanks for the message, but it looks like you\'ve already RSVP\'d to this game. ~OpenRecess.com.', digits, twilioPhoneNumber);
+        exports.sendSMS('Thanks for the message. Either you already RSVP\'d to this game or you aren\'t authorized to join. ~OpenRecess.com.', digits, twilioPhoneNumber);
       } else {
-        exports.sendSMS('Game on for ' + thisGame.gameType + '#' + thisGame.gameCode + ' on ' + thisGame.gameDate + ' at ' + thisGame.gameTime + '. Stay tuned for more text message updates.', digits, twilioPhoneNumber);        
+        exports.sendSMS('Game on for ' + thisGame.gameType + '#' + thisGame.gameCode + ' on ' + thisGame.gameDate + ' at ' + thisGame.gameTime + '. Stay tuned for more text message updates.', digits, twilioPhoneNumber);
       }
     }
   );

@@ -45,9 +45,9 @@ div.main-content
   text-align: center
 
 #header-inner
-  border-bottom-left-radius: 25px;
-  border-bottom-right-radius: 25px;
-  box-shadow: 0px -4px 8px $green inset;
+  border-bottom-left-radius: 25px
+  border-bottom-right-radius: 25px
+  box-shadow: 0px -4px 8px $green inset
 
 .dropdown-menu .signin-button
   width: 96%
@@ -143,6 +143,12 @@ div.footer ul
 div.footer li a
   margin-left: 20px
 
+/* Create Games */
+.createformtitle
+  margin: 10px
+.formrow
+  height: 100px
+  
 /* Games */
 .game
   span
@@ -174,22 +180,26 @@ div.footer li a
     max-width: inherit
 
 #results
-  font-family: Arial, Helvetica, sans-serif;
-  height: auto;
-  padding: 5px;
-  border: 1px solid #999;
-  background: $green;
+  font-family: Arial, Helvetica, sans-serif
+  height: 398px
+  padding: 5px
+  border: 1px solid #999
+  background: $green
 
 #results li:hover
   color: $green
   font-weight: bold
+
+#places
+  height: 250px
+  overflow: scroll
 
 .list-games
   margin-top: 15px
 
 .infobox
   background-color: #1abc9c
-  border-radius: 10px;
+  border-radius: 10px
 
 .todo
   li
@@ -204,25 +214,95 @@ div.footer li a
     color: $green
 
 /* Teams */
+.team-page
+  position: relative
+  #createTeam
+    float: right
+    position: absolute
+    top: 0
+    right: 0
+    margin-top: 15px
+    span
+      padding-right: 2px
+
+.teams
+  .team:first-child
+    margin-left: 2.127659574468085%
+
 .team
-  display: inline-block
   vertical-align: top
   background-color: #2c3e50
   border-radius: 8px 8px 6px 6px
   color: white
+  margin: 0
   margin-bottom: 20px
-  padding: 5px;
-  margin: 5px;
-  border: 5px solid $green;
+  padding: 5px
+  border: 5px solid $green
+  .field, .value
+    font-size: 80%
+  .title
+    position: relative
+  .roster
+    background-color: rgba(111, 138, 165, 0.83);
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 80%;
+    border: 2px solid $green;
+  .team-caret
+    background: #2C3E44 url("../images/select/toggle.png") no-repeat right center
+    border-left: 2px solid rgba(52, 73, 94, 0.15)
+    border-radius: 0 6px 6px 0
+    height: 100%
+    position: absolute
+    top: 0
+    width: 42px
+    -webkit-transition: 0.25s
+    -moz-transition: 0.25s
+    -o-transition: 0.25s
+    transition: 0.25s
+    -webkit-backface-visibility: hidden
+  .name
+    display: inline-block
+  #deleteTeam
+    float: right
+    span
+      padding-right
+  input
+      padding: 0
   li
     list-style: none
-  .sms-buttons button
+  button
     font-size: 80%
   .sms-warning
     display: block
     text-align: center
     font-size: 65%
     width: 75%
-    margin: auto;
+    margin: auto
     margin-bottom: 5px
+  .add-roster-player
+    float: right
+    span.fui-plus-16
+      margin-right: 2px
 
+.todo-search-field
+  overflow: scroll
+  font-size: 105%
+
+.infobox-wrapper
+    display:none
+
+#infobox
+    border:5px solid black
+    margin-top: 8px
+    background:#333
+    color:#FFF
+    font-family:Arial, Helvetica, sans-serif
+    font-size:12px
+    padding: .5em 1em
+    -webkit-border-radius: 2px
+    -moz-border-radius: 2px
+    border-radius: 2px
+    text-shadow:0 -1px #000000
+    -webkit-box-shadow: 0 0  8px #000
+    box-shadow: 0 0 8px #000

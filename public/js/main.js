@@ -69,20 +69,19 @@ var controller = {
   },
 
   showTeams: function() {
-    // if(ensureAuthenticated()) {
+    if(ensureAuthenticated()) {
       var teams = new Teams();
-      var team1 = new Team();
-      var team2 = new Team();
-      teams.add(team1);
-      teams.add(team2);
+      teams.fetch();
+
       App.mainRegion.show(new TeamsView({ collection: teams }));
-    // } else
-    //   App.router.navigate('login', true);
+    } else
+      App.router.navigate('login', true);
   }
 };
 
 var Router = Marionette.AppRouter.extend({
   appRoutes: {
+    '':             'showSplash',
     'games':        'showGames',
     'splash':       'showSplash',
     'game':         'showCreateGame',
@@ -101,12 +100,17 @@ App.addInitializer(function() {
   App.currentUser = App.currentUser || new User();
   App.headerRegion.show(new HeaderView({ model: App.currentUser }));
   // App.mainRegion.show(new GamesView({ collection: games }));
-  App.footerRegion.show(new FooterView());
+  // App.footerRegion.show(new FooterView());
   App.router = new Router();
   App.currentUser.on('redirectSplash', function() {
     App.router.navigate('splash', true);
   });
+
+  App.currentUser.on('redirectLogin', function() {
+    App.router.navigate('login', true);
+  });
 });
+
 
 App.on('initialize:after', function() {
   if(Backbone.history) {

@@ -44,7 +44,6 @@ var User = Backbone.Model.extend({
   },
 
   parse: function(data) {
-    console.log('user data: ', data);
     return data;
   },
 
