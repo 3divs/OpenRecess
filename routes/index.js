@@ -70,15 +70,8 @@ module.exports = function(app){
   app.post('/game', function(req, res, next) {
     // possible collision alert!: this generates a random 3 digit code for every game:
     var temp = Math.floor(Math.random() * 1000);
-    var invitedPlayerNumbers = req.body.playerArray.split(',');
-    var invitedPlayerArray = [];
-    for (i = 0; i < invitedPlayerNumbers.length; i++) {
-      User.findOne({ phone: invitedPlayerNumbers[i] }, function(result) {
-        invitedPlayerArray.push(result._id);
-      });
-    }   
     newGame = new Game({
-      invitedPlayers: invitedPlayerArray,
+      invitedPlayers: req.body.playerArray.split(','),
       manager: req.user._id,
       gameCode : temp,
       gameDate : req.body.gameDate,
@@ -126,7 +119,7 @@ var twilioPhoneNumber = '+14159928245';
         throw error; // we need a 404 error page to serve if game and user ID don't exist...
       if(!game) return res.send(404);
       console.log('game', game);
-      console.log('phone numbers', game.invitedPlayers[0].phone);
+      console.log('phone numbers', game.invitedPlayers);
       var gameMessage = game.manager + ' wants you to play ' +
         game.gameType + " on " + game.gameTime + " at " +
         game.gameLocation + '. Reply ' + game.gameCode +
@@ -135,8 +128,8 @@ var twilioPhoneNumber = '+14159928245';
           gameMessage = gameMessage + ' ~OpenRecess.com';
         }
       for (var i = 0; i < game.invitedPlayers.length; i++){
-        console.log(gameMessage, game.invitedPlayers[i].phone, twilioPhoneNumber);
-        twil.sendSMS(gameMessage, game.invitedPlayers[i].phone, twilioPhoneNumber, req, res);
+        console.log(gameMessage, game.invitedPlayers[i], twilioPhoneNumber);
+        twil.sendSMS(gameMessage, game.invitedPlayers[i], twilioPhoneNumber, req, res);
         // Add to message database a item with requester, number sent to, message, messageSID, event
       }
     });
