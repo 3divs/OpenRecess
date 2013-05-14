@@ -4,18 +4,28 @@ var TeamView = Marionette.ItemView.extend({
   className: 'span5 team',
 
   events: {
-    'click .name': 'showDetails',
+    'click .title': 'showDetails',
     'click #createSms': 'showSmsForm',
     'click #sendSms': 'sendSms',
     'click #cancelSms': 'cancelSms',
     'click .fui-new-16': 'editRosterPlayer',
     'click .fui-cross-16': 'deleteRosterPlayer',
     'click #add-player': 'addRosterPlayer',
-    'keypress form': 'submitRosterPlayer'
+    'keypress form': 'submitRosterPlayer',
+    'click #deleteTeam': 'deleteTeam'
   },
 
   initialize: function() {
     this.transitionTime = 500;
+  },
+
+  deleteTeam: function() {
+    var that = this;
+    if(confirm('Delete Team. Are you sure?')) {
+      this.$el.fadeOut(this.transitionTime, function() {
+        that.model.destroy();
+      });
+    }
   },
 
   addRosterPlayer: function() {

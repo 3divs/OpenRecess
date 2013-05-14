@@ -228,8 +228,29 @@ div.footer li a
   margin-bottom: 20px
   padding: 5px;
   border: 5px solid $green;
+  .title
+    position: relative
+  .team-caret
+    background: #2C3E44 url("../images/select/toggle.png") no-repeat right center;
+    border-left: 2px solid rgba(52, 73, 94, 0.15);
+    border-radius: 0 6px 6px 0;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 42px;
+    -webkit-transition: 0.25s;
+    -moz-transition: 0.25s;
+    -o-transition: 0.25s;
+    transition: 0.25s;
+    -webkit-backface-visibility: hidden;
+  .name
+    display: inline-block
+  #deleteTeam
+    float: right
+    span
+      padding-right
   input
-    padding: 0
+      padding: 0
   li
     list-style: none
   button
