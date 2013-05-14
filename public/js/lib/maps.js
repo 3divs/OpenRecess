@@ -95,14 +95,15 @@ function initialize(gameData) {
         time: gameData.at(i).get('gameTime'),
         date: gameData.at(i).get('gameDate'),
         min: gameData.at(i).get('minimumPlayers'),
+        code: gameData.at(i).get('gameCode'),
         animation: google.maps.Animation.DROP
       });
-      var content = createMarker.title + ' At' + createMarker.time + ' on ' + createMarker.date + ' ' + createMarker.min;
+      var content = createMarker.title;
       makeInfoWindowEvent(map, infowindow, content, createMarker);
       markerArray.push(createMarker);
       gameList.innerHTML += '<li data-id=' + createMarker.__gm_id + '>' +
         '<span class="gamelist-title todo-name">' + createMarker.title + '</span>' +
-        '<button class="btn-mini btn btn-danger">Join Game</button></li>';
+        '<button class="btn-mini btn btn-danger" data-code=' + createMarker.code +'>Join Game</button></li>';
     }
   });
   // Connect side-panel with events on the map
@@ -120,13 +121,26 @@ function initialize(gameData) {
   });
 
   $('#places').on('click', '.btn-mini', function () {
-    if (App.currentUser.attributes.phone.length > 0) {
-      var phone = App.currentUser.attributes.phone;
-      User.find({ phone : phone }, function (err, results) {
-        if (err) throw err;
-        console.log(results);
+    var code = $(this).data().code;
+    if (App.currentUser.attributes.phone) {
+      $.ajax({
+        url: '/game',
+        contentType: 'application/json',
+        type: 'PUT',
+        data: JSON.stringify({
+          code: code,
+          phone: App.currentUser.attributes.phone
+        }),
+        dataType: 'json',
+        error: function(error) { alert(error); },
+        success: function() { console.log("So it is written!"); }
+      });
+    //   User.find({ phone : phone }, function (err, results) {
+    //     if (err) throw err;
+    //     console.log(results);
+    //   });
     } else {
-      // direct user to login or create an account...
+      console.log('User issue');
     }
 
   });

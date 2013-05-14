@@ -2,7 +2,6 @@ var passport = require('passport'),
     twil = require('../src/twilio.js'),
     mongoose = require('mongoose'),
     users = require('./users.js');
-    // teams = require('./teams.js');
 
 module.exports = function(app){
   var db = app.set('db');
@@ -45,7 +44,7 @@ module.exports = function(app){
   app.put('/users', users.updateUser);
   app.delete('/users/:id', users.deleteUser);
 
-  app.get('/user/current', function(req, res) {
+  app.get('/user/current', function(req, res ,next){
     if(req.user) {
       // Return subset of fields
       var user = {};
@@ -61,16 +60,6 @@ module.exports = function(app){
     // req.logout()
     res.redirect('/');
   });
-
-  /***********
-  *** TEAM ***
-  ***********/
-
-  // app.get('/teams', teams.findTeams);
-
-  /***********
-  *** GAME ***
-  ***********/
 
   // app.get('/game', ensureAuthenticated, function(req, res, next) {
   app.get('/game', function(req, res, next) {
@@ -98,16 +87,14 @@ module.exports = function(app){
     res.redirect('/games');
   });
 
-  app.put('/games', function(req, res, next){
-    console.log('the res', res.JSON);
+  app.put('/game', function(req, res, next){
+    console.log('the req', req.body);
     // res.json(200, 'Update stub');
-    var code = res.body.value; //  change this...
-    var digits = res.body.phone; // change this too...
+    var code = req.body.code; //  change this...
+    var digits = req.body.phone; // change this too...
     Game.findOneAndUpdate(
     {
-      gameCode : code,
-      // gameTime: { $gt: Date.now },
-      invitedPlayers : digits
+      gameCode : code
     },
     {
       $push : { confirmedPlayers : digits },
@@ -115,10 +102,9 @@ module.exports = function(app){
     },
     function(err, thisGame){
       if(err) throw 'wtf?';
-      exports.sendSMS('Game on for ' + thisGame.gameType + '#' + thisGame.gameCode + ' on ' + thisGame.gameDate + ' at ' + thisGame.gameTime + '. Stay tuned for more text message updates.', digits, twilioPhoneNumber);
-    }
-  );
-
+      // exports.sendSMS('Game on for ' + thisGame.gameType + '#' + thisGame.gameCode + ' on ' + thisGame.gameDate + ' at ' + thisGame.gameTime + '. Stay tuned for more text message updates.', digits, twilioPhoneNumber);
+    });
+    res.json(200, 'Done and done');
   });
 
   app.get('/games', function(req, res, next) {
