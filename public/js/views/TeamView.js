@@ -56,7 +56,9 @@ var TeamView = Marionette.ItemView.extend({
 
   deleteRosterPlayer: function(e) {
     console.log(e.target);
+    $elm = $(e.target);
     $(e.target).closest('li.roster-player').fadeOut(this.transitionTime);
+    this.model.deleteRosterPlayer($elm.data('name'), $elm.data('phone'));
   },
 
   showSmsForm: function(e) {
@@ -85,7 +87,7 @@ var TeamView = Marionette.ItemView.extend({
 
   onRender: function() {
     // Hide the details
-    this.$('.details').hide();
+    // this.$('.details').hide();
     this.$('.sms-form').hide();
     this.$('.new-roster-player').hide();
   }

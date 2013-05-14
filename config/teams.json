@@ -1,7 +1,6 @@
 
 [
   {
-    "_id": 11,
     "name": "Spitball Wizards",
     "managerName": "Phil Jackson",
     "managerEmail": "test@test.com",
@@ -21,7 +20,6 @@
     "updatedAt": "2013-05-07T10:00:01Z"
   },
   {
-    "_id": 12,
     "name": "SF Ajax",
     "managerName": "Alex Ferguson",
     "managerEmail": "test@test.com",
@@ -45,7 +43,6 @@
     "updatedAt": "2013-05-07T10:00:01Z"
   },
   {
-    "_id": 13,
     "name": "Cleveland Brownbags",
     "managerName": "Dan Sell",
     "managerEmail": "test@test.com",
@@ -65,7 +62,6 @@
     "updatedAt": "2013-05-07T10:00:01Z"
   },
   {
-    "_id": 14,
     "name": "Green Monsters",
     "managerName": "Tony Singalong",
     "managerEmail": "test@test.com",

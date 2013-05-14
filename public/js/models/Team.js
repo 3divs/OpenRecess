@@ -1,5 +1,6 @@
 var Team = Backbone.Model.extend({
-  url: '/team',
+  url: '/teams',
+  idAttribute: '_id',
 
   defaults: {
     name: 'Team Cool Guys',
@@ -19,7 +20,11 @@ var Team = Backbone.Model.extend({
   },
 
   deleteRosterPlayer: function(name, phone) {
-
+    var newRoster = _.filter(this.get('roster'), function(item) {
+      return item.name !== name && item.phone !== phone;
+    });
+    console.log(newRoster);
+    this.save({roster: newRoster});
   },
 
   sendSms: function(msg) {
