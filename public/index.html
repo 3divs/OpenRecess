@@ -89,33 +89,34 @@
     <div class="list-games">
       <div id='results' class="span3 todo mrm">
         <div class="todo-search">
-          <input class="todo-search-field" type="search" value placeholder="Game Name">
+          <input class="todo-search-field" type="search" value placeholder="Search Games" style="text-align: left">
         </div>
         <ul id="places"></ul>
+        <button class="btn btn-large btn-block btn-primary" id="showMore">More</button>
       </div>
       <div id="map-canvas" class="span9"></div>
     </div>
   </script>
 
   <script type="text/template" id="loginView-template">
-    <div class="span6 offset3">
+    <div class="span6 offset3 login-form">
       <h1 class="text-center">Login</h1>
       <form class="form-horizontal">
         <div class="control-group">
-          <div class="control-label" for="email">Email:</div>
           <div class="controls">
-            <input class="input-field" type="text" name="email" required/>
-          </div>
-        </div>
-        <div class="control-group">
-          <div class="control-label" for="inputPassword">Password: </div>
-          <div class="controls">
-            <input class="input-field" type="password" name="password" required/>
+            <input class="input-field login-field" placeholder="Enter your email" type="text" name="email" required/>
+            <label class="login-field-icon fui-man-16" for="login-name"></label>
           </div>
         </div>
         <div class="control-group">
           <div class="controls">
-            <button id="login" class="btn btn-primary">Login</button>
+            <input class="input-field login-field" id="login-pass" placeholder="Password" type="password" name="password" required>
+            <label class="login-field-icon fui-lock-16" for="login-pass"></label>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <button id="login" class="btn btn-primary btn-large btn-block">Login</button>
           </div>
         </div>
       </form>
