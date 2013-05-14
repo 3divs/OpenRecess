@@ -2,6 +2,7 @@ var TeamsView = Marionette.CompositeView.extend({
   itemView: TeamView,
   itemViewContainer: '#teams',
   template: '#teamsView-template',
+  className: 'teams-page',
 
   events: {
     'click #createTeam': 'createTeam'
