@@ -13,6 +13,7 @@
   <script type="text/javascript" src="/js/lib/underscore.js"></script>
   <script type="text/javascript" src="/js/lib/backbone.js"></script>
   <script type="text/javascript" src="/js/lib/backbone.marionette/backbone.marionette.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
   <!-- Models -->
   <script type="text/javascript" src="/js/models/User.js"></script>
@@ -339,6 +340,57 @@
           </div>
         </div>
       </div>
+    </div>
+  </script>
+
+  <script type="text/template" id="teamsView-template">
+    <div class="team-page">
+      <h1 class="text-center">My Teams</h1>
+      <button class="btn btn-large btn-info" id="createTeam"><span class="fui-plus-24"/>Create Team</button>
+      <div class="teams span10 offset1" id="teams"></div>
+    </div>
+  </script>
+
+  <script type="text/template" id="teamView-template">
+    <div class="title">
+      <h4 class="name"><%= name + ' (' + type + ')' %></h4>
+      <span class="team-caret"/>
+      <button id="deleteTeam" class="btn btn-danger btn-small"><span class="fui-cross-24"/>Delete</button>
+    </div>
+    <div class="details">
+      <ul>
+        <li><span class="field">Manager: </span><span class="value"><%= managerName %></span></li>
+        <div class="roster">
+          <span class="roster">Roster:</span>
+          <div class="add-roster-player">
+            <button id="add-player" class="btn btn-info btn-mini"><span class="fui-plus-16"></span>Add</button>
+          </div>
+          <ol>
+            <% _.each(players, function(player) { %>
+              <li class="roster-player">
+                <%= player.name + ' - ' + player.phone %>
+                <span class="fui-new-16" data-phone="<%= player.phone %>" data-name="<%= player.name %>"/>
+                <span class="fui-cross-16" data-phone="<%= player.phone %>" data-name="<%= player.name %>"/>
+              </li>
+            <% }); %>
+            <div class="new-roster-player">
+              <form id="player-form">
+                <input class="input-small" type="text" name="name"/> - 
+                <input class="input-small" type="text" name="phone"/>
+              </form>
+            </div>
+          </ol>
+              <div class="sms-buttons">
+      <button class="btn btn-info btn-danger text-center btn-small" id="createSms">Group Text</button>
+      <div class="sms-form">
+        <span class="alert alert-warning sms-warning">NOTE: Message will be sent to the entire roster</span>
+        <button class="btn btn-success btn-mini" id="sendSms">Send</button>
+        <button class="btn btn-danger btn-mini" id="cancelSms">Cancel</button>
+        <textarea rows="3" cols="50" class="sms-input"/>
+      </div>
+    </div>
+        </div>
+      </ul>
     </div>
   </script>
 
