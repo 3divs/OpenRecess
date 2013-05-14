@@ -3,13 +3,13 @@ var Team = Backbone.Model.extend({
 
   defaults: {
     name: 'Team Cool Guys',
-    type: 'Soccer',
-    players: [
+    sport: 'Soccer',
+    roster: [
       {name: 'John', phone:'+2345678901'},
       {name: 'Bob', phone:'+3456789012'},
       {name: 'Mary', phone:'+4567890123'}
     ],
-    numOfPlayers: 3,
+    rosterCount: 3,
     managerId: '12345',
     managerName: 'Mark'
   },
