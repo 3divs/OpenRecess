@@ -106,6 +106,10 @@ App.addInitializer(function() {
     App.router.navigate('splash', true);
   });
 
+  App.currentUser.on('redirectGames', function() {
+    App.router.navigate('games', true);
+  });
+
   App.currentUser.on('redirectLogin', function() {
     App.router.navigate('login', true);
   });

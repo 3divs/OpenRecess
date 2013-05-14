@@ -114,7 +114,8 @@ module.exports = function(app){
     },
     function(err, thisGame){
       if(err) throw 'wtf?';
-      // exports.sendSMS('Game on for ' + thisGame.gameType + '#' + thisGame.gameCode + ' on ' + thisGame.gameDate + ' at ' + thisGame.gameTime + '. Stay tuned for more text message updates.', digits, twilioPhoneNumber);
+      console.log(thisGame);
+      // twil.sendSMS('Game on for ' + thisGame.gameType + '#' + thisGame.gameCode + ' on ' + thisGame.gameDate + ' at ' + thisGame.gameTime + '. Stay tuned for more text message updates.', digits, twilioPhoneNumber);
     });
     res.json(200, 'Done and done');
   });

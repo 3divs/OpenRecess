@@ -120,7 +120,7 @@ function initialize(gameData) {
     infowindow.open(map, holder);
   });
 
-  $('#places').one('click', '.btn-mini', function (e) {
+  $('#places').on('click', '.btn-mini', function (e) {
     var code = $(this).data().code;
     var phone = App.currentUser.attributes.phone;
     if (App.currentUser.attributes.phone) {
