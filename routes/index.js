@@ -106,14 +106,15 @@ module.exports = function(app){
     var digits = req.body.phone;
     Game.findOneAndUpdate(
     {
-      gameCode : code
+      gameCode : code,
+      confirmedPlayers : { $nin: [digits] }
     },
     {
       $addToSet : { confirmedPlayers : digits },
       $inc : { confirmedPlayersCount : 1 }
     },
     function(err, thisGame){
-      if(err) throw 'wtf?';
+      if(err) throw 'no such game found';
       console.log(thisGame);
       // twil.sendSMS('Game on for ' + thisGame.gameType + '#' + thisGame.gameCode + ' on ' + thisGame.gameDate + ' at ' + thisGame.gameTime + '. Stay tuned for more text message updates.', digits, twilioPhoneNumber);
     });
