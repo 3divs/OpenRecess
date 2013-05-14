@@ -82,7 +82,7 @@ var controller = {
 
 var Router = Marionette.AppRouter.extend({
   appRoutes: {
-    '':             'showSplash', 
+    '':             'showSplash',
     'games':        'showGames',
     'splash':       'showSplash',
     'game':         'showCreateGame',

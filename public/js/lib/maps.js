@@ -112,11 +112,19 @@ function initialize(gameData) {
     for (var i = 0; i < markerArray.length; i++) {
       if (getId === markerArray[i].__gm_id) {
         holder = markerArray[i];
-        console.log(markerArray[0].title)
+        console.log(markerArray[0].title);
       }
     }
     infowindow.setContent(holder.title);
     infowindow.open(map, holder);
+  });
+
+  $('#places').on('click', '.btn-mini', function () {
+    var phone = App.currentUser.attributes.phone;
+    User.find({ phone : phone }, function (err, results) {
+      if (err) throw err;
+      console.log(results);
+    });
   });
 
   // Search Box in List Games

@@ -87,6 +87,29 @@ module.exports = function(app){
     res.redirect('/games');
   });
 
+  app.put('/games', function(req, res, next){
+    console.log('the res', res.JSON);
+    // res.json(200, 'Update stub');
+    var code = res.body.value; //  change this...
+    var digits = res.body.phone; // change this too...
+    Game.findOneAndUpdate(
+    {
+      gameCode : code,
+      // gameTime: { $gt: Date.now },
+      invitedPlayers : digits
+    },
+    {
+      $push : { confirmedPlayers : digits },
+      $inc : { confirmedPlayersCount : 1 }
+    },
+    function(err, thisGame){
+      if(err) throw 'wtf?';
+      exports.sendSMS('Game on for ' + thisGame.gameType + '#' + thisGame.gameCode + ' on ' + thisGame.gameDate + ' at ' + thisGame.gameTime + '. Stay tuned for more text message updates.', digits, twilioPhoneNumber);
+    }
+  );
+
+  });
+
   app.get('/games', function(req, res, next) {
     // TODO: implement error handling
     console.log(req.xhr);
