@@ -96,6 +96,7 @@ function initialize(gameData) {
         time: gameData.at(i).get('gameTime'),
         date: gameData.at(i).get('gameDate'),
         min: gameData.at(i).get('minimumPlayers'),
+        code: gameData.at(i).get('gameCode'),
         animation: google.maps.Animation.DROP
       });
       var content = createMarker.title;
@@ -103,7 +104,7 @@ function initialize(gameData) {
       markerArray.push(createMarker);
       gameList.innerHTML += '<li data-id=' + createMarker.__gm_id + '>' +
         '<span class="gamelist-title todo-name">' + createMarker.title + '</span>' +
-        '<button class="btn-mini btn btn-danger">Join Game</button></li>';
+        '<button class="btn-mini btn btn-danger" data-code=' + createMarker.code +'>Join Game</button></li>';
     }
   });
 
@@ -185,8 +186,6 @@ var placeMarker = function(location) {
   $('.lat').val(loc.kb);
 };
 
-
-
 // Helper function to translate address to LatLng
 // Need to input #address
 var codeAddress = function() {
@@ -218,12 +217,12 @@ var myOptions = {
   content: boxText,
   disableAutoPan: false,
   maxWidth: 150,
-  pixelOffset: new google.maps.Size(-140, 0),
+  pixelOffset: new google.maps.Size(-140, 5),
   zIndex: null,
   boxStyle: {
     background: "url('http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/examples/tipbox.gif') no-repeat",
-    opacity: 0.75,
-    width: "280px"
+    opacity: 0.6,
+    width: "200px"
   },
   closeBoxMargin: "12px 4px 2px 2px",
   closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
