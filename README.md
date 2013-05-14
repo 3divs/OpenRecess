@@ -27,20 +27,20 @@ A website designed to simplify organizing sports for both managers and players. 
 To install and run this project, follow the following steps:
 
 ####Clone Repo
-> git clone https://github.com/3divs/OpenRecess.git
+`git clone https://github.com/3divs/OpenRecess.git`
 
 ####Install Node Modules
-> npm install
+`npm install`
 
 ####Install grunt globally
-> sudo npm install -g grunt grunt-cli
+`sudo npm install -g grunt grunt-cli`
 
 ####Install and run mongodb (using homebrew)
-> brew install mongodb
-> mongod --port 17017
+`brew install mongodb`
+`mongod --port 17017`
 
 ####Run Grunt commands
-> grunt db
-> grunt
+`grunt db`
+`grunt`
 
 NOTE: You will need to setup LocalTunnel and specify your own Twilio API key in order to get text messaging to work.
