@@ -2,16 +2,21 @@
 var geocoder;
 var map;
 var createMarker;
-
+var infobox;
 
 // Defaults to San Francisco
 var lat = 37.783;
 var lng = -122.409;
 var markerArray = [];
 
+// Content for infobox
+var boxText = document.createElement("div");
+boxText.setAttribute('class', "infobox");
+boxText.style.cssText = "text-align: center; height: 20px; border: 1px solid black; margin-top: 8px; background: #34495e; padding: 10px; color: white; border-radius: 10px; width: auto";
+
 function initialize(gameData) {
   var mapOptions = {
-    zoom: 12,
+    zoom: 14,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     styles: style
   };
@@ -21,14 +26,7 @@ function initialize(gameData) {
   // Locates the user on the map
   if(navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = new google.maps.LatLng(position.coords.latitude,
-                                       position.coords.longitude);
-      //marker pop-ups
-      // var infowindow = new google.maps.InfoWindow({
-      //   map: map,
-      //   position: pos,
-      //   content: 'Lat: ' + position.coords.latitude + '\n\nLong: ' + position.coords.longitude
-      // });
+      var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       map.setCenter(pos);
     }, function() {
       handleNoGeolocation(true);
@@ -41,6 +39,8 @@ function initialize(gameData) {
   // Creates a marker for games in database
   var infowindow = new google.maps.InfoWindow({map: map});
   var gameList = document.getElementById('places');
+  var ib = new InfoBox(myOptions);
+
   gameData.on('sync', function() {
 
     if (!gameList) {
@@ -98,7 +98,7 @@ function initialize(gameData) {
         min: gameData.at(i).get('minimumPlayers'),
         animation: google.maps.Animation.DROP
       });
-      var content = createMarker.title + ' At' + createMarker.time + ' on ' + createMarker.date + ' ' + createMarker.min;
+      var content = createMarker.title;
       makeInfoWindowEvent(map, infowindow, content, createMarker);
       markerArray.push(createMarker);
       gameList.innerHTML += '<li data-id=' + createMarker.__gm_id + '>' +
@@ -106,6 +106,7 @@ function initialize(gameData) {
         '<button class="btn-mini btn btn-danger">Join Game</button></li>';
     }
   });
+
   // Connect side-panel with events on the map
   var holder;
   $('#results').on('click', 'li', function(){
@@ -113,11 +114,10 @@ function initialize(gameData) {
     for (var i = 0; i < markerArray.length; i++) {
       if (getId === markerArray[i].__gm_id) {
         holder = markerArray[i];
-        console.log(markerArray[0].title)
       }
     }
-    infowindow.setContent(holder.title);
-    infowindow.open(map, holder);
+    boxText.innerHTML = holder.title;
+    ib.open(map, holder);
   });
 
   // Search Box in List Games
@@ -140,50 +140,11 @@ function initialize(gameData) {
   // Displays pop-up when marker is clicked
   var makeInfoWindowEvent = function(map, infowindow, contentString, marker) {
     google.maps.event.addListener(marker, 'click', function() {
-      var html = '<div class="infobox">' + contentString + '</div>';
-      infowindow.setContent(html);
-      infowindow.open(map, this);
+      boxText.innerHTML = contentString;
+      ib.open(map, this);
     });
   };
-
-  // Search Box
-  // var input = (document.getElementById('target'));
-  // var searchBox = new google.maps.places.SearchBox(input);
-  // var markers = [];
-  // google.maps.event.addListener(searchBox, 'places_changed', function() {
-  //   var places = searchBox.getPlaces();
-  //   for (var i = 0, marker; marker = markers[i]; i++) {
-  //     marker.setMap(null);
-  //   }
-
-  //   markers = [];
-  //   var bounds = new google.maps.LatLngBounds();
-  //   for (var i = 0, place; place = places[i]; i++) {
-  //     var image = {
-  //       url: place.icon,
-  //       size: new google.maps.Size(71, 71),
-  //       origin: new google.maps.Point(0, 0),
-  //       anchor: new google.maps.Point(17, 34),
-  //       scaledSize: new google.maps.Size(25, 25)
-  //     };
-
-  //     var marker = new google.maps.Marker({
-  //       map: map,
-  //       icon: image,
-  //       title: place.name,
-  //       position: place.geometry.location
-  //     });
-  //     markers.push(marker);
-  //     bounds.extend(place.geometry.location);
-  //   }
-  //   map.fitBounds(bounds);
-  // });
-
-  // google.maps.event.addListener(map, 'bounds_changed', function() {
-  //   var bounds = map.getBounds();
-  //   searchBox.setBounds(bounds);
-  // });
-};
+}
 
 var handleNoGeolocation = function(errorFlag) {
   if (errorFlag) {
@@ -191,19 +152,14 @@ var handleNoGeolocation = function(errorFlag) {
   } else {
     var content = 'Error: Your browser doesn\'t support geolocation.';
   }
-
   // If GeoLocation is not possible, defaults to San Francisco area.
   var options = {
     map: map,
     position: new google.maps.LatLng(lat, lng)
   };
-
   var infowindow = new google.maps.InfoWindow(options);
   map.setCenter(options.position);
 };
-
-// If clicked, draws marker
-// Should be used for Create Game
 
 // Clear markers
 var clearMarker = function() {
@@ -248,9 +204,27 @@ var codeAddress = function() {
   });
 };
 
+// Map style
 var style = [{
   stylers: [
-    { hue: "#00ffe6"},
-    { lightness: 10 }
+    { lightness: -10 },
+    { gamma: 1.51 }
   ]
 }];
+
+// Option for infobox.
+var myOptions = {
+  content: boxText,
+  disableAutoPan: false,
+  maxWidth: 150,
+  pixelOffset: new google.maps.Size(-140, 0),
+  zIndex: null,
+  boxStyle: {
+    background: "url('http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/examples/tipbox.gif') no-repeat",
+    opacity: 0.75,
+    width: "280px"
+  },
+  closeBoxMargin: "12px 4px 2px 2px",
+  closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
+  infoBoxClearance: new google.maps.Size(1, 1)
+};
