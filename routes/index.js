@@ -1,8 +1,8 @@
 var passport = require('passport'),
     twil = require('../src/twilio.js'),
     mongoose = require('mongoose'),
-    users = require('./users.js');
-    // teams = require('./teams.js');
+    users = require('./users.js'),
+    teams = require('./teams.js');
 
 module.exports = function(app){
   var db = app.set('db');
@@ -45,7 +45,7 @@ module.exports = function(app){
   app.put('/users', users.updateUser);
   app.delete('/users/:id', users.deleteUser);
 
-  app.get('/user/current', function(req, res) {
+  app.get('/user/current', function(req, res ,next){
     if(req.user) {
       // Return subset of fields
       var user = {};
@@ -66,7 +66,9 @@ module.exports = function(app){
   *** TEAM ***
   ***********/
 
-  // app.get('/teams', teams.findTeams);
+  app.get('/teams', teams.findTeams);
+  app.put('/teams', teams.updateTeam);
+  app.delete('/teams', teams.deleteTeam);
 
   /***********
   *** GAME ***
@@ -96,6 +98,25 @@ module.exports = function(app){
     });
     newGame.save();
     res.redirect('/games');
+  });
+
+  app.put('/game', function(req, res, next){
+    console.log('the req', req.body);
+    var code = req.body.code;
+    var digits = req.body.phone;
+    Game.findOneAndUpdate(
+    {
+      gameCode : code
+    },
+    {
+      $addToSet : { confirmedPlayers : digits },
+      $inc : { confirmedPlayersCount : 1 }
+    },
+    function(err, thisGame){
+      if(err) throw 'wtf?';
+      // exports.sendSMS('Game on for ' + thisGame.gameType + '#' + thisGame.gameCode + ' on ' + thisGame.gameDate + ' at ' + thisGame.gameTime + '. Stay tuned for more text message updates.', digits, twilioPhoneNumber);
+    });
+    res.json(200, 'Done and done');
   });
 
   app.get('/games', function(req, res, next) {

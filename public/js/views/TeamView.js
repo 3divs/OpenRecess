@@ -17,12 +17,15 @@ var TeamView = Marionette.ItemView.extend({
 
   initialize: function() {
     this.transitionTime = 500;
+    this.bind('change:roster', this.render);
   },
 
   deleteTeam: function() {
     var that = this;
     if(confirm('Delete Team. Are you sure?')) {
       this.$el.fadeOut(this.transitionTime, function() {
+        that.model.set('url', '/teams/' + that.model.get('_id'));
+        console.log(that.model.get('url'));
         that.model.destroy();
       });
     }
@@ -36,9 +39,18 @@ var TeamView = Marionette.ItemView.extend({
     // Check whether enter was pressed
     if(e.which === 13) {
       this.$(e.target).closest('form').slideUp(this.transitionTime);
+
       // Save data to model
-      // Re render model
-      // this.render();
+      var $node = $(e.target).closest('form');
+      var name = $node.find('input[name="name"]').val();
+      var phone = $node.find('input[name="phone"]').val();
+      console.log($node.html());
+      if($node.hasClass('add-player'))
+        this.model.addRosterPlayer(name, phone);
+      else
+        this.model.editRosterPlayer(name, phone);
+
+      this.render();
     }
   },
 
@@ -49,14 +61,16 @@ var TeamView = Marionette.ItemView.extend({
     var phone = $(e.target).data('phone');
 
     // Replace li with inline-form
-    var html = '<form><input class="input-small" type="text" name="name" value="' + name + '"/> - ' +
+    var html = '<form class="edit-player"><input class="input-small" type="text" name="name" value="' + name + '"/> - ' +
                '<input class="input-small" type="text" name="phone" value="' + phone + '"/></form>';
     $node.html(html);
   },
 
   deleteRosterPlayer: function(e) {
     console.log(e.target);
+    $elm = $(e.target);
     $(e.target).closest('li.roster-player').fadeOut(this.transitionTime);
+    this.model.deleteRosterPlayer($elm.data('name'), $elm.data('phone'));
   },
 
   showSmsForm: function(e) {
@@ -85,7 +99,7 @@ var TeamView = Marionette.ItemView.extend({
 
   onRender: function() {
     // Hide the details
-    this.$('.details').hide();
+    // this.$('.details').hide();
     this.$('.sms-form').hide();
     this.$('.new-roster-player').hide();
   }

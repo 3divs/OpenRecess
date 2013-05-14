@@ -69,20 +69,19 @@ var controller = {
   },
 
   showTeams: function() {
-    // if(ensureAuthenticated()) {
+    if(ensureAuthenticated()) {
       var teams = new Teams();
-      for(var i = 0; i < 6; i++)
-        teams.add(new Team());
+      teams.fetch();
 
       App.mainRegion.show(new TeamsView({ collection: teams }));
-    // } else
-    //   App.router.navigate('login', true);
+    } else
+      App.router.navigate('login', true);
   }
 };
 
 var Router = Marionette.AppRouter.extend({
   appRoutes: {
-    '':             'showSplash', 
+    '':             'showSplash',
     'games':        'showGames',
     'splash':       'showSplash',
     'game':         'showCreateGame',
@@ -106,7 +105,12 @@ App.addInitializer(function() {
   App.currentUser.on('redirectSplash', function() {
     App.router.navigate('splash', true);
   });
+
+  App.currentUser.on('redirectLogin', function() {
+    App.router.navigate('login', true);
+  });
 });
+
 
 App.on('initialize:after', function() {
   if(Backbone.history) {

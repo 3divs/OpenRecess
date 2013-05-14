@@ -2,23 +2,17 @@
 var geocoder;
 var map;
 var createMarker;
-var infobox;
+
 
 // Defaults to San Francisco
 var lat = 37.783;
 var lng = -122.409;
 var markerArray = [];
 
-// Content for infobox
-var boxText = document.createElement("div");
-boxText.setAttribute('class', "infobox");
-boxText.style.cssText = "text-align: center; height: 20px; border: 1px solid black; margin-top: 8px; background: #34495e; padding: 10px; color: white; border-radius: 10px; width: auto";
-
 function initialize(gameData) {
   var mapOptions = {
-    zoom: 14,
-    mapTypeId: google.maps.MapTypeId.ROADMAP,
-    styles: style
+    zoom: 12,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
   };
   map = new google.maps.Map(document.getElementById('map-canvas'),
     mapOptions);
@@ -26,7 +20,14 @@ function initialize(gameData) {
   // Locates the user on the map
   if(navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      var pos = new google.maps.LatLng(position.coords.latitude,
+                                       position.coords.longitude);
+      //marker pop-ups
+      // var infowindow = new google.maps.InfoWindow({
+      //   map: map,
+      //   position: pos,
+      //   content: 'Lat: ' + position.coords.latitude + '\n\nLong: ' + position.coords.longitude
+      // });
       map.setCenter(pos);
     }, function() {
       handleNoGeolocation(true);
@@ -39,8 +40,6 @@ function initialize(gameData) {
   // Creates a marker for games in database
   var infowindow = new google.maps.InfoWindow({map: map});
   var gameList = document.getElementById('places');
-  var ib = new InfoBox(myOptions);
-
   gameData.on('sync', function() {
 
     if (!gameList) {
@@ -116,6 +115,7 @@ function initialize(gameData) {
         scrollTop: "+=" + step + "px"
     });
   });
+
   // Connect side-panel with events on the map
   var holder;
   $('#results').on('click', 'li', function(){
@@ -123,10 +123,36 @@ function initialize(gameData) {
     for (var i = 0; i < markerArray.length; i++) {
       if (getId === markerArray[i].__gm_id) {
         holder = markerArray[i];
+        console.log(markerArray[0].title);
       }
     }
-    boxText.innerHTML = holder.title;
-    ib.open(map, holder);
+    infowindow.setContent(holder.title);
+    infowindow.open(map, holder);
+  });
+
+  $('#places').one('click', '.btn-mini', function (e) {
+    var code = $(this).data().code;
+    var phone = App.currentUser.attributes.phone;
+    if (App.currentUser.attributes.phone) {
+      phone.length === 10 ? phone = '+1' + phone : phone = phone;
+      $.ajax({
+        url: '/game',
+        contentType: 'application/json',
+        type: 'PUT',
+        data: JSON.stringify({
+          code: code,
+          phone: phone
+        }),
+        dataType: 'json',
+        error: function(error) { alert(error); },
+        success: function() {
+          $(e.target).closest('button').text('Joined').css('background-color','green');
+        }
+      });
+    } else {
+      App.currentUser.trigger('redirectLogin');
+    }
+
   });
 
   // Search Box in List Games
@@ -149,11 +175,50 @@ function initialize(gameData) {
   // Displays pop-up when marker is clicked
   var makeInfoWindowEvent = function(map, infowindow, contentString, marker) {
     google.maps.event.addListener(marker, 'click', function() {
-      boxText.innerHTML = contentString;
-      ib.open(map, this);
+      var html = '<div class="infobox">' + contentString + '</div>';
+      infowindow.setContent(html);
+      infowindow.open(map, this);
     });
   };
-}
+
+  // Search Box
+  // var input = (document.getElementById('target'));
+  // var searchBox = new google.maps.places.SearchBox(input);
+  // var markers = [];
+  // google.maps.event.addListener(searchBox, 'places_changed', function() {
+  //   var places = searchBox.getPlaces();
+  //   for (var i = 0, marker; marker = markers[i]; i++) {
+  //     marker.setMap(null);
+  //   }
+
+  //   markers = [];
+  //   var bounds = new google.maps.LatLngBounds();
+  //   for (var i = 0, place; place = places[i]; i++) {
+  //     var image = {
+  //       url: place.icon,
+  //       size: new google.maps.Size(71, 71),
+  //       origin: new google.maps.Point(0, 0),
+  //       anchor: new google.maps.Point(17, 34),
+  //       scaledSize: new google.maps.Size(25, 25)
+  //     };
+
+  //     var marker = new google.maps.Marker({
+  //       map: map,
+  //       icon: image,
+  //       title: place.name,
+  //       position: place.geometry.location
+  //     });
+  //     markers.push(marker);
+  //     bounds.extend(place.geometry.location);
+  //   }
+  //   map.fitBounds(bounds);
+  // });
+
+  // google.maps.event.addListener(map, 'bounds_changed', function() {
+  //   var bounds = map.getBounds();
+  //   searchBox.setBounds(bounds);
+  // });
+};
 
 var handleNoGeolocation = function(errorFlag) {
   if (errorFlag) {
@@ -161,14 +226,19 @@ var handleNoGeolocation = function(errorFlag) {
   } else {
     var content = 'Error: Your browser doesn\'t support geolocation.';
   }
+
   // If GeoLocation is not possible, defaults to San Francisco area.
   var options = {
     map: map,
     position: new google.maps.LatLng(lat, lng)
   };
+
   var infowindow = new google.maps.InfoWindow(options);
   map.setCenter(options.position);
 };
+
+// If clicked, draws marker
+// Should be used for Create Game
 
 // Clear markers
 var clearMarker = function() {
@@ -194,6 +264,8 @@ var placeMarker = function(location) {
   $('.lat').val(loc.kb);
 };
 
+
+
 // Helper function to translate address to LatLng
 // Need to input #address
 var codeAddress = function() {
@@ -210,29 +282,4 @@ var codeAddress = function() {
       alert("Geocode was not successful for the following reason: " + status);
     }
   });
-};
-
-// Map style
-var style = [{
-  stylers: [
-    { lightness: -10 },
-    { gamma: 1.51 }
-  ]
-}];
-
-// Option for infobox.
-var myOptions = {
-  content: boxText,
-  disableAutoPan: false,
-  maxWidth: 150,
-  pixelOffset: new google.maps.Size(-140, 5),
-  zIndex: null,
-  boxStyle: {
-    background: "url('http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/examples/tipbox.gif') no-repeat",
-    opacity: 0.6,
-    width: "200px"
-  },
-  closeBoxMargin: "12px 4px 2px 2px",
-  closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
-  infoBoxClearance: new google.maps.Size(1, 1)
 };
