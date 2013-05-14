@@ -15,6 +15,7 @@
   <script type="text/javascript" src="/js/lib/backbone.marionette/backbone.marionette.min.js"></script>
   <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
   <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+  <script type="text/javascript" src="/js/lib/moment.js"></script>
 
   <!-- Models -->
   <script type="text/javascript" src="/js/models/User.js"></script>
@@ -25,6 +26,7 @@
 
   <!-- Static Views -->
   <script type="text/javascript" src="/js/views/static/CreateGameLayoutView.js"></script>
+  <script type="text/javascript" src="/js/views/static/ManageLayoutView.js"></script>
   <script type="text/javascript" src="/js/views/static/GameLayoutView.js"></script>
   <script type="text/javascript" src="/js/views/static/UserProfileView.js"></script>
   <script type="text/javascript" src="/js/views/static/HeaderView.js"></script>
@@ -92,7 +94,7 @@
           <input class="todo-search-field" type="search" value placeholder="Search Games" style="text-align: left">
         </div>
         <ul id="places"></ul>
-        <button class="btn btn-large btn-block btn-primary" id="showMore" style="margin-top: 12px; border: solid 1px rgb(53, 125, 148); box-shadow: 1px 1px 1px rgb(53, 125, 148);">More</button>
+        <button class="btn btn-large btn-block btn-primary" id="showMore">More</button>
       </div>
       <div id="map-canvas" class="span9"></div>
     </div>
@@ -175,7 +177,7 @@
             <ul class="nav span8">
               <li class="span3"><a href="#games">List Games</a></li>
               <li class="span3"><a href="#game">Create Game</a></li>
-              <li class="span3"><a href="#teams">Teams</a></li>
+              <li class="span3"><a href="#manage">Manage</a></li>
               <% if(email) { %>
                 <li class="span3 dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="dropdown-toggle">
@@ -292,13 +294,74 @@
     <div id="map-canvas"></div>
   </script>
 
-  <script type="text/template" id="show-gameView-template">
-    <div class="game">
-      <span class="name"><%= gameName %></span>
-      <span class="time"><%= gameTime %></span>
-      <span class="type"><%= gameType %></span>
-      <span class="minimumPlayers"><%= minimumPlayers %></span>
-      <span class="latLng"><%= coord.lat%><%= coord.lon %></span>
+  <script type="text/template" id="manageLayout-template">
+    <div id="myTeams" class="span12">
+      My teams
+    </div>
+    <div id="myGames" class="span12">
+      My games
+    </div>
+  </script>
+
+  <script type="text/template" id="gamesView-template">
+    <div class="games span10 offset1">
+      <h1 class="span10 text-center">My Games</h1>
+      <div id="games"></div>
+    </div>
+  </script>
+
+  <script type="text/template" id="gameView-template">
+    <div class="row-fluid">
+      <div class="span4">
+        <div class="name">
+          <span class="field">Game Name:</span>
+          <span class="value"><%= gameName %></span>
+          <button class="delete btn btn-danger btn-small"><span class="fui-cross-24"/>Delete Game</button>
+        </div>
+        <div class="type">
+          <span class="field">Game Type:</span>
+          <span class="value"><%= gameType %></span>
+        </div>
+        <div class="date">
+          <span class="field">Game Date:</span>
+          <span class="datetime value"><%= moment(gameDate).format('MM-DD-YYYY') %> @ <%= gameTime %></span>
+        </div>
+        <div class="playerCount">
+          <span class="field">Player Counts:</span>
+          <table class="value">
+            <tr>
+              <td>Min</td>
+              <td>Max</td>
+              <td>Conf</td>
+            </tr>
+            <tr>
+              <td><%= minimumPlayers %></td>
+              <td><%= playerLimit %></td>
+              <td><%= confirmedPlayersCount %></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="span3">
+        <div class="invitedPlayers">
+          <span class="field">Invited:</span>
+          <ul>
+            <% _.each(invitedPlayers, function(phone) { %>
+              <li class="value"><%= phone %></li>
+            <% }) %>
+          </ul>
+        </div>
+      </div>
+      <div class="span3">
+        <div class="confirmedPlayers">
+          <span class="field">Confirmed:</span>
+          <ul>
+            <% _.each(confirmedPlayers, function(phone) { %>
+              <li class="value"><%= phone %></li>
+            <% }) %>
+          </ul>
+        </div>
+      </div>
     </div>
   </script>
 
@@ -346,10 +409,10 @@
   </script>
 
   <script type="text/template" id="teamsView-template">
-    <div class="team-page">
-      <h1 class="text-center">My Teams</h1>
-      <button class="btn btn-large btn-info" id="createTeam"><span class="fui-plus-24"/>Create Team</button>
-      <div class="teams span10 offset1" id="teams"></div>
+    <button class="btn btn-large btn-info" id="createTeam"><span class="fui-plus-24"/>Create Team</button>
+    <div class="teams span10 offset1">
+      <h1 class="span10 text-center">My Teams</h1>
+      <div id="teams"></div>
     </div>
   </script>
 

@@ -25,7 +25,6 @@ var TeamView = Marionette.ItemView.extend({
     if(confirm('Delete Team. Are you sure?')) {
       this.$el.fadeOut(this.transitionTime, function() {
         that.model.set('url', '/teams/' + that.model.get('_id'));
-        console.log(that.model.get('url'));
         that.model.destroy();
       });
     }
@@ -44,7 +43,6 @@ var TeamView = Marionette.ItemView.extend({
       var $node = $(e.target).closest('form');
       var name = $node.find('input[name="name"]').val();
       var phone = $node.find('input[name="phone"]').val();
-      console.log($node.html());
       if($node.hasClass('add-player'))
         this.model.addRosterPlayer(name, phone);
       else
@@ -67,7 +65,6 @@ var TeamView = Marionette.ItemView.extend({
   },
 
   deleteRosterPlayer: function(e) {
-    console.log(e.target);
     $elm = $(e.target);
     $(e.target).closest('li.roster-player').fadeOut(this.transitionTime);
     this.model.deleteRosterPlayer($elm.data('name'), $elm.data('phone'));
@@ -93,7 +90,6 @@ var TeamView = Marionette.ItemView.extend({
   },
 
   showDetails: function(e) {
-    console.log('show details');
     this.$('.details').slideToggle(this.transitionTime);
   },
 
