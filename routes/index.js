@@ -1,7 +1,8 @@
 var passport = require('passport'),
     twil = require('../src/twilio.js'),
     mongoose = require('mongoose'),
-    users = require('./users.js');
+    users = require('./users.js'),
+    teams = require('./teams.js');
 
 module.exports = function(app){
   var db = app.set('db');
@@ -60,6 +61,18 @@ module.exports = function(app){
     // req.logout()
     res.redirect('/');
   });
+
+  /***********
+  *** TEAM ***
+  ***********/
+
+  app.get('/teams', teams.findTeams);
+  app.put('/teams', teams.updateTeam);
+  app.delete('/teams', teams.deleteTeam);
+
+  /***********
+  *** GAME ***
+  ***********/
 
   // app.get('/game', ensureAuthenticated, function(req, res, next) {
   app.get('/game', function(req, res, next) {

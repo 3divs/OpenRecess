@@ -354,7 +354,7 @@
 
   <script type="text/template" id="teamView-template">
     <div class="title">
-      <h4 class="name"><%= name + ' (' + type + ')' %></h4>
+      <span class="name"><%= name + ' (' + sport + ')' %></span>
       <span class="team-caret"/>
       <button id="deleteTeam" class="btn btn-danger btn-small"><span class="fui-cross-24"/>Delete</button>
     </div>
@@ -362,12 +362,12 @@
       <ul>
         <li><span class="field">Manager: </span><span class="value"><%= managerName %></span></li>
         <div class="roster">
-          <span class="roster">Roster:</span>
+          <span class="roster">Roster (<%= rosterCount %>):</span>
           <div class="add-roster-player">
             <button id="add-player" class="btn btn-info btn-mini"><span class="fui-plus-16"></span>Add</button>
           </div>
           <ol>
-            <% _.each(players, function(player) { %>
+            <% _.each(roster, function(player) { %>
               <li class="roster-player">
                 <%= player.name + ' - ' + player.phone %>
                 <span class="fui-new-16" data-phone="<%= player.phone %>" data-name="<%= player.name %>"/>
@@ -375,7 +375,7 @@
               </li>
             <% }); %>
             <div class="new-roster-player">
-              <form id="player-form">
+              <form class="add-player" id="player-form">
                 <input class="input-small" type="text" name="name"/> - 
                 <input class="input-small" type="text" name="phone"/>
               </form>
