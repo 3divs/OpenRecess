@@ -14,6 +14,7 @@
   <script type="text/javascript" src="/js/lib/backbone.js"></script>
   <script type="text/javascript" src="/js/lib/backbone.marionette/backbone.marionette.min.js"></script>
   <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
 
   <!-- Models -->
   <script type="text/javascript" src="/js/models/User.js"></script>
@@ -214,28 +215,65 @@
   </script>
 
   <script type="text/template" id="create-gameView-template">
-    <h1>Create a New Game</h1>
-    <form action="/game" method="POST" class="span6">
-      Game Name: <input type="textbox" placeholder="Game Name" class="span3" name="gameName"></input><br>
-      Game Type: <select>
-                  <option>select a game</option>
-                  <option value="flag football">flag football</option>
-                  <option value="volleyball">volleyball</option>
-                  <option value="basketball">basketball</option>
-                  <option value="baseball">baseball</option>
-                  <option value="soccer">soccer</option>
-                  <option value="tag">tag</option>
-                </select><br>
-      Game Date: <input type="date" class="span3" name="gameDate"></input>
-      Game Time: <input type="time" class="span3" name="gameTime"></input><br>
-      Min. # of Players: <input type="number" class="span2" name="minimumPlayers"></input>
-      Max. Player #: <input type="number" class="span2" name="PlayerLimit"></input><br>
-      Player Phone Numbers: (+1) <input type="textbox" class='players span3' name="players"></input><img src="..." class="icon-plus"><br>
-      <input type='textbox' name='playerArray' class='invitees' style='display:none' ></input><div class='inviteeList span3'>Invited Players</div><br>
-      Lat: <input type='textbox' class='lat' name='latitude' style=''></input><br>
-      Long: <input type='textbox' class='lon' name='longitude' style=''></input>
-      <input type="submit"></input>
-    </form>
+    <h1 class="createformtitle" style="text-align:center">Create a New Game</h1>
+      <form action="/game" method="POST" class="span5">
+        <table class="createform">
+        <tr class="what">
+        <td rowspan="2" class="span2 formrow">WHAT</td>
+        <td>
+        Game Name: <input type="textbox" placeholder="Game Name" name="gameName"></input>
+        </td>
+        </tr>
+        <tr>
+        <td>
+        Game Type: <select>
+                    <option>select a game</option>
+                    <option value="flag football">flag football</option>
+                    <option value="volleyball">volleyball</option>
+                    <option value="basketball">basketball</option>
+                    <option value="baseball">baseball</option>
+                    <option value="soccer">soccer</option>
+                    <option value="tag">tag</option>
+                  </select>
+        </td>
+        </tr>
+        <tr class="when">
+        <td rowspan="2" class="span2 formrow">WHEN</td>
+        <td>
+        Game Date: <input type="date" class="span4" name="gameDate"></input>
+        </td>
+        </tr>
+        <tr>
+        <td>
+        Game Time: <input type="time" class="span4" name="gameTime"></input>
+        </td>
+        </tr>
+        <tr class="where">
+        <td class="span2 formrow">WHERE</td>
+        <td>Use the map to navigate to your game&#39s location and click on the map to place a marker at the exact spot for your game</td>
+        </tr>
+        <tr class="who">
+        <td rowspan="3" class="span2 formrow">WHO</td>
+        <td>
+          Min. # of Players: <input type="number" class="span2" name="minimumPlayers"></input>
+          Max. Player #: <input type="number" class="span2" name="PlayerLimit"></input>
+        </td>
+        </tr>
+        <tr>
+        <td>
+          Player Phone #s (+1): <input type="textbox" class='players' name="players"></input><img src="..." class="icon-plus"><br>
+        </td>
+        </tr>
+        <tr>
+        <td>
+        <input type='textbox' name='playerArray' class='invitees' style='display:none'></input><div class='inviteeList'>Invited Players</div>
+        </td>
+        </tr>
+        </table>
+          <input type='textbox' class='lat' name='latitude' style='display:none'></input><br>
+          <input type='textbox' class='lon' name='longitude' style='display:none'></input>
+          <input type="submit"></input>
+      </form>
   </script>
 
   <script type="text/template" id="create-gameLayoutView">

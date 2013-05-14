@@ -71,9 +71,9 @@ var rsvpUser = function(digits, code){
     function(err, thisGame){
       if(err) throw 'wtf?';
       if (!thisGame) {
-        exports.sendSMS('Thanks for the message, but it looks like you\'ve already RSVP\'d to this game. ~OpenRecess.com.', digits, twilioPhoneNumber);
+        exports.sendSMS('Thanks for the message. Either you already RSVP\'d to this game or you aren\'t authorized to join. ~OpenRecess.com.', digits, twilioPhoneNumber);
       } else {
-        exports.sendSMS('Game on for ' + thisGame.gameType + '#' + thisGame.gameCode + ' on ' + thisGame.gameDate(year, month, day) + ' at ' + thisGame.gameTime + '. Stay tuned for more text message updates.', digits, twilioPhoneNumber);        
+        exports.sendSMS('Game on for ' + thisGame.gameType + '#' + thisGame.gameCode + ' on ' + thisGame.gameDate + ' at ' + thisGame.gameTime + '. Stay tuned for more text message updates.', digits, twilioPhoneNumber);
       }
     }
   );
