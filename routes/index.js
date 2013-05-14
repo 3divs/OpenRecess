@@ -1,7 +1,8 @@
 var passport = require('passport'),
     twil = require('../src/twilio.js'),
     mongoose = require('mongoose'),
-    users = require('./users.js');
+    users = require('./users.js'),
+    teams = require('./teams.js');
 
 module.exports = function(app){
   var db = app.set('db');
@@ -44,7 +45,7 @@ module.exports = function(app){
   app.put('/users', users.updateUser);
   app.delete('/users/:id', users.deleteUser);
 
-  app.get('/user/current', function(req, res ,next){
+  app.get('/user/current', function(req, res) {
     if(req.user) {
       // Return subset of fields
       var user = {};
@@ -60,6 +61,16 @@ module.exports = function(app){
     // req.logout()
     res.redirect('/');
   });
+
+  /***********
+  *** TEAM ***
+  ***********/
+
+  app.get('/teams', teams.findTeams);
+
+  /***********
+  *** GAME ***
+  ***********/
 
   // app.get('/game', ensureAuthenticated, function(req, res, next) {
   app.get('/game', function(req, res, next) {

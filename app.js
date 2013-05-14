@@ -51,13 +51,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 passport.serializeUser(function(user, done) {
   console.log('User serialize');
   console.log(user);
-  console.log(user._id);
-  done(null, user._id);
+  console.log(user.email);
+  done(null, user.email);
 });
 
-passport.deserializeUser(function(_id, done) {
+passport.deserializeUser(function(email, done) {
   console.log('User deserialize');
-  User.findById(_id, function (err, user) {
+  User.findOne({email: email}, function (err, user) {
     done(err, user);
   });
 });
