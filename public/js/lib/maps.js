@@ -106,6 +106,16 @@ function initialize(gameData) {
         '<button class="btn-mini btn btn-danger" data-code=' + createMarker.code +'>Join Game</button></li>';
     }
   });
+
+  var step = 100;
+  var scrolling = false;
+  $("#showMore").bind("click", function(event) {
+    event.preventDefault();
+    $("#places").animate({
+        scrollTop: "+=" + step + "px"
+    });
+  });
+
   // Connect side-panel with events on the map
   var holder;
   $('#results').on('click', 'li', function(){

@@ -34,6 +34,22 @@
     }
   },
   {
+  "gameName": "Jason's Tennis Game",
+  "gameType": "Tennis",
+  "gameCode": 400,
+  "gameDescription": "Organized Tennis game",
+  "minimumPlayers": 2,
+  "playerLimit": 10,
+  "gameTime": "Monday",
+  "invitedPlayers": ["+15133074346"],
+  "createdAt": "2013-05-01T12:00:11Z",
+  "updatedAt": "2013-05-01T12:00:11Z",
+  "coord" : {
+    "lat" : 37.794929,
+    "lon" : -122.459416
+  }
+  },
+  {
     "gameName": "Playing ball in the park",
     "gameType": "Basketball",
     "gameDescription": "Organized basketball game",
