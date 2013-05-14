@@ -101,7 +101,7 @@ App.addInitializer(function() {
   App.currentUser = App.currentUser || new User();
   App.headerRegion.show(new HeaderView({ model: App.currentUser }));
   // App.mainRegion.show(new GamesView({ collection: games }));
-  App.footerRegion.show(new FooterView());
+  // App.footerRegion.show(new FooterView());
   App.router = new Router();
   App.currentUser.on('redirectSplash', function() {
     App.router.navigate('splash', true);

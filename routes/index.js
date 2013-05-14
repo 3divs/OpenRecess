@@ -1,8 +1,8 @@
 var passport = require('passport'),
     twil = require('../src/twilio.js'),
     mongoose = require('mongoose'),
-    users = require('./users.js'),
-    teams = require('./teams.js');
+    users = require('./users.js');
+    // teams = require('./teams.js');
 
 module.exports = function(app){
   var db = app.set('db');
@@ -66,7 +66,7 @@ module.exports = function(app){
   *** TEAM ***
   ***********/
 
-  app.get('/teams', teams.findTeams);
+  // app.get('/teams', teams.findTeams);
 
   /***********
   *** GAME ***
