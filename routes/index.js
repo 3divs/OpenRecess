@@ -89,15 +89,14 @@ module.exports = function(app){
 
   app.put('/game', function(req, res, next){
     console.log('the req', req.body);
-    // res.json(200, 'Update stub');
-    var code = req.body.code; //  change this...
-    var digits = req.body.phone; // change this too...
+    var code = req.body.code;
+    var digits = req.body.phone;
     Game.findOneAndUpdate(
     {
       gameCode : code
     },
     {
-      $push : { confirmedPlayers : digits },
+      $addToSet : { confirmedPlayers : digits },
       $inc : { confirmedPlayersCount : 1 }
     },
     function(err, thisGame){

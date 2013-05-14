@@ -120,27 +120,27 @@ function initialize(gameData) {
     infowindow.open(map, holder);
   });
 
-  $('#places').on('click', '.btn-mini', function () {
+  $('#places').one('click', '.btn-mini', function (e) {
     var code = $(this).data().code;
+    var phone = App.currentUser.attributes.phone;
     if (App.currentUser.attributes.phone) {
+      phone.length === 10 ? phone = '+1' + phone : phone = phone;
       $.ajax({
         url: '/game',
         contentType: 'application/json',
         type: 'PUT',
         data: JSON.stringify({
           code: code,
-          phone: App.currentUser.attributes.phone
+          phone: phone
         }),
         dataType: 'json',
         error: function(error) { alert(error); },
-        success: function() { console.log("So it is written!"); }
+        success: function() {
+          $(e.target).closest('button').text('Joined').css('background-color','green');
+        }
       });
-    //   User.find({ phone : phone }, function (err, results) {
-    //     if (err) throw err;
-    //     console.log(results);
-    //   });
     } else {
-      console.log('User issue');
+      App.currentUser.trigger('redirectLogin');
     }
 
   });

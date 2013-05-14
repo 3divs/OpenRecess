@@ -106,7 +106,12 @@ App.addInitializer(function() {
   App.currentUser.on('redirectSplash', function() {
     App.router.navigate('splash', true);
   });
+
+  App.currentUser.on('redirectLogin', function() {
+    App.router.navigate('login', true);
+  });
 });
+
 
 App.on('initialize:after', function() {
   if(Backbone.history) {
