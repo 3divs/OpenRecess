@@ -68,6 +68,7 @@ module.exports = function(app){
 
   app.get('/teams', teams.findTeams);
   app.put('/teams', teams.updateTeam);
+  app.delete('/teams', teams.deleteTeam);
 
   /***********
   *** GAME ***

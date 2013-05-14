@@ -1,4 +1,6 @@
-var Team = require('../models/team.js');
+var Team = require('../models/team.js'),
+    ObjectId = require('mongoose').Types.ObjectId,
+    __ = require('underscore');
 
 module.exports = {
   createTeam: function(req, res) {
@@ -6,24 +8,28 @@ module.exports = {
   },
 
   deleteTeam: function(req, res) {
-
+    console.log('Deleting team with id: ', req.body._id);
+    Team.findOneAndRemove({'_id': new ObjectId(req.body._id)}, function(err, rowsUpdated, raw) {
+      if(err) {
+        console.log(err);
+        res.json(500, err.err);
+      } else {
+        res.json(200, 'Team deleted');
+      }
+    });
   },
 
   updateTeam: function(req, res) {
-    console.log(req.body);
+    console.log('Updating team with id: ', req.body._id);
     if(req.body._id) {
-      var newTeam = req.body;
-      // Team.findOne({_id: req.body._id}, function(err, rows, raw) {
-      //   console.log(err, rows, raw);
-      // });
-      delete newTeam['_id'];
-      Team.findOneAndUpdate({'_id': req.body._id + ''}, newTeam, function(err, rowsUpdated, raw) {
+      console.log(req.body);
+      var newTeam = __.omit(req.body, '_id');
+      Team.findOneAndUpdate({'_id': new ObjectId(req.body._id)}, newTeam, function(err, rowsUpdated, raw) {
         if(err) {
           console.log(err);
           res.json(500, err.err);
         }
         else {
-          console.log(rowsUpdated, raw);
           res.json(200, 'Team updated successfully');
         }
       });
