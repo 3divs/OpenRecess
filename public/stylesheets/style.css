@@ -149,6 +149,13 @@ div.footer ul {
 div.footer li a {
   margin-left: 20px;
 }
+.createformtitle{
+  margin:10px
+}
+.formrow{
+  height:100px
+}
+
 /* Games */
 .game span {
   border: 1px solid #000;

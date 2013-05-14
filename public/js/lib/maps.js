@@ -223,11 +223,12 @@ var placeMarker = function(location) {
   });
   markerArray.push(marker);
   console.log('marker location: ' + marker.getPosition());
+  var loc = marker.getPosition();
+  $('.lon').val(loc.lb);
+  $('.lat').val(loc.kb);
 };
 
-// var loc = marker.getPosition();
-// $('.lon').val(loc.lb);
-// $('.lat').val(loc.kb);
+
 
 // Helper function to translate address to LatLng
 // Need to input #address
