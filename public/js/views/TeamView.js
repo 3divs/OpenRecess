@@ -95,7 +95,7 @@ var TeamView = Marionette.ItemView.extend({
 
   onRender: function() {
     // Hide the details
-    // this.$('.details').hide();
+    this.$('.details').hide();
     this.$('.sms-form').hide();
     this.$('.new-roster-player').hide();
   }
