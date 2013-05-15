@@ -243,7 +243,7 @@ div.footer li a {
   height: 398px;
   padding: 5px;
   border: 1px solid #999;
-  background: #27f0c8;
+  background: #6285a8;
 }
 #results .todo-search-field {
   overflow: scroll;
@@ -491,4 +491,7 @@ div.span5.team {
 .splash_img {
   opacity: 0.3;
   margin: 1.5em;
+}
+.btn-mini {
+  background-color: #1ecca9;
 }
