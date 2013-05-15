@@ -21,7 +21,6 @@ var CreateGameView = Marionette.ItemView.extend({
     },
 
     'click .nextbutton': function() {
-      console.log('nextclick');
       if($('.previousbutton').hasClass('buttonhidden')) {
         $('.previousbutton').removeClass('buttonhidden');
       } else if($('.visible').next().hasClass('submit')) {
@@ -31,7 +30,6 @@ var CreateGameView = Marionette.ItemView.extend({
     },
 
     'click .previousbutton': function() {
-      console.log('previousclick');
       if($('.nextbutton').hasClass('buttonhidden')) {
         $('.nextbutton').removeClass('buttonhidden');
       } else if($('.visible').prev().hasClass('what')) {

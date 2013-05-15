@@ -220,9 +220,9 @@
   <script type="text/template" id="create-gameView-template">
     <h1 class="createformtitle" style="text-align:center">Create a New Game</h1>
       <form action="/game" method="POST" class="createform span6">
-        <div class="todo question what visible">WHAT
-          <div><input type="textbox" placeholder="Game Name" name="gameName"></input></div>
-          <div>
+        <div class="todo question what visible"><h4 class="todo-name"><strong>WHAT</strong></h4><br>
+          <div>Game Name:<input type="textbox" name="gameName"></input></div><br>
+          <div>Game Type:
             <select>
               <option>select a game</option>
               <option value="flag football">flag football</option>
@@ -234,14 +234,14 @@
             </select>
           </div>
         </div>
-        <div class="todo question when hidden">WHEN
+        <div class="todo question when hidden"><h4 class="todo-name"><strong>WHEN</strong></h4>
           <div>Game Date: <input type="date" class="span6" name="gameDate"></input></div>
           <div>Game Time: <input type="time" class="span6" name="gameTime"></input></div>
         </div>
-        <div class="todo question where hidden">WHERE
+        <div class="todo question where hidden"><h4 class="todo-name"><strong>WHERE</strong></h4>
           <div>Use the map to navigate to your game&#39s location and click on the map to place a marker at the exact spot for your game</div>
         </div>
-        <div class="todo question who hidden">WHO
+        <div class="todo question who hidden"><h4 class="todo-name"><strong>WHO</strong></h4>
           <div>Min. # of Players: <input type="number" class="span4" name="minimumPlayers"></input></div>
           <div>Max. Player #: <input type="number" class="span4" name="PlayerLimit"></input></div>
           <div>Player Phone #s (+1): <input type="textbox" class='players' name="players"></input><img src="..." class="icon-plus"></div>
@@ -251,9 +251,9 @@
         <div class="question submit hidden">
           <div class="question todo"><input type="submit" value="Create game and send invites"></input></div>
         </div>
-        <div>
-          <div class="span3 nextbutton"><button type="button">Next</button></div>
-          <div class="span3 previousbutton buttonhidden"><button type="button">Previous</button></div>
+        <div class="nextprevious">
+          <div class="span4 nextbutton"><button type="button">Next</button></div>
+          <div class="span4 previousbutton buttonhidden"><button type="button">Previous</button></div>
         </div>
         <div><input type='textbox' class='lat' name='latitude' style='display:none'></input></div>
         <div><input type='textbox' class='lon' name='longitude' style='display:none'></input></div>
