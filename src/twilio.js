@@ -4,12 +4,14 @@ var __ = require('underscore'),
     Game = require('../models/game.js'),
     Message = require('../models/message.js'),
     express = require('express'),
+    moment = require('moment'),
+    config = require('../config/config.js'),
     MongoStore = require('connect-mongo')(express);
 
 // temporary variables should be reset and moved to a 'secrets' file
-var accountSid = "AC5933d34eda950c0bb81ed94811a9c13c";
-var authToken = "99143cc9267d4ad6db22cdc12856ad5a";
-var twilioPhoneNumber = '+14159928245';
+var accountSid = config.twilioSID;
+var authToken = config.twilioAuth;
+var twilioPhoneNumber = config.twilioNumber;
 
 var client = require('twilio')(accountSid, authToken);
 
@@ -34,6 +36,7 @@ exports.sendSMS = function(message, userNumber, twilioNumber, req, res) {
 exports.retrieveSMS = function(req, res) {
   var textMessage = req.body.Body;
   var senderPhone = req.body.From;
+  console.log(textMessage, senderPhone);
   processRSVPs(textMessage, senderPhone);
   res.send(200, ' Thanks for your reply. ~OpenRecess.com');
 };
@@ -73,7 +76,12 @@ var rsvpUser = function(digits, code){
       if (!thisGame) {
         exports.sendSMS('Thanks for the message. Either you already RSVP\'d to this game or you aren\'t authorized to join. ~OpenRecess.com.', digits, twilioPhoneNumber);
       } else {
-        exports.sendSMS('Game on for ' + thisGame.gameType + '#' + thisGame.gameCode + ' on ' + thisGame.gameDate + ' at ' + thisGame.gameTime + '. Stay tuned for more text message updates.', digits, twilioPhoneNumber);
+        var message = 'Game on for ' + thisGame.gameType + ' #' + thisGame.gameCode + ' on ' + moment(thisGame.gameDate).format("L") + ' at ' + thisGame.gameTime + '. Stay tuned for more text message updates.';
+        if (message.length > 144) {
+          exports.sendSMS(message, digits, twilioPhoneNumber);
+        } else {
+          exports.sendSMS(message + ' ~OpenRecess.com', digits, twilioPhoneNumber);
+        }
       }
     }
   );
