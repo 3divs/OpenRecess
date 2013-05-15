@@ -34,7 +34,12 @@ div.footer-right ul,div.footer-right li{list-style:none;display:inline}
 div.footer ul{margin:0}
 div.footer li a{margin-left:20px}
 .createformtitle{margin:10px}
-.formrow{height:100px}
+.createform{margin-top:50px}
+.hidden{display:none}
+.buttonhidden{visibility:hidden}
+.question{padding-top:25px;padding-left:10px;height:200px;width:400px;vertical-align:text-middle}
+.nextprevious{height:25px}
+.game span{border:1px solid #000;display}
 #map-canvas{position:relative;display:block;background:rgba(255,255,255,0.5);border:1px solid rgba(0,0,0,0.08);-moz-box-shadow:inset 4px 4px 4px rgba(0,0,0,0.05);-webkit-box-shadow:inset 4px 4px 4px rgba(0,0,0,0.05);box-shadow:4px 4px rgba(0,0,0,0.05);margin-bottom:10px;padding:10px;-webkit-border-radius:5px 5px 5px 5px;-moz-border-radius:5px 5px 5px 5px;-o-border-radius:5px 5px 5px 5px;border-radius:5px 5px 5px 5px;height:400px;margin:0;border:3px solid rgba(0,0,0,0.5);}
 #map-canvas img{max-width:inherit}
 #results{font-family:Arial,Helvetica,sans-serif;height:398px;padding:5px;border:1px solid #999;background:#1abc9c}

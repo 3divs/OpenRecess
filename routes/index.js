@@ -97,7 +97,7 @@ module.exports = function(app){
       playerLimit: req.body.playerLimit
     });
     newGame.save();
-    res.redirect('/games');
+    res.redirect('/#games');
   });
 
   app.put('/game', function(req, res, next){
