@@ -1,8 +1,11 @@
 /* Variables */
 /* Universal */
+html {
+  font-size: 16px;
+}
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: rgba(214,214,214,0.64);
+  background-color: rgba(226,226,226,0.64);
   height: 100%;
 }
 a {
@@ -31,7 +34,7 @@ div.main-content {
   margin: 0;
 }
 .navbar a.brand {
-  color: #1abc9c;
+  color: #2bebc4;
   text-decoration: none;
 }
 .header li {
@@ -44,7 +47,7 @@ div.main-content {
 #header-inner {
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
-  box-shadow: 0px -4px 8px #1abc9c inset;
+  box-shadow: 0px -4px 8px #2bebc4 inset;
 }
 .dropdown-menu .signin-button {
   width: 96%;
@@ -61,27 +64,31 @@ div.main-content {
 }
 /* Splash */
 .hero-unit {
+  background-color: rgba(5,27,41,0);
   padding: 20px;
 }
 .jumbotron h1 {
-  color: #1abc9c;
-  text-shadow: #000 3px 5px 20px;
+  color: #2bebc4;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.5);
   display: inline-block;
 }
 .jumbotron p {
   text-shadow: rgba(240,232,232,0.75) 1px 1px 4px;
 }
 .jumbotron {
+  margin-bottom: 100px;
+  margin-top: 30px;
+  padding-bottom: 72px;
+  border-radius: 40px;
+  box-shadow: inset 1px 1px 9px rgba(0,0,0,0.25), 0 1px 0 #fff;
+  border: 1px solid #c8c8c8;
+  background: #fff;
   text-align: center;
-  margin-top: 15px;
-  border-radius: 10px;
-  background-color: #fff;
 }
 .jumbotron .inner-jumbotron {
-  background-color: rgba(214,214,214,0.64);
   height: 90%;
-  padding: 5%;
-  border-radius: 10px;
+  background-color: rgba(5,27,41,0);
+  border-radius: 66px;
 }
 .jumbotron p,
 .jumbotron a,
@@ -93,11 +100,12 @@ div.main-content {
 }
 .superscript {
   display: inline-block;
-  vertical-align: top;
-  text-shadow: #000 3px 5px 20px;
-  font-size: 14px;
   padding-top: 21px;
-  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.5);
+  vertical-align: top;
+  font-size: 14px;
+  font-weight: bold;
+  color: #6792fd;
 }
 li.login-right {
   float: right;
@@ -127,16 +135,24 @@ li.login-right {
   padding: 2%;
 }
 .splash-steps .step-inner {
-  height: 100%;
+  color: #fff;
+  position: relative;
 }
 .splash-steps .step-img {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
 }
+.splash-steps i {
+  position: absolute;
+  top: 45%;
+  left: 0;
+  font-size: 3.5rem;
+  color: #2bebc4;
+}
 /* Footer */
 div.footer {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 div.footer-right ul,
 div.footer-right li {
@@ -148,6 +164,7 @@ div.footer ul {
 }
 div.footer li a {
   margin-left: 20px;
+  text-decoration: none;
 }
 /* Create Games */
 .createformtitle {
@@ -228,10 +245,23 @@ display
   height: 398px;
   padding: 5px;
   border: 1px solid #999;
-  background: #1abc9c;
+  background: #27f0c8;
+}
+#results .todo-search-field {
+  overflow: scroll;
+  box-shadow: 1px 1px 4px;
+  height: 1.5em;
+  text-align: center;
+}
+#results .todo-search-field:hover {
+  background-color: #ecf0f1;
+}
+#results .todo-search {
+  padding-left: 8px;
+  background-color: #47d8bb;
 }
 #results li:hover {
-  color: #1abc9c;
+  color: #2bebc4;
   font-weight: bold;
 }
 #places {
@@ -255,7 +285,7 @@ display
   font-size: 90%;
 }
 .gamelist-title:hover {
-  color: #1abc9c;
+  color: #2bebc4;
 }
 /* Manage Games */
 div.span10.offset1.game,
@@ -344,7 +374,7 @@ div.span5.team {
   margin: 0;
   margin-bottom: 20px;
   padding: 5px;
-  border: 5px solid #1abc9c;
+  border: 5px solid #2bebc4;
 }
 .team .title {
   position: relative;
@@ -354,7 +384,7 @@ div.span5.team {
   padding: 5px;
   border-radius: 5px;
   font-size: 80%;
-  border: 2px solid #1abc9c;
+  border: 2px solid #2bebc4;
 }
 .team .team-caret {
   background: #2c3e44 url("../images/select/toggle.png") no-repeat right center;
@@ -399,11 +429,6 @@ div.span5.team {
 .team .add-roster-player span.fui-plus-16 {
   margin-right: 2px;
 }
-.todo-search-field {
-  overflow: scroll;
-  font-size: 105%;
-  width: 150px;
-}
 .infobox-wrapper {
   display: none;
 }
@@ -429,4 +454,42 @@ div.span5.team {
   text-shadow: 0 -1px #000;
   -webkit-box-shadow: 0 0 8px #000;
   box-shadow: 0 0 8px #000;
+}
+#target {
+  margin-top: 9px;
+  z-index: 1;
+  opacity: 0.75;
+  position: absolute;
+  margin-left: 20em;
+}
+#target:hover {
+  opacity: 1;
+  border: 2px solid #000;
+}
+.login-form {
+  position: relative;
+  margin-top: 8em;
+  background-color: #dcdcdc;
+  border-width: 0;
+  text-align: center;
+}
+.login-ball {
+  display: block;
+  background: #d9f1ee;
+  border-radius: 55px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.25);
+  position: absolute;
+  width: 55px;
+  left: -27.5px;
+  top: -27.5px;
+  z-index: 1;
+  opacity: 0.6;
+}
+.login-container {
+  margin: auto;
+  width: 365px;
+}
+.splash_img {
+  opacity: 0.3;
+  margin: 1.5em;
 }

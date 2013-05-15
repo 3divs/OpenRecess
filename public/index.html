@@ -6,6 +6,7 @@
   <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/stylesheets/flat-ui.css">
   <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCedMF4wwQSrQDAw6nlYr7dS7ozhRSvYHQ&sensor=false&libraries=places"></script>
   <script type="text/javascript" src="/js/lib/maps.js"></script>
   <script type="text/javascript" src="/js/lib/jquery.js"></script>
@@ -50,8 +51,12 @@
         <div>
           <h1>OpenRecess!</h1><span class="superscript">Alpha</span>
         </div>
+        <img class="splash_img" src="images/noun_project_8887.svg"/>
+        <img class="splash_img" src="images/noun_project_882.svg"/>
+        <img class="splash_img" src="images/noun_project_260.svg"/>
+        <img class="splash_img" src="images/noun_project_15660.svg"/>
         <p class="lead splash-lead">Ball so hard, other players wanna find me!</p>
-        <a class="btn btn-large btn-success" href="#register">Sign up today</a>
+        <a class="btn btn-large btn-info" href="#register">Sign up today</a>
       </div>
     </div>
   </div>
@@ -60,7 +65,7 @@
         <div class="splash-steps">
           <div class="span4 step">
             <div class="step-inner">
-              <h3 class="text-center">Sign Up</h3>
+              <h3 class="text-center" style="color: rgb(104, 190, 118)">Sign Up</h3>
               <div class="step-img">
                 <img src="images/illustrations/clipboard.png"/>
               </div>
@@ -68,18 +73,20 @@
           </div>
           <div class="span4 step">
             <div class="step-inner">
-              <h3 class="text-center">Find Games</h3>
+              <h3 class="text-center" style="color: rgb(127, 177, 252)">Find Games</h3>
               <div class="step-img">
                 <img src="images/illustrations/map.png"/>
               </div>
+              <i class="icon-circle-arrow-right"></i>
             </div>
           </div>
           <div class="span4 step">
             <div class="step-inner">
-              <h3 class="text-center">Get Notified</h3>
+              <h3 class="text-center" style="color: rgb(247, 134, 134);">Get Notified</h3>
               <div class="step-img">
                 <img src="images/notify.png"/>
               </div>
+              <i class="icon-circle-arrow-right"></i>
             </div>
           </div>
         </div>
@@ -91,7 +98,7 @@
     <div class="list-games">
       <div id='results' class="span3 todo mrm">
         <div class="todo-search">
-          <input class="todo-search-field" type="search" value placeholder="Game Name">
+          <input class="todo-search-field span11" type="search" value placeholder="Search Games">
         </div>
         <ul id="places"></ul>
         <button class="btn btn-large btn-block btn-primary" id="showMore">More</button>
@@ -101,28 +108,21 @@
   </script>
 
   <script type="text/template" id="loginView-template">
-    <div class="span6 offset3">
-      <h1 class="text-center">Login</h1>
-      <form class="form-horizontal">
-        <div class="control-group">
-          <div class="control-label" for="email">Email:</div>
-          <div class="controls">
-            <input class="input-field" type="text" name="email" required/>
-          </div>
-        </div>
-        <div class="control-group">
-          <div class="control-label" for="inputPassword">Password: </div>
-          <div class="controls">
-            <input class="input-field" type="password" name="password" required/>
-          </div>
-        </div>
-        <div class="control-group">
-          <div class="controls">
-            <button id="login" class="btn btn-primary">Login</button>
-          </div>
-        </div>
-      </form>
+  <div class="login-container">
+    <div class="login-form">
+      <img src="/images/noun_project_2034.svg" class="login-ball">
+
+      <div class="control-group">
+        <input type="text" class="login-field input-field" value="" placeholder="Enter your email" name="email" required />
+        <label class="login-field-icon fui-man-16" for="login-name"></label>
+      </div>
+      <div class="control-group">
+        <input type="password" class="login-field input-field" name="password" placeholder="Password" id="login-pass" required />
+        <label class="login-field-icon fui-lock-16" for="login-pass"></label>
+      </div>
+      <a class="btn btn-success btn-large btn-block" href="#" id="login">Login</a>
     </div>
+  </div>
   </script>
 
   <script type="text/template" id="registerView-template">
@@ -210,8 +210,8 @@
       </div>
       <div class="footer-right right">
         <ul>
-          <li><a href="/about">About</a></li>
-          <li><a href="/contact">Contact</a></li>
+          <li><a href="http://www.github.com/3divs/">About</a></li>
+          <li><a href="http://www.github.com/3divs/">Contact</a></li>
         </ul>
       </div>
     </div>
@@ -414,7 +414,7 @@
             <button id="add-player" class="btn btn-info btn-mini"><span class="fui-plus-16"></span>Add</button>
           </div>
           <ol>
-            <% _.each(players, function(player) { %>
+            <% _.each(roster, function(player) { %>
               <li class="roster-player">
                 <%= player.name + ' - ' + player.phone %>
                 <span class="fui-new-16" data-phone="<%= player.phone %>" data-name="<%= player.name %>"/>
@@ -447,7 +447,7 @@
   <div id="header"></div>
   <div class="container-fluid">
     <div class="row-fluid">
-      <div class="span10 offset1">
+      <div class="span10 offset1" style="margin-top: 30px">
         <div id="main">Hello World!</div>
       </div>
     </div>

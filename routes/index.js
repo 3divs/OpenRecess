@@ -2,7 +2,9 @@ var passport = require('passport'),
     twil = require('../src/twilio.js'),
     mongoose = require('mongoose'),
     users = require('./users.js'),
-    teams = require('./teams.js');
+    moment = require('moment'),
+    teams = require('./teams.js'),
+    moment = require('moment');
 
 module.exports = function(app){
   var db = app.set('db');
