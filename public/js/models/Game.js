@@ -1,6 +1,11 @@
 var Game = Backbone.Model.extend({
   url: '/game',
 
+  defaults: {
+    type: 'Unknown',
+    gameType: 'Unknown'
+  },
+
   initialize: function() {
 
     this.validators = {};
