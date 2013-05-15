@@ -132,7 +132,6 @@ li.login-right {
 .splash-steps .step {
   height: 90%;
   border-radius: 10px;
-  padding: 2%;
 }
 .splash-steps .step-inner {
   color: #fff;
@@ -149,6 +148,7 @@ li.login-right {
   left: 0;
   font-size: 3.5rem;
   color: #2bebc4;
+  margin-left: -10%;
 }
 /* Footer */
 div.footer {
