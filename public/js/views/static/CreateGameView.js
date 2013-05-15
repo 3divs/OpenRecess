@@ -17,7 +17,7 @@ var CreateGameView = Marionette.ItemView.extend({
         return alert("Please enter a valid 10-digit US phone number.");
       }
       $('.invitees').val(numberArray);
-      $('.inviteeList').append('<div>+1 (' + value.slice(0,3) + ')' + ' ' + value.slice(3,6) + '-' + value.slice(6,10) + ' </div>');
+      $('.inviteelist').append('<div>+1 (' + value.slice(0,3) + ')' + ' ' + value.slice(3,6) + '-' + value.slice(6,10) + ' </div>');
     },
 
     'click .nextbutton': function() {

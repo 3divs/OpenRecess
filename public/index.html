@@ -234,7 +234,7 @@
             </select>
           </div>
         </div>
-        <div class="todo question when hidden"><h4 class="todo-name"><strong>WHEN</strong></h4>
+        <div class="todo question when hidden"><h4 class="todo-name"><strong>WHEN</strong></h4><br>
           <div>Game Date: <input type="date" class="span6" name="gameDate"></input></div>
           <div>Game Time: <input type="time" class="span6" name="gameTime"></input></div>
         </div>
@@ -242,19 +242,21 @@
           <div>Use the map to navigate to your game&#39s location and click on the map to place a marker at the exact spot for your game</div>
         </div>
         <div class="todo question who hidden"><h4 class="todo-name"><strong>WHO</strong></h4>
-          <div>Min. # of Players: <input type="number" class="span4" name="minimumPlayers"></input></div><br>
-          <div>Max. Player #: <input type="number" class="span4" name="PlayerLimit"></input></div><br>
-          <div>Player Phone #s (+1): <input type="textbox" class='players' name="players"></input><span class="addphone"><img src="..." class="icon-plus"></span></div><br>
+          <div>Min. # of Players: <input type="number" class="numplayer" name="minimumPlayers"></input></div>
+          <div>Max. Player #: <input type="number" class="numplayer" name="PlayerLimit"></input></div>
+          <div>Player Phone #s (+1): <input type="textbox" class='players' name="players"></input><span class="addphone"><img src="..." class="icon-plus"></span></div>
           <div><input type='textbox' name='playerArray' class='invitees' style='display:none'></input></div>
         </div>
-        <div class="question submit hidden">
-          <div class="question todo"><input type="submit" value="Create game and send invites"></input></div>
+        <div class="todo question submit hidden">
+          <div><strong><input type="submit" class="submitbtn btn btn-large btn-primary" value="Create game and send invites"></strong></input></div>
         </div>
         <div class="nextprevious">
-          <div class="span4 nextbutton"><button class="btn btn-info btn-large" type="button">Next</button></div>
-          <div class="span4 previousbutton buttonhidden"><button class="btn btn-info btn-large" type="button">Previous</button></div>
+          <div class="span2 nextbutton"><button class="btn btn-info btn-large" type="button">Next</button></div>
+          <div class="span2 previousbutton buttonhidden"><button class="btn btn-info btn-large" type="button">Previous</button></div>
         </div>
-        <div class='inviteeList'>Invited Players</div>
+        <div class="inviteelist todo">       
+          <div class="todo-name"><strong>Invited Players</strong></div>
+        </div>
         <div><input type='textbox' class='lat' name='latitude' style='display:none'></input></div>
         <div><input type='textbox' class='lon' name='longitude' style='display:none'></input></div>
       </form>
