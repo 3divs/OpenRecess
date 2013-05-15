@@ -67,7 +67,6 @@
 		dom.closeButton = document.querySelector( '.forkit-curtain .close-button' );
 
 		if( dom.ribbon ) {
-console.log('forkit intialized');
 
 			// Fetch label texts from DOM
 			closedText = dom.ribbon.getAttribute( 'data-text' ) || '';
