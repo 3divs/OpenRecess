@@ -89,34 +89,33 @@
     <div class="list-games">
       <div id='results' class="span3 todo mrm">
         <div class="todo-search">
-          <input class="todo-search-field" type="search" value placeholder="Search Games" style="text-align: left">
+          <input class="todo-search-field" type="search" value placeholder="Game Name">
         </div>
         <ul id="places"></ul>
-        <button class="btn btn-large btn-block btn-primary" id="showMore" style="margin-top: 12px; border: solid 1px rgb(53, 125, 148); box-shadow: 1px 1px 1px rgb(53, 125, 148);">More</button>
       </div>
       <div id="map-canvas" class="span9"></div>
     </div>
   </script>
 
   <script type="text/template" id="loginView-template">
-    <div class="span6 offset3 login-form">
+    <div class="span6 offset3">
       <h1 class="text-center">Login</h1>
       <form class="form-horizontal">
         <div class="control-group">
+          <div class="control-label" for="email">Email:</div>
           <div class="controls">
-            <input class="input-field login-field" placeholder="Enter your email" type="text" name="email" required/>
-            <label class="login-field-icon fui-man-16" for="login-name"></label>
+            <input class="input-field" type="text" name="email" required/>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="control-label" for="inputPassword">Password: </div>
+          <div class="controls">
+            <input class="input-field" type="password" name="password" required/>
           </div>
         </div>
         <div class="control-group">
           <div class="controls">
-            <input class="input-field login-field" id="login-pass" placeholder="Password" type="password" name="password" required>
-            <label class="login-field-icon fui-lock-16" for="login-pass"></label>
-          </div>
-        </div>
-        <div class="control-group">
-          <div class="controls">
-            <button id="login" class="btn btn-primary btn-large btn-block">Login</button>
+            <button id="login" class="btn btn-primary">Login</button>
           </div>
         </div>
       </form>
@@ -217,63 +216,44 @@
 
   <script type="text/template" id="create-gameView-template">
     <h1 class="createformtitle" style="text-align:center">Create a New Game</h1>
-      <form action="/game" method="POST" class="span5">
-        <table class="createform">
-        <tr class="what">
-        <td rowspan="2" class="span2 formrow">WHAT</td>
-        <td>
-        Game Name: <input type="textbox" placeholder="Game Name" name="gameName"></input>
-        </td>
-        </tr>
-        <tr>
-        <td>
-        Game Type: <select>
-                    <option>select a game</option>
-                    <option value="flag football">flag football</option>
-                    <option value="volleyball">volleyball</option>
-                    <option value="basketball">basketball</option>
-                    <option value="baseball">baseball</option>
-                    <option value="soccer">soccer</option>
-                    <option value="tag">tag</option>
-                  </select>
-        </td>
-        </tr>
-        <tr class="when">
-        <td rowspan="2" class="span2 formrow">WHEN</td>
-        <td>
-        Game Date: <input type="date" class="span4" name="gameDate"></input>
-        </td>
-        </tr>
-        <tr>
-        <td>
-        Game Time: <input type="time" class="span4" name="gameTime"></input>
-        </td>
-        </tr>
-        <tr class="where">
-        <td class="span2 formrow">WHERE</td>
-        <td>Use the map to navigate to your game&#39s location and click on the map to place a marker at the exact spot for your game</td>
-        </tr>
-        <tr class="who">
-        <td rowspan="3" class="span2 formrow">WHO</td>
-        <td>
-          Min. # of Players: <input type="number" class="span2" name="minimumPlayers"></input>
-          Max. Player #: <input type="number" class="span2" name="PlayerLimit"></input>
-        </td>
-        </tr>
-        <tr>
-        <td>
-          Player Phone #s (+1): <input type="textbox" class='players' name="players"></input><img src="..." class="icon-plus"><br>
-        </td>
-        </tr>
-        <tr>
-        <td>
-        <input type='textbox' name='playerArray' class='invitees' style='display:none'></input><div class='inviteeList'>Invited Players</div>
-        </td>
-        </tr>
-        </table>
-          <input type='textbox' class='lat' name='latitude' style='display:none'></input><br>
-          <input type='textbox' class='lon' name='longitude' style='display:none'></input>
-          <input type="submit"></input>
+      <form action="/game" method="POST" class="createform span6">
+        <div class="todo question what visible">WHAT
+          <div><input type="textbox" placeholder="Game Name" name="gameName"></input></div>
+          <div>
+            <select>
+              <option>select a game</option>
+              <option value="flag football">flag football</option>
+              <option value="volleyball">volleyball</option>
+              <option value="basketball">basketball</option>
+              <option value="baseball">baseball</option>
+              <option value="soccer">soccer</option>
+              <option value="tag">tag</option>
+            </select>
+          </div>
+        </div>
+        <div class="todo question when hidden">WHEN
+          <div>Game Date: <input type="date" class="span6" name="gameDate"></input></div>
+          <div>Game Time: <input type="time" class="span6" name="gameTime"></input></div>
+        </div>
+        <div class="todo question where hidden">WHERE
+          <div>Use the map to navigate to your game&#39s location and click on the map to place a marker at the exact spot for your game</div>
+        </div>
+        <div class="todo question who hidden">WHO
+          <div>Min. # of Players: <input type="number" class="span4" name="minimumPlayers"></input></div>
+          <div>Max. Player #: <input type="number" class="span4" name="PlayerLimit"></input></div>
+          <div>Player Phone #s (+1): <input type="textbox" class='players' name="players"></input><img src="..." class="icon-plus"></div>
+          <div><input type='textbox' name='playerArray' class='invitees' style='display:none'></input></div>
+          <div class='inviteeList'>Invited Players</div>
+        </div>
+        <div class="question submit hidden">
+          <div class="question todo"><input type="submit" value="Create game and send invites"></input></div>
+        </div>
+        <div>
+          <div class="span3 nextbutton"><button type="button">Next</button></div>
+          <div class="span3 previousbutton buttonhidden"><button type="button">Previous</button></div>
+        </div>
+        <div><input type='textbox' class='lat' name='latitude' style='display:none'></input></div>
+        <div><input type='textbox' class='lon' name='longitude' style='display:none'></input></div>
       </form>
   </script>
 
@@ -355,7 +335,7 @@
 
   <script type="text/template" id="teamView-template">
     <div class="title">
-      <span class="name"><%= name + ' (' + sport + ')' %></span>
+      <h4 class="name"><%= name + ' (' + type + ')' %></h4>
       <span class="team-caret"/>
       <button id="deleteTeam" class="btn btn-danger btn-small"><span class="fui-cross-24"/>Delete</button>
     </div>
@@ -363,20 +343,20 @@
       <ul>
         <li><span class="field">Manager: </span><span class="value"><%= managerName %></span></li>
         <div class="roster">
-          <span class="field">Roster:</span>
+          <span class="roster">Roster:</span>
           <div class="add-roster-player">
             <button id="add-player" class="btn btn-info btn-mini"><span class="fui-plus-16"></span>Add</button>
           </div>
           <ol>
-            <% _.each(roster, function(player) { %>
+            <% _.each(players, function(player) { %>
               <li class="roster-player">
+                <%= player.name + ' - ' + player.phone %>
                 <span class="fui-new-16" data-phone="<%= player.phone %>" data-name="<%= player.name %>"/>
                 <span class="fui-cross-16" data-phone="<%= player.phone %>" data-name="<%= player.name %>"/>
-                <%= player.name + ' - ' + player.phone %>
               </li>
             <% }); %>
             <div class="new-roster-player">
-              <form class="add-player" id="player-form">
+              <form id="player-form">
                 <input class="input-small" type="text" name="name"/> - 
                 <input class="input-small" type="text" name="phone"/>
               </form>
