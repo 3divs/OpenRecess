@@ -58,6 +58,7 @@
   {
     "gameName": "Playing ball in the park",
     "gameType": "Basketball",
+    "gameCode": 789,
     "gameDescription": "Organized basketball game",
     "minimumPlayers": 5,
     "playerLimit": 10,

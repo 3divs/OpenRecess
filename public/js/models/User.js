@@ -71,7 +71,7 @@ var User = Backbone.Model.extend({
         that.set(data);
 
         // trigger App redirect on successful login
-        that.trigger('redirectSplash');
+        that.trigger('redirectGames');
       },
       error: function(err) {
         cb('Invalid Username/Password');
