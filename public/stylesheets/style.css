@@ -2,7 +2,7 @@
 /* Universal */
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: #7f8c8d;
+  background-color: #bdc3c7;
   height: 100%;
 }
 a {
@@ -79,7 +79,7 @@ div.main-content {
   padding-bottom: 72px;
   margin-bottom: 100px;
   margin-top: 80px;
-  box-shadow: 1px 1px 40px #e4aeae;
+  box-shadow: 1px 1px 40px rgba(29,255,156,0.52);
 }
 .jumbotron .inner-jumbotron {
   background-color: rgba(5,27,41,0);
@@ -357,7 +357,7 @@ display
 }
 .login-form {
   margin-top: 10em;
-  background-color: #a2a2a2;
+  background-color: #bdc3c7;
   color: #fff;
   text-align: center;
   width: 39em;
