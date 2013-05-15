@@ -174,9 +174,6 @@ var twilioPhoneNumber = '+14159928245';
   app.post('/retrieve-sms/user', function(req, res) {
     twil.retrieveSMS(userPhoneNumber);
   });
-
-
-
 };
 
 function ensureAuthenticated(req, res, next) {
