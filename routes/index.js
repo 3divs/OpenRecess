@@ -97,7 +97,7 @@ module.exports = function(app){
       playerLimit: req.body.playerLimit
     });
     newGame.save();
-    res.redirect('/games');
+    res.redirect('/#games');
   });
 
   app.put('/game', function(req, res, next){
@@ -106,15 +106,17 @@ module.exports = function(app){
     var digits = req.body.phone;
     Game.findOneAndUpdate(
     {
-      gameCode : code
+      gameCode : code,
+      confirmedPlayers : { $nin: [digits] }
     },
     {
       $addToSet : { confirmedPlayers : digits },
       $inc : { confirmedPlayersCount : 1 }
     },
     function(err, thisGame){
-      if(err) throw 'wtf?';
-      // exports.sendSMS('Game on for ' + thisGame.gameType + '#' + thisGame.gameCode + ' on ' + thisGame.gameDate + ' at ' + thisGame.gameTime + '. Stay tuned for more text message updates.', digits, twilioPhoneNumber);
+      if(err) throw 'no such game found';
+      console.log(thisGame);
+      // twil.sendSMS('Game on for ' + thisGame.gameType + '#' + thisGame.gameCode + ' on ' + thisGame.gameDate + ' at ' + thisGame.gameTime + '. Stay tuned for more text message updates.', digits, twilioPhoneNumber);
     });
     res.json(200, 'Done and done');
   });
