@@ -89,7 +89,7 @@
     <div class="list-games">
       <div id='results' class="span3 todo mrm">
         <div class="todo-search">
-          <input class="todo-search-field" type="search" value placeholder="Search Games">
+          <input class="todo-search-field span11" type="search" value placeholder="Search Games">
         </div>
         <ul id="places"></ul>
         <button class="btn btn-large btn-block btn-primary" id="showMore">More</button>
@@ -99,29 +99,21 @@
   </script>
 
   <script type="text/template" id="loginView-template">
-  <img class="loginBall" src="/images/noun_project_2034.svg" />
-    <div class="span6 offset3 login-form">
-      <h1 class="text-center">Login</h1>
-      <form class="form-horizontal">
-        <div class="control-group">
-          <div class="controls">
-            <input class="input-field login-field" placeholder="Enter your email" type="text" name="email" style="margin-right:8px;"required/>
-            <label class="login-field-icon fui-man-16" for="login-name" style="margin-right: 3.5em;"></label>
-          </div>
-        </div>
-        <div class="control-group">
-          <div class="controls">
-            <input class="input-field login-field" id="login-pass" placeholder="Password" type="password" name="password" style="margin-right:8px;" required/>
-            <label class="login-field-icon fui-lock-16" for="login-pass" style="margin-right: 3.5em;"></label>
-          </div>
-        </div>
-        <div class="control-group">
-          <div class="controls">
-            <button id="login" class="btn btn-primary btn-large btn-block" style="background-color:rgb(86, 137, 201); width:19em; margin-left:3em;">Login</button>
-          </div>
-        </div>
-      </form>
+  <div class="login-container">
+    <div class="login-form">
+      <img src="/images/noun_project_2034.svg" class="login-ball">
+
+      <div class="control-group">
+        <input type="text" class="login-field input-field" value="" placeholder="Enter your email" name="email" required />
+        <label class="login-field-icon fui-man-16" for="login-name"></label>
+      </div>
+      <div class="control-group">
+        <input type="password" class="login-field input-field" name="password" placeholder="Password" id="login-pass" required />
+        <label class="login-field-icon fui-lock-16" for="login-pass"></label>
+      </div>
+      <a class="btn btn-info btn-large btn-block" href="#">Login</a>
     </div>
+  </div>
   </script>
 
   <script type="text/template" id="registerView-template">

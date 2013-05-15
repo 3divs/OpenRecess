@@ -1,5 +1,8 @@
 /* Variables */
 /* Universal */
+html {
+  font-size: 16px;
+}
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: rgba(226,226,226,0.64);
@@ -65,26 +68,27 @@ div.main-content {
   padding: 20px;
 }
 .jumbotron h1 {
-  color: #1abc9c;
-  text-shadow: #000 3px 5px 20px;
+  color: #2bebc4;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.5);
   display: inline-block;
 }
 .jumbotron p {
   text-shadow: rgba(240,232,232,0.75) 1px 1px 4px;
 }
 .jumbotron {
-  text-align: center;
-  margin-top: 15px;
-  border-radius: 20px;
-  padding-bottom: 72px;
   margin-bottom: 100px;
   margin-top: 80px;
-  box-shadow: 1px 1px 40px rgba(129,129,129,0.52);
+  padding-bottom: 72px;
+  border-radius: 20px;
+  box-shadow: inset 1px 1px 9px rgba(0,0,0,0.25), 0 1px 0 #fff;
+  border: 1px solid #c8c8c8;
+  background: #fff;
+  text-align: center;
 }
 .jumbotron .inner-jumbotron {
+  height: 90%;
   background-color: rgba(5,27,41,0);
   border-radius: 66px;
-  height: 90%;
 }
 .jumbotron p,
 .jumbotron a,
@@ -96,11 +100,12 @@ div.main-content {
 }
 .superscript {
   display: inline-block;
-  vertical-align: top;
-  text-shadow: #000 3px 5px 20px;
-  font-size: 14px;
   padding-top: 21px;
-  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.5);
+  vertical-align: top;
+  font-size: 14px;
+  font-weight: bold;
+  color: #6792fd;
 }
 li.login-right {
   float: right;
@@ -198,7 +203,6 @@ display
   overflow: scroll;
   box-shadow: 1px 1px 4px;
   height: 1.5em;
-  width: 10em;
   text-align: center;
 }
 #results .todo-search-field:hover {
@@ -356,17 +360,24 @@ display
   border: 2px solid #000;
 }
 .login-form {
-  margin-top: 8em;
-  background-color: #bdc3c7;
-  color: #fff;
-  text-align: center;
-  width: 38em;
-  margin-left: 25em;
-}
-.loginBall {
   position: relative;
-  right: 40.5em;
-  top: 14.75em;
-  opacity: 0.5;
+  margin-top: 8em;
+  background-color: #dcdcdc;
+  border-width: 0;
+  text-align: center;
+}
+.login-ball {
+  display: block;
+  background: #d9f1ee;
+  border-radius: 55px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.25);
+  position: absolute;
+  width: 55px;
+  left: -27.5px;
+  top: -27.5px;
   z-index: 1;
+}
+.login-container {
+  margin: auto;
+  width: 365px;
 }
