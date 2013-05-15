@@ -107,7 +107,7 @@ function initialize(gameData) {
       markerArray.push(createMarker);
       gameList.innerHTML += '<li data-id=' + createMarker.__gm_id + '>' +
         '<span class="gamelist-title todo-name">' + createMarker.title + '</span>' +
-        '<button class="btn-mini btn btn-danger" data-code=' + createMarker.code +'>Join Game</button></li>';
+        '<button class="btn-mini btn" data-code=' + createMarker.code +'>Join Game</button></li>';
     }
   });
 
