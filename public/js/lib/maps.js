@@ -3,6 +3,7 @@ var geocoder;
 var map;
 var createMarker;
 var infobox;
+// var moment = require('moment');
 
 // Defaults to San Francisco
 var lat = 37.783;
@@ -97,9 +98,11 @@ function initialize(gameData) {
         date: gameData.at(i).get('gameDate'),
         min: gameData.at(i).get('minimumPlayers'),
         code: gameData.at(i).get('gameCode'),
-        animation: google.maps.Animation.DROP
+        animation: google.maps.Animation.DROP,
+        date1: gameData.at(i).get('date')
       });
       var content = createMarker.title;
+      console.log(createMarker.date1)
       makeInfoWindowEvent(map, infowindow, content, createMarker);
       markerArray.push(createMarker);
       gameList.innerHTML += '<li data-id=' + createMarker.__gm_id + '>' +
@@ -163,8 +166,9 @@ function initialize(gameData) {
           holder = markerArray[i];
         }
       }
-      infowindow.setContent(holder.title);
-      infowindow.open(map, holder);
+      boxText.innerHTML = holder.title;
+      ib.open(map, holder);
+
       $('.todo-search-field').val("");
       return false;
     }

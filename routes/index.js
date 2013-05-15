@@ -2,6 +2,8 @@ var passport = require('passport'),
     twil = require('../src/twilio.js'),
     mongoose = require('mongoose'),
     users = require('./users.js'),
+    moment = require('moment'),
+    config = require('../config/config.js'),
     teams = require('./teams.js');
 
 module.exports = function(app){
@@ -110,13 +112,14 @@ module.exports = function(app){
       confirmedPlayers : { $nin: [digits] }
     },
     {
+      $pull : { invitedPlayers : digits },
       $addToSet : { confirmedPlayers : digits },
       $inc : { confirmedPlayersCount : 1 }
     },
     function(err, thisGame){
       if(err) throw 'no such game found';
       console.log(thisGame);
-      // twil.sendSMS('Game on for ' + thisGame.gameType + '#' + thisGame.gameCode + ' on ' + thisGame.gameDate + ' at ' + thisGame.gameTime + '. Stay tuned for more text message updates.', digits, twilioPhoneNumber);
+      twil.sendSMS('Game on for ' + thisGame.gameType + '#' + thisGame.gameCode + ' on ' + thisGame.gameDate + ' at ' + thisGame.gameTime + '. Stay tuned for more text message updates.', digits, twilioPhoneNumber);
     });
     res.json(200, 'Done and done');
   });
@@ -143,7 +146,7 @@ module.exports = function(app){
     });
   });
 
-var twilioPhoneNumber = '+14159928245';
+var twilioPhoneNumber = config.twilioNumber;
 //add the actual id to this URL and later request params.id in Games.findById(params.id)
 // make sure to authenticate access to this page for the Manager only...
   app.get('/send-sms/:id', function(req, res) {
