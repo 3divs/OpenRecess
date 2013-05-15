@@ -240,6 +240,8 @@
         </div>
         <div class="todo question where hidden"><h4 class="todo-name"><strong>WHERE</strong></h4>
           <div>Use the map to navigate to your game&#39s location and click on the map to place a marker at the exact spot for your game</div>
+            <div><input type='textbox' class='lat' name='latitude' style='display:none'></input></div>
+            <div><input type='textbox' class='lon' name='longitude' style='display:none'></input></div>
         </div>
         <div class="todo question who hidden"><h4 class="todo-name"><strong>WHO</strong></h4>
           <div>Min. # of Players: <input type="number" class="numplayer" name="minimumPlayers"></input></div>
@@ -257,8 +259,6 @@
         <div class="inviteelist todo">       
           <div class="todo-name"><strong>Invited Players</strong></div>
         </div>
-        <div><input type='textbox' class='lat' name='latitude' style='display:none'></input></div>
-        <div><input type='textbox' class='lon' name='longitude' style='display:none'></input></div>
       </form>
   </script>
 
@@ -401,7 +401,7 @@
 
   <script type="text/template" id="teamView-template">
     <div class="title">
-      <h4 class="name"><%= name + ' (' + type + ')' %></h4>
+      <span class="name"><%= name + ' (' + sport + ')' %></span>
       <span class="team-caret"/>
       <button id="deleteTeam" class="btn btn-danger btn-small"><span class="fui-cross-24"/>Delete</button>
     </div>
@@ -409,20 +409,20 @@
       <ul>
         <li><span class="field">Manager: </span><span class="value"><%= managerName %></span></li>
         <div class="roster">
-          <span class="roster">Roster:</span>
+          <span class="field">Roster:</span>
           <div class="add-roster-player">
             <button id="add-player" class="btn btn-info btn-mini"><span class="fui-plus-16"></span>Add</button>
           </div>
           <ol>
             <% _.each(roster, function(player) { %>
               <li class="roster-player">
-                <%= player.name + ' - ' + player.phone %>
                 <span class="fui-new-16" data-phone="<%= player.phone %>" data-name="<%= player.name %>"/>
                 <span class="fui-cross-16" data-phone="<%= player.phone %>" data-name="<%= player.name %>"/>
+                <%= player.name + ' - ' + player.phone %>
               </li>
             <% }); %>
             <div class="new-roster-player">
-              <form id="player-form">
+              <form class="add-player" id="player-form">
                 <input class="input-small" type="text" name="name"/> - 
                 <input class="input-small" type="text" name="phone"/>
               </form>
