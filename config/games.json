@@ -10,6 +10,8 @@
     "gameTime": "13:00",
     "gameDate": "2013-06-12T00:00:00Z",
     "invitedPlayers": ["+15133074346", "+17816401203"],
+    "confirmedPlayers": ["+16502699118"],
+    "confirmedPlayersCount": 1,
     "createdAt": "2013-05-01T10:00:11Z",
     "updatedAt": "2013-05-01T10:00:11Z",
     "coord" : {
@@ -27,6 +29,7 @@
     "gameTime": "12:00",
     "gameDate": "2013-06-13T00:00:00Z",
     "invitedPlayers": ["+15133074346"],
+    "confirmedPlayersCount": 0,
     "createdAt": "2013-05-01T12:00:11Z",
     "updatedAt": "2013-05-01T12:00:11Z",
     "coord" : {
@@ -44,6 +47,7 @@
   "gameTime": "14:22",
   "gameDate": "2013-06-14T00:00:00Z",
   "invitedPlayers": ["+15133074346"],
+  "confirmedPlayersCount": 0,
   "createdAt": "2013-05-01T12:00:11Z",
   "updatedAt": "2013-05-01T12:00:11Z",
   "coord" : {
@@ -54,12 +58,14 @@
   {
     "gameName": "Playing ball in the park",
     "gameType": "Basketball",
+    "gameCode": 789,
     "gameDescription": "Organized basketball game",
     "minimumPlayers": 5,
     "playerLimit": 10,
     "gameTime": "11:15",
     "gameDate": "2013-06-11T00:00:00Z",
     "invitedPlayers": ["+15133074346", "+17816401203"],
+    "confirmedPlayersCount": 0,
     "createdAt": "2013-05-01T12:00:11Z",
     "updatedAt": "2013-05-01T12:00:11Z",
     "coord" : {

@@ -3,8 +3,8 @@ var passport = require('passport'),
     mongoose = require('mongoose'),
     users = require('./users.js'),
     moment = require('moment'),
-    teams = require('./teams.js'),
-    moment = require('moment');
+    config = require('../config/config.js'),
+    teams = require('./teams.js');
 
 module.exports = function(app){
   var db = app.set('db');
@@ -99,7 +99,7 @@ module.exports = function(app){
       playerLimit: req.body.playerLimit
     });
     newGame.save();
-    res.redirect('/games');
+    res.redirect('/#games');
   });
 
   app.put('/game', function(req, res, next){
@@ -108,15 +108,18 @@ module.exports = function(app){
     var digits = req.body.phone;
     Game.findOneAndUpdate(
     {
-      gameCode : code
+      gameCode : code,
+      confirmedPlayers : { $nin: [digits] }
     },
     {
+      $pull : { invitedPlayers : digits },
       $addToSet : { confirmedPlayers : digits },
       $inc : { confirmedPlayersCount : 1 }
     },
     function(err, thisGame){
-      if(err) throw 'wtf?';
-      // exports.sendSMS('Game on for ' + thisGame.gameType + '#' + thisGame.gameCode + ' on ' + thisGame.gameDate + ' at ' + thisGame.gameTime + '. Stay tuned for more text message updates.', digits, twilioPhoneNumber);
+      if(err) throw 'no such game found';
+      console.log(thisGame);
+      twil.sendSMS('Game on for ' + thisGame.gameType + '#' + thisGame.gameCode + ' on ' + thisGame.gameDate + ' at ' + thisGame.gameTime + '. Stay tuned for more text message updates.', digits, twilioPhoneNumber);
     });
     res.json(200, 'Done and done');
   });
@@ -143,7 +146,7 @@ module.exports = function(app){
     });
   });
 
-var twilioPhoneNumber = '+14159928245';
+var twilioPhoneNumber = config.twilioNumber;
 //add the actual id to this URL and later request params.id in Games.findById(params.id)
 // make sure to authenticate access to this page for the Manager only...
   app.get('/send-sms/:id', function(req, res) {

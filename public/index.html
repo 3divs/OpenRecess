@@ -16,6 +16,7 @@
   <script type="text/javascript" src="/js/lib/backbone.marionette/backbone.marionette.min.js"></script>
   <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
   <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+  <script type="text/javascript" src="/js/lib/moment.js"></script>
 
   <!-- Models -->
   <script type="text/javascript" src="/js/models/User.js"></script>
@@ -26,6 +27,7 @@
 
   <!-- Static Views -->
   <script type="text/javascript" src="/js/views/static/CreateGameLayoutView.js"></script>
+  <script type="text/javascript" src="/js/views/static/ManageLayoutView.js"></script>
   <script type="text/javascript" src="/js/views/static/GameLayoutView.js"></script>
   <script type="text/javascript" src="/js/views/static/UserProfileView.js"></script>
   <script type="text/javascript" src="/js/views/static/HeaderView.js"></script>
@@ -118,7 +120,7 @@
         <input type="password" class="login-field input-field" name="password" placeholder="Password" id="login-pass" required />
         <label class="login-field-icon fui-lock-16" for="login-pass"></label>
       </div>
-      <a class="btn btn-success btn-large btn-block" href="#">Login</a>
+      <a class="btn btn-success btn-large btn-block" href="#" id="login">Login</a>
     </div>
   </div>
   </script>
@@ -175,7 +177,7 @@
             <ul class="nav span8">
               <li class="span3"><a href="#games">List Games</a></li>
               <li class="span3"><a href="#game">Create Game</a></li>
-              <li class="span3"><a href="#teams">Teams</a></li>
+              <li class="span3"><a href="#manage">Manage</a></li>
               <% if(email) { %>
                 <li class="span3 dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="dropdown-toggle">
@@ -217,63 +219,46 @@
 
   <script type="text/template" id="create-gameView-template">
     <h1 class="createformtitle" style="text-align:center">Create a New Game</h1>
-      <form action="/game" method="POST" class="span5">
-        <table class="createform">
-        <tr class="what">
-        <td rowspan="2" class="span2 formrow">WHAT</td>
-        <td>
-        Game Name: <input type="textbox" placeholder="Game Name" name="gameName"></input>
-        </td>
-        </tr>
-        <tr>
-        <td>
-        Game Type: <select>
-                    <option>select a game</option>
-                    <option value="flag football">flag football</option>
-                    <option value="volleyball">volleyball</option>
-                    <option value="basketball">basketball</option>
-                    <option value="baseball">baseball</option>
-                    <option value="soccer">soccer</option>
-                    <option value="tag">tag</option>
-                  </select>
-        </td>
-        </tr>
-        <tr class="when">
-        <td rowspan="2" class="span2 formrow">WHEN</td>
-        <td>
-        Game Date: <input type="date" class="span4" name="gameDate"></input>
-        </td>
-        </tr>
-        <tr>
-        <td>
-        Game Time: <input type="time" class="span4" name="gameTime"></input>
-        </td>
-        </tr>
-        <tr class="where">
-        <td class="span2 formrow">WHERE</td>
-        <td>Use the map to navigate to your game&#39s location and click on the map to place a marker at the exact spot for your game</td>
-        </tr>
-        <tr class="who">
-        <td rowspan="3" class="span2 formrow">WHO</td>
-        <td>
-          Min. # of Players: <input type="number" class="span2" name="minimumPlayers"></input>
-          Max. Player #: <input type="number" class="span2" name="PlayerLimit"></input>
-        </td>
-        </tr>
-        <tr>
-        <td>
-          Player Phone #s (+1): <input type="textbox" class='players' name="players"></input><img src="..." class="icon-plus"><br>
-        </td>
-        </tr>
-        <tr>
-        <td>
-        <input type='textbox' name='playerArray' class='invitees' style='display:none'></input><div class='inviteeList'>Invited Players</div>
-        </td>
-        </tr>
-        </table>
-          <input type='textbox' class='lat' name='latitude' style='display:none'></input><br>
-          <input type='textbox' class='lon' name='longitude' style='display:none'></input>
-          <input type="submit"></input>
+      <form action="/game" method="POST" class="createform span6">
+        <div class="todo question what visible"><h4 class="todo-name"><strong>WHAT</strong></h4><br>
+          <div>Game Name:<input type="textbox" name="gameName"></input></div><br>
+          <div>Game Type:
+            <select>
+              <option>select a game</option>
+              <option value="flag football">flag football</option>
+              <option value="volleyball">volleyball</option>
+              <option value="basketball">basketball</option>
+              <option value="baseball">baseball</option>
+              <option value="soccer">soccer</option>
+              <option value="tag">tag</option>
+            </select>
+          </div>
+        </div>
+        <div class="todo question when hidden"><h4 class="todo-name"><strong>WHEN</strong></h4><br>
+          <div>Game Date: <input type="date" class="span6" name="gameDate"></input></div>
+          <div>Game Time: <input type="time" class="span6" name="gameTime"></input></div>
+        </div>
+        <div class="todo question where hidden"><h4 class="todo-name"><strong>WHERE</strong></h4>
+          <div>Use the map to navigate to your game&#39s location and click on the map to place a marker at the exact spot for your game</div>
+            <div><input type='textbox' class='lat' name='latitude' style='display:none'></input></div>
+            <div><input type='textbox' class='lon' name='longitude' style='display:none'></input></div>
+        </div>
+        <div class="todo question who hidden"><h4 class="todo-name"><strong>WHO</strong></h4>
+          <div>Min. # of Players: <input type="number" class="numplayer" name="minimumPlayers"></input></div>
+          <div>Max. Player #: <input type="number" class="numplayer" name="PlayerLimit"></input></div>
+          <div>Player Phone #s (+1): <input type="textbox" class='players' name="players"></input><span class="addphone"><img src="..." class="icon-plus"></span></div>
+          <div><input type='textbox' name='playerArray' class='invitees' style='display:none'></input></div>
+        </div>
+        <div class="todo question submit hidden">
+          <div><strong><input type="submit" class="submitbtn btn btn-large btn-primary" value="Create game and send invites"></strong></input></div>
+        </div>
+        <div class="nextprevious">
+          <div class="span2 nextbutton"><button class="btn btn-info btn-large" type="button">Next</button></div>
+          <div class="span2 previousbutton buttonhidden"><button class="btn btn-info btn-large" type="button">Previous</button></div>
+        </div>
+        <div class="inviteelist todo">       
+          <div class="todo-name"><strong>Invited Players</strong></div>
+        </div>
       </form>
   </script>
 
@@ -292,13 +277,74 @@
     <div id="map-canvas"></div>
   </script>
 
-  <script type="text/template" id="show-gameView-template">
-    <div class="game">
-      <span class="name"><%= gameName %></span>
-      <span class="time"><%= gameTime %></span>
-      <span class="type"><%= gameType %></span>
-      <span class="minimumPlayers"><%= minimumPlayers %></span>
-      <span class="latLng"><%= coord.lat%><%= coord.lon %></span>
+  <script type="text/template" id="manageLayout-template">
+    <div id="myTeams" class="span12">
+      My teams
+    </div>
+    <div id="myGames" class="span12">
+      My games
+    </div>
+  </script>
+
+  <script type="text/template" id="gamesView-template">
+    <div class="games span10 offset1">
+      <h1 class="span10 text-center">My Games</h1>
+      <div id="games"></div>
+    </div>
+  </script>
+
+  <script type="text/template" id="gameView-template">
+    <div class="row-fluid">
+      <div class="span4">
+        <div class="name">
+          <span class="field">Game Name:</span>
+          <span class="value"><%= gameName %></span>
+          <button class="delete btn btn-danger btn-small"><span class="fui-cross-24"/>Delete Game</button>
+        </div>
+        <div class="type">
+          <span class="field">Game Type:</span>
+          <span class="value"><%= gameType %></span>
+        </div>
+        <div class="date">
+          <span class="field">Game Date:</span>
+          <span class="datetime value"><%= moment(gameDate).format('MM-DD-YYYY') %> @ <%= gameTime %></span>
+        </div>
+        <div class="playerCount">
+          <span class="field">Player Counts:</span>
+          <table class="value">
+            <tr>
+              <td>Min</td>
+              <td>Max</td>
+              <td>Conf</td>
+            </tr>
+            <tr>
+              <td><%= minimumPlayers %></td>
+              <td><%= playerLimit %></td>
+              <td><%= confirmedPlayersCount %></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="span3">
+        <div class="invitedPlayers">
+          <span class="field">Invited:</span>
+          <ul>
+            <% _.each(invitedPlayers, function(phone) { %>
+              <li class="value"><%= phone %></li>
+            <% }) %>
+          </ul>
+        </div>
+      </div>
+      <div class="span3">
+        <div class="confirmedPlayers">
+          <span class="field">Confirmed:</span>
+          <ul>
+            <% _.each(confirmedPlayers, function(phone) { %>
+              <li class="value"><%= phone %></li>
+            <% }) %>
+          </ul>
+        </div>
+      </div>
     </div>
   </script>
 
@@ -346,10 +392,10 @@
   </script>
 
   <script type="text/template" id="teamsView-template">
-    <div class="team-page">
-      <h1 class="text-center">My Teams</h1>
-      <button class="btn btn-large btn-info" id="createTeam"><span class="fui-plus-24"/>Create Team</button>
-      <div class="teams span10 offset1" id="teams"></div>
+    <button class="btn btn-large btn-info" id="createTeam"><span class="fui-plus-24"/>Create Team</button>
+    <div class="teams span10 offset1">
+      <h1 class="span10 text-center">My Teams</h1>
+      <div id="teams"></div>
     </div>
   </script>
 

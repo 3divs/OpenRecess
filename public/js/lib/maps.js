@@ -132,6 +132,30 @@ function initialize(gameData) {
     ib.open(map, holder);
   });
 
+  $('#places').on('click', '.btn-mini', function (e) {
+    var code = $(this).data().code;
+    var phone = App.currentUser.attributes.phone;
+    if (App.currentUser.attributes.phone) {
+      phone.length === 10 ? phone = '+1' + phone : phone = phone;
+      $.ajax({
+        url: '/game',
+        contentType: 'application/json',
+        type: 'PUT',
+        data: JSON.stringify({
+          code: code,
+          phone: phone
+        }),
+        dataType: 'json',
+        error: function(error) { alert(error); },
+        success: function() {
+          $(e.target).closest('button').text('Joined').css('background-color','green');
+        }
+      });
+    } else {
+      App.currentUser.trigger('redirectLogin');
+    }
+  });
+
   // Search Box in List Games
   // TODO: use regex to search for games.  Convert markerArray to lowercase
   $('.todo-search-field').keypress(function (e) {
@@ -194,8 +218,8 @@ var placeMarker = function(location) {
   markerArray.push(marker);
   console.log('marker location: ' + marker.getPosition());
   var loc = marker.getPosition();
-  $('.lon').val(loc.lb);
-  $('.lat').val(loc.kb);
+  $('.lon').val(loc.lng());
+  $('.lat').val(loc.lat());
 };
 
 // Helper function to translate address to LatLng
