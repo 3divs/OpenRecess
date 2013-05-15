@@ -214,7 +214,8 @@ var placeMarker = function(location) {
   markerArray.push(marker);
   console.log('marker location: ' + marker.getPosition());
   var loc = marker.getPosition();
-  $('.lon').val(loc.lb);
+  console.log(marker)
+  $('.lon').val(loc.jb);
   $('.lat').val(loc.kb);
 };
 
