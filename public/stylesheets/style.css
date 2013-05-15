@@ -2,7 +2,7 @@
 /* Universal */
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: #37575e;
+  background-color: #7f8c8d;
   height: 100%;
 }
 a {
@@ -200,6 +200,9 @@ display
   height: 1.5em;
   width: 10em;
   text-align: center;
+}
+#results .todo-search-field:hover {
+  background-color: #ecf0f1;
 }
 #results .todo-search {
   padding-left: 8px;

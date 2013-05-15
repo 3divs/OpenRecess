@@ -3,6 +3,7 @@ var geocoder;
 var map;
 var createMarker;
 var infobox;
+// var moment = require('moment');
 
 // Defaults to San Francisco
 var lat = 37.783;
