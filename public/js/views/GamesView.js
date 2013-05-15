@@ -1,3 +1,6 @@
-var GamesView = Marionette.CollectionView.extend({
-  itemView: GameView
+var GamesView = Marionette.CompositeView.extend({
+  itemView: GameView,
+  itemViewContainer: '#games',
+  template: '#gamesView-template',
+  className: 'games-page'
 });
