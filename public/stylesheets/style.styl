@@ -1,6 +1,6 @@
 /* Variables */
 $bg-color = rgba(214, 214, 214, 0.64)
-$green = #1abc9c
+$green = rgb(43, 235, 196)
 
 bevel() {
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5)
@@ -88,7 +88,7 @@ div.main-content
   margin-top: 80px
   padding-bottom: 72px
 
-  border-radius: 20px
+  border-radius: 40px
   // box-shadow: 1px 1px 40px rgba(129, 129, 129, 0.52);
   // background-color: white
 
@@ -147,11 +147,18 @@ li.login-right
   .step-inner
     // background-color: $bg-color
     color: white
-    height: 100%
+    position: relative
+    // height: 100%
   .step-img
     margin-left: auto
     margin-right: auto
     width: 50%
+  i
+    position: absolute
+    top: 45%
+    left: 0
+    font-size: 3.5rem
+    color: $green
 
 /* Footer */
 div.footer
@@ -208,7 +215,7 @@ div.footer li a
   height: 398px
   padding: 5px
   border: 1px solid #999
-  background: $green
+  background: rgb(39, 240, 200)
   .todo-search-field
     overflow: scroll
     box-shadow: 1px 1px 4px
@@ -218,6 +225,7 @@ div.footer li a
     background-color: #ECF0F1
   .todo-search
     padding-left: 8px
+    background-color: rgb(71, 216, 187)
 
 #results li:hover
   color: $green

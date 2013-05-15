@@ -34,7 +34,7 @@ div.main-content {
   margin: 0;
 }
 .navbar a.brand {
-  color: #1abc9c;
+  color: #2bebc4;
   text-decoration: none;
 }
 .header li {
@@ -47,7 +47,7 @@ div.main-content {
 #header-inner {
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
-  box-shadow: 0px -4px 8px #1abc9c inset;
+  box-shadow: 0px -4px 8px #2bebc4 inset;
 }
 .dropdown-menu .signin-button {
   width: 96%;
@@ -79,7 +79,7 @@ div.main-content {
   margin-bottom: 100px;
   margin-top: 80px;
   padding-bottom: 72px;
-  border-radius: 20px;
+  border-radius: 40px;
   box-shadow: inset 1px 1px 9px rgba(0,0,0,0.25), 0 1px 0 #fff;
   border: 1px solid #c8c8c8;
   background: #fff;
@@ -136,12 +136,19 @@ li.login-right {
 }
 .splash-steps .step-inner {
   color: #fff;
-  height: 100%;
+  position: relative;
 }
 .splash-steps .step-img {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+}
+.splash-steps i {
+  position: absolute;
+  top: 45%;
+  left: 0;
+  font-size: 3.5rem;
+  color: #2bebc4;
 }
 /* Footer */
 div.footer {
@@ -197,7 +204,7 @@ display
   height: 398px;
   padding: 5px;
   border: 1px solid #999;
-  background: #1abc9c;
+  background: #27f0c8;
 }
 #results .todo-search-field {
   overflow: scroll;
@@ -210,9 +217,10 @@ display
 }
 #results .todo-search {
   padding-left: 8px;
+  background-color: #47d8bb;
 }
 #results li:hover {
-  color: #1abc9c;
+  color: #2bebc4;
   font-weight: bold;
 }
 #places {
@@ -236,7 +244,7 @@ display
   font-size: 90%;
 }
 .gamelist-title:hover {
-  color: #1abc9c;
+  color: #2bebc4;
 }
 /* Teams */
 .team-page {
@@ -263,7 +271,7 @@ display
   margin: 0;
   margin-bottom: 20px;
   padding: 5px;
-  border: 5px solid #1abc9c;
+  border: 5px solid #2bebc4;
 }
 .team .field,
 .team .value {
@@ -277,7 +285,7 @@ display
   padding: 5px;
   border-radius: 5px;
   font-size: 80%;
-  border: 2px solid #1abc9c;
+  border: 2px solid #2bebc4;
 }
 .team .team-caret {
   background: #2c3e44 url("../images/select/toggle.png") no-repeat right center;
