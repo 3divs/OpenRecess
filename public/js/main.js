@@ -68,12 +68,18 @@ var controller = {
       App.router.navigate('login', true);
   },
 
-  showTeams: function() {
+  showManage: function() {
     if(ensureAuthenticated()) {
+      var manageView = new ManageLayoutView();
       var teams = new Teams();
+      var games = new Games();
       teams.fetch();
+      games.fetch();
+      // games.getMyGames();  // TODO: call this instead of games.fetch()
 
-      App.mainRegion.show(new TeamsView({ collection: teams }));
+      App.mainRegion.show(manageView);
+      manageView.myGames.show(new GamesView({ collection: games }));
+      manageView.myTeams.show(new TeamsView({ collection: teams }));
     } else
       App.router.navigate('login', true);
   }
@@ -88,7 +94,7 @@ var Router = Marionette.AppRouter.extend({
     'register':     'showRegister',
     'login':        'showLogin',
     'userProfile':  'showUserProfile',
-    'teams':        'showTeams',
+    'manage':       'showManage',
     'signout':      'signOut'
   },
 

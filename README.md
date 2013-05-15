@@ -1,16 +1,18 @@
 OpenRecess
 ==========
 
-A website designed to simplify organizing sports for both managers and players. The primary focus of this project is to allow RSVPs and notifications to be performed via text messaging. The UX of our product from a user's perspective is as follows:
+Remember recess?  Kids play everyday, but few adults find time for fun and games together. OpenRecess is here to help. On-demand soccer, baseball, volleyball, doubles tennis, tag or any game you can imagine.  What are you playing?
+
+OpenRecess facilitates game management with easy sign-up and text message notifications. Here's a brief overview of the app:
 
 1. Create a public or private game
-1. Add invitees phone numbers to your game or allow any user to join
-1. Notify users via text and process RSVP responses
-1. Send continuous updates via text when a game is confirmed for all players
+1. Add phone numbers for friends you want to invite or open enrollment to anyone
+1. OpenRecess will notify users via text and process RSVP responses
+1. OpenRecess will send regular text message updates to remind and organize all players
 
 ##Features
 
-1. Single page responsive web application
+1. OpenRecess is a single page responsive web application
 1. Team management for maintaining rosters and ability to send mass text message notifications
 1. Easy-to-use game creation and join game process
 
@@ -37,10 +39,12 @@ To install and run this project, follow the following steps:
 
 ####Install and run mongodb (using homebrew)
 `brew install mongodb`
+
 `mongod --port 17017`
 
 ####Run Grunt commands
 `grunt db`
+
 `grunt`
 
 NOTE: You will need to setup LocalTunnel and specify your own Twilio API key in order to get text messaging to work.
