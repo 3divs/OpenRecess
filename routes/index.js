@@ -3,7 +3,8 @@ var passport = require('passport'),
     mongoose = require('mongoose'),
     users = require('./users.js'),
     moment = require('moment'),
-    teams = require('./teams.js');
+    teams = require('./teams.js'),
+    moment = require('moment');
 
 module.exports = function(app){
   var db = app.set('db');

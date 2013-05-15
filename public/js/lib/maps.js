@@ -98,9 +98,11 @@ function initialize(gameData) {
         date: gameData.at(i).get('gameDate'),
         min: gameData.at(i).get('minimumPlayers'),
         code: gameData.at(i).get('gameCode'),
-        animation: google.maps.Animation.DROP
+        animation: google.maps.Animation.DROP,
+        date1: gameData.at(i).get('date')
       });
       var content = createMarker.title;
+      console.log(createMarker.date1)
       makeInfoWindowEvent(map, infowindow, content, createMarker);
       markerArray.push(createMarker);
       gameList.innerHTML += '<li data-id=' + createMarker.__gm_id + '>' +
