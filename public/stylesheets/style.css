@@ -10,6 +10,7 @@ body {
 }
 a {
   color: #00b7ff;
+  text-decoration: none;
 }
 .divider {
   height: 1px;
@@ -79,7 +80,7 @@ div.main-content {
   margin-bottom: 75px;
   margin-top: 30px;
   padding-bottom: 72px;
-  border-radius: 40px;
+  border-radius: 30px;
   box-shadow: inset 1px 1px 9px rgba(0,0,0,0.25), 0 1px 0 #fff;
   border: 1px solid #c8c8c8;
   background: #fff;
@@ -248,11 +249,11 @@ div.footer li a {
   height: 398px;
   padding: 5px;
   border: 1px solid #999;
-  background: #27f0c8;
+  background: #808080;
 }
 #results .todo-search-field {
   overflow: scroll;
-  box-shadow: 1px 1px 4px;
+  box-shadow: inner 0 0 5px #fff;
   height: 1.5em;
   text-align: center;
 }
@@ -261,7 +262,8 @@ div.footer li a {
 }
 #results .todo-search {
   padding-left: 8px;
-  background-color: #47d8bb;
+  background-color: #cfcfcf;
+  margin-bottom: 10px;
 }
 #results li:hover {
   color: #2bebc4;
@@ -439,7 +441,7 @@ div.span5.team {
   color: #000;
   font-weight: 700;
   font-family: "Lato", sans-serif;
-  margin-top: 12px;
+  margin-top: 7px;
   border: solid 1px #357d94;
   box-shadow: 1px 1px 1px #357d94;
 }
@@ -463,7 +465,7 @@ div.span5.team {
   z-index: 1;
   opacity: 0.75;
   position: absolute;
-  margin-left: 20em;
+  margin-left: 15em;
 }
 #target:hover {
   opacity: 1;
@@ -496,4 +498,7 @@ div.span5.team {
 .splash_img {
   opacity: 0.3;
   margin: 1.5em;
+}
+.btn-mini {
+  background-color: #1ecca9;
 }

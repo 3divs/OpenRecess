@@ -177,9 +177,6 @@ var twilioPhoneNumber = config.twilioNumber;
   app.post('/retrieve-sms/user', function(req, res) {
     twil.retrieveSMS(userPhoneNumber);
   });
-
-
-
 };
 
 function ensureAuthenticated(req, res, next) {

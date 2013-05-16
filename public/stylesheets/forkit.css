@@ -1,14 +1,5 @@
 /*Copyright (C) 2011 Hakim El Hattab, http://hakim.se*/
 
-*{
-	margin: 0px;
-	padding: 0px;
-	
-	-webkit-box-sizing: border-box;
-	   -moz-box-sizing: border-box;
-	        box-sizing: border-box;
-}
-
 .forkit {
 	position: absolute;
 	right: 0;

@@ -18,6 +18,7 @@ body
 
 a
   color: #00B7FF
+  text-decoration: none
 
 .divider
   height: 1px
@@ -88,7 +89,7 @@ div.main-content
   margin-top: 30px
   padding-bottom: 72px
 
-  border-radius: 40px
+  border-radius: 30px
   // box-shadow: 1px 1px 40px rgba(129, 129, 129, 0.52);
   // background-color: white
 
@@ -257,17 +258,18 @@ div.footer li a
   height: 398px
   padding: 5px
   border: 1px solid #999
-  background: rgb(39, 240, 200)
+  background: grey
   .todo-search-field
     overflow: scroll
-    box-shadow: 1px 1px 4px
+    box-shadow: inner 0 0 5px white
     height: 1.5em
     text-align: center
   .todo-search-field:hover
     background-color: #ECF0F1
   .todo-search
     padding-left: 8px
-    background-color: rgb(71, 216, 187)
+    background-color: rgb(207, 207, 207)
+    margin-bottom: 10px
 
 #results li:hover
   color: $green
@@ -423,7 +425,7 @@ div.span10.offset1.game, div.span5.team
   color: black
   font-weight: 700
   font-family: "Lato", sans-serif
-  margin-top: 12px
+  margin-top: 7px
   border: solid 1px rgb(53, 125, 148)
   box-shadow: 1px 1px 1px rgb(53, 125, 148)
 
@@ -447,7 +449,7 @@ div.span10.offset1.game, div.span5.team
   z-index: 1
   opacity: 0.75
   position: absolute
-  margin-left: 20em
+  margin-left: 15em
 
 #target:hover
   opacity: 1
@@ -485,3 +487,6 @@ $ball_width = 55px
 .splash_img
   opacity: .3
   margin: 1.5em
+
+.btn-mini
+  background-color: rgb(30, 204, 169)
