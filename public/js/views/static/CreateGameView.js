@@ -8,7 +8,7 @@ var CreateGameView = Marionette.ItemView.extend({
   },
 
   events: {
-    'click .icon-plus': function() {
+    'click .addphone': function() {
       var value = $('.players').val();
       numberArray.push('+1' + value);
       if ( value.length > 0 && /\d{10}/.test(value) ) {
