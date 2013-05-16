@@ -56,7 +56,7 @@ div.footer li a{margin-left:20px;text-decoration:none}
 #places{height:250px;overflow:scroll}
 .list-games{margin-top:15px}
 .infobox{background-color:#1abc9c;border-radius:10px}
-.todo li{background:#34495e 92% center no-repeat}
+.todo li{background:#bdc5ce 92% center no-repeat}
 .gamelist-title{font-weight:bold;color:#fff;display:block;font-size:90%;}
 .gamelist-title:hover{color:#2bebc4}
 div.span10.offset1.game,div.span5.team{margin-left:0;margin-right:3%}
