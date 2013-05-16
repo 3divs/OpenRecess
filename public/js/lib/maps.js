@@ -102,7 +102,6 @@ function initialize(gameData) {
         date1: gameData.at(i).get('date')
       });
       var content = createMarker.title;
-      console.log(createMarker.date1)
       makeInfoWindowEvent(map, infowindow, content, createMarker);
       markerArray.push(createMarker);
       gameList.innerHTML += '<li data-id=' + createMarker.__gm_id + '>' +

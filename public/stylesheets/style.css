@@ -168,10 +168,7 @@ div.footer li a {
 }
 /* Create Games */
 .createformtitle {
-  margin: 10px;
-}
-.createform {
-  margin-top: 50px;
+  margin: 10px 10px 25px 10px;
 }
 .hidden {
   display: none;
@@ -182,15 +179,28 @@ div.footer li a {
 .question {
   border: 5px solid #1abc9c;
   box-shadow: 10px 10px 5px #888;
-  padding-top: 25px;
-  padding-left: 10px;
+  padding: 10px 10px 20px 10px;
   height: 200px;
   width: 400px;
   vertical-align: text-top;
 }
+.questionheader {
+  font-size: 175%;
+}
+.gamename {
+  width: 90%;
+  margin-bottom: 15px;
+}
+.gametype {
+  width: 90%;
+}
 .numplayer {
   width: 75px;
   text-align: center;
+  margin-left: 5px;
+}
+.players {
+  margin-left: 5px;
 }
 .nextprevious {
   height: 75px;
@@ -204,14 +214,12 @@ div.footer li a {
   box-shadow: 10px 10px 5px #888;
   width: 400px;
   height: auto;
-  padding-top: 25px;
-  padding-left: 10px;
-  padding-bottom: 10px;
+  padding: 10px 10px 20px 10px;
 }
 .submitbtn {
   font-weight: bold;
   margin-left: 60px;
-  margin-top: 63px;
+  margin-top: 80px;
 }
 /* Maps */
 #map-canvas {
