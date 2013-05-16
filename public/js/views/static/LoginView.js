@@ -2,11 +2,12 @@ var LoginView = Marionette.ItemView.extend({
   template: '#loginView-template',
 
   events: {
-    'click #login': 'loginUser'
+    'click #login': 'loginUser',
+    'keypress input[name="password"]': 'checkLogin'
   },
 
   displayErrors: function(className, html) {
-    var $form = this.$('form');
+    var $form = this.$('.login-container');
     $form.find('.alert').remove();
     $form.prepend('\
       <div class="alert ' + className + '" id="alert">' +
@@ -14,6 +15,12 @@ var LoginView = Marionette.ItemView.extend({
           html +
       '</div>'
     );
+  },
+
+  checkLogin: function(e) {
+    console.log('check login');
+    if(e.which === 13)
+      this.loginUser(e);
   },
 
   loginUser: function(e) {

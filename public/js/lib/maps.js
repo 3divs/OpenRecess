@@ -3,6 +3,7 @@ var geocoder;
 var map;
 var createMarker;
 var infobox;
+// var moment = require('moment');
 
 // Defaults to San Francisco
 var lat = 37.783;
@@ -97,14 +98,15 @@ function initialize(gameData) {
         date: gameData.at(i).get('gameDate'),
         min: gameData.at(i).get('minimumPlayers'),
         code: gameData.at(i).get('gameCode'),
-        animation: google.maps.Animation.DROP
+        animation: google.maps.Animation.DROP,
+        date1: gameData.at(i).get('date')
       });
       var content = createMarker.title;
       makeInfoWindowEvent(map, infowindow, content, createMarker);
       markerArray.push(createMarker);
       gameList.innerHTML += '<li data-id=' + createMarker.__gm_id + '>' +
         '<span class="gamelist-title todo-name">' + createMarker.title + '</span>' +
-        '<button class="btn-mini btn btn-danger" data-code=' + createMarker.code +'>Join Game</button></li>';
+        '<button class="btn-mini btn" data-code=' + createMarker.code +'>Join Game</button></li>';
     }
   });
 
@@ -129,6 +131,30 @@ function initialize(gameData) {
     ib.open(map, holder);
   });
 
+  $('#places').on('click', '.btn-mini', function (e) {
+    var code = $(this).data().code;
+    var phone = App.currentUser.attributes.phone;
+    if (App.currentUser.attributes.phone) {
+      phone.length === 10 ? phone = '+1' + phone : phone = phone;
+      $.ajax({
+        url: '/game',
+        contentType: 'application/json',
+        type: 'PUT',
+        data: JSON.stringify({
+          code: code,
+          phone: phone
+        }),
+        dataType: 'json',
+        error: function(error) { alert(error); },
+        success: function() {
+          $(e.target).closest('button').text('Joined').css('background-color','green');
+        }
+      });
+    } else {
+      App.currentUser.trigger('redirectLogin');
+    }
+  });
+
   // Search Box in List Games
   // TODO: use regex to search for games.  Convert markerArray to lowercase
   $('.todo-search-field').keypress(function (e) {
@@ -139,8 +165,9 @@ function initialize(gameData) {
           holder = markerArray[i];
         }
       }
-      infowindow.setContent(holder.title);
-      infowindow.open(map, holder);
+      boxText.innerHTML = holder.title;
+      ib.open(map, holder);
+
       $('.todo-search-field').val("");
       return false;
     }
@@ -190,8 +217,8 @@ var placeMarker = function(location) {
   markerArray.push(marker);
   console.log('marker location: ' + marker.getPosition());
   var loc = marker.getPosition();
-  $('.lon').val(loc.lb);
-  $('.lat').val(loc.kb);
+  $('.lon').val(loc.lng());
+  $('.lat').val(loc.lat());
 };
 
 // Helper function to translate address to LatLng

@@ -1,16 +1,24 @@
 /* Variables */
 $bg-color = rgba(214, 214, 214, 0.64)
-$green = #1abc9c
 $sea-green = #2c3e50
+$green = rgb(43, 235, 196)
+
+bevel() {
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5)
+}
 
 /* Universal */
+html
+  font-size: 16px
+
 body
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif
-  background-color: $bg-color
+  background-color: rgba(226, 226, 226, 0.64)
   height: 100%
 
 a
   color: #00B7FF
+  text-decoration: none
 
 .divider
   height: 1px
@@ -64,26 +72,37 @@ div.main-content
 
 /* Splash */
 .hero-unit
+  background-color: rgba(5, 27, 41, 0)
   padding: 20px
 
 .jumbotron h1
-  color: $green
-  text-shadow: black 3px 5px 20px
+  color: rgb(43, 235, 196)
+  bevel()
   display: inline-block
+
 
 .jumbotron p
   text-shadow: rgba(240, 232, 232, 0.75) 1px 1px 4px
 
 .jumbotron
+  margin-bottom: 75px
+  margin-top: 30px
+  padding-bottom: 72px
+
+  border-radius: 30px
+  // box-shadow: 1px 1px 40px rgba(129, 129, 129, 0.52);
+  // background-color: white
+
+  box-shadow: inset 1px 1px 9px rgba(0, 0, 0, 0.25), 0 1px 0 rgb(255, 255, 255);
+  border: 1px solid rgb(200, 200, 200);
+  background: rgb(255, 255, 255);
+
   text-align: center
-  margin-top: 15px
-  border-radius: 10px
-  background-color: white
+
   .inner-jumbotron
-    background-color: $bg-color
     height: 90%
-    padding: 5%
-    border-radius: 10px
+    background-color: rgba(5, 27, 41, 0)
+    border-radius: 66px
 
 .jumbotron p, .jumbotron a, .jumbotron h1
   padding:5px
@@ -93,11 +112,15 @@ div.main-content
 
 .superscript
   display: inline-block
-  vertical-align: top
-  text-shadow: black 3px 5px 20px
-  font-size: 14px
   padding-top: 21px
-  color: white
+
+  bevel()
+
+  vertical-align: top
+
+  font-size: 14px
+  font-weight: bold
+  color: rgb(103, 146, 253)
 
 li.login-right
   float: right
@@ -118,21 +141,26 @@ li.login-right
 .splash-steps
   height: 255px
   .step
-    // background-color: white
     height: 90%
     border-radius: 10px
-    padding: 2%
   .step-inner
-    // background-color: $bg-color
-    height: 100%
+    color: white
+    position: relative
   .step-img
     margin-left: auto
     margin-right: auto
     width: 50%
+  i
+    position: absolute
+    top: 45%
+    left: 0
+    font-size: 3.5rem
+    color: $green
+    margin-left: -10%
 
 /* Footer */
 div.footer
-  margin-bottom: 40px
+  margin-bottom: 20px
 
 div.footer-right ul, div.footer-right li
   list-style: none
@@ -143,12 +171,63 @@ div.footer ul
 
 div.footer li a
   margin-left: 20px
+  text-decoration: none
 
 /* Create Games */
 .createformtitle
+  margin: 10px 10px 25px 10px
+
+.hidden
+  display: none
+
+.buttonhidden
+  visibility: hidden
+
+.question
+  border: 5px solid #1abc9c
+  box-shadow: 10px 10px 5px #888888
+  padding: 10px 10px 20px 10px
+  height: 200px
+  width: 400px
+  vertical-align: text-top
+
+.questionheader
+  font-size: 175%
+
+.gamename
+  width: 90%
+  margin-bottom: 15px
+
+.gametype
+  width: 90%
+
+.numplayer
+  width: 75px
+  text-align: center
+  margin-left: 5px
+
+.players
+  margin-left: 5px
+
+.nextprevious
+  height: 75px
+  
+
+.addphone
+  background-color: white
   margin: 10px
-.formrow
-  height: 100px
+
+.inviteelist
+  border: 5px solid #1abc9c
+  box-shadow: 10px 10px 5px #888888
+  width: 400px
+  height: auto
+  padding: 10px 10px 20px 10px
+
+.submitbtn
+  font-weight: bold
+  margin-left: 60px
+  margin-top: 80px
 
 /* Maps */
 #map-canvas
@@ -179,7 +258,18 @@ div.footer li a
   height: 398px
   padding: 5px
   border: 1px solid #999
-  background: $green
+  background: grey
+  .todo-search-field
+    overflow: scroll
+    box-shadow: inner 0 0 5px white
+    height: 1.5em
+    text-align: center
+  .todo-search-field:hover
+    background-color: #ECF0F1
+  .todo-search
+    padding-left: 8px
+    background-color: rgb(207, 207, 207)
+    margin-bottom: 10px
 
 #results li:hover
   color: $green
@@ -255,7 +345,7 @@ div.span10.offset1.game, div.span5.team
 
 /* Teams */
 .field, .value
-  font-size: 80%
+  font-size: 85%
 
 .field
   font-weight: bold
@@ -328,11 +418,6 @@ div.span10.offset1.game, div.span5.team
     span.fui-plus-16
       margin-right: 2px
 
-.todo-search-field
-  overflow: scroll
-  font-size: 105%
-  width: 150px
-
 .infobox-wrapper
     display:none
 
@@ -340,7 +425,7 @@ div.span10.offset1.game, div.span5.team
   color: black
   font-weight: 700
   font-family: "Lato", sans-serif
-  margin-top: 12px
+  margin-top: 7px
   border: solid 1px rgb(53, 125, 148)
   box-shadow: 1px 1px 1px rgb(53, 125, 148)
 
@@ -358,3 +443,50 @@ div.span10.offset1.game, div.span5.team
     text-shadow:0 -1px #000000
     -webkit-box-shadow: 0 0  8px #000
     box-shadow: 0 0 8px #000
+
+#target
+  margin-top: 9px
+  z-index: 1
+  opacity: 0.75
+  position: absolute
+  margin-left: 15em
+
+#target:hover
+  opacity: 1
+  border: 2px solid black
+
+$login_form_color = rgb(220, 220, 220)
+.login-form
+  position: relative
+  margin-top: 6em
+  margin-bottom: 10em
+  background-color: $login_form_color
+  border-width: 0
+  // color: white
+  text-align: center
+  // width: 38em
+  // margin-left: 25em
+
+$ball_width = 55px
+.login-ball
+  display: block
+  background: rgb(217, 241, 238)
+  border-radius: $ball_width
+  box-shadow: 0 0 8px rgba(0,0,0,0.25)
+  position: absolute
+  width: $ball_width
+  left: -1*$ball_width + ($ball_width/2)
+  top: -1*$ball_width + ($ball_width/2)
+  z-index: 1
+  opacity: .6
+
+.login-container
+  margin: auto
+  width: 365px
+
+.splash_img
+  opacity: .3
+  margin: 1.5em
+
+.btn-mini
+  background-color: rgb(30, 204, 169)

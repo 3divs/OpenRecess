@@ -6,6 +6,9 @@
   <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/stylesheets/flat-ui.css">
   <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/forkit.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCedMF4wwQSrQDAw6nlYr7dS7ozhRSvYHQ&sensor=false&libraries=places"></script>
   <script type="text/javascript" src="/js/lib/maps.js"></script>
   <script type="text/javascript" src="/js/lib/jquery.js"></script>
@@ -45,13 +48,20 @@
   <script type="text/javascript" src="/js/main.js"></script>
 
   <script type="text/template" id="splashView-template">
+    <a class="forkit" data-text="A 3Divs Production" data-text-detached="A Fully Liable Corporation" href="https://github.com/3Divs/openrecess"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/camo.github.com/e6bef7a091f5f3138b8cd40bc3e114258dd68ddf/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="A 3Divs Production"></a>
+    <div class="forkit-curtain">
+    </div>
     <div class="jumbotron hero-unit span10 offset1">
       <div class="inner-jumbotron">
         <div>
           <h1>OpenRecess!</h1><span class="superscript">Alpha</span>
         </div>
+        <img class="splash_img" src="images/noun_project_8887.svg"/>
+        <img class="splash_img" src="images/noun_project_882.svg"/>
+        <img class="splash_img" src="images/noun_project_260.svg"/>
+        <img class="splash_img" src="images/noun_project_15660.svg"/>
         <p class="lead splash-lead">Ball so hard, other players wanna find me!</p>
-        <a class="btn btn-large btn-success" href="#register">Sign up today</a>
+        <a class="btn btn-large btn-info" href="#register">Sign up today</a>
       </div>
     </div>
   </div>
@@ -60,7 +70,7 @@
         <div class="splash-steps">
           <div class="span4 step">
             <div class="step-inner">
-              <h3 class="text-center">Sign Up</h3>
+              <h3 class="text-center" style="color: rgb(104, 190, 118)">Sign Up</h3>
               <div class="step-img">
                 <img src="images/illustrations/clipboard.png"/>
               </div>
@@ -68,30 +78,33 @@
           </div>
           <div class="span4 step">
             <div class="step-inner">
-              <h3 class="text-center">Find Games</h3>
+              <h3 class="text-center" style="color: rgb(127, 177, 252)">Find Games</h3>
               <div class="step-img">
                 <img src="images/illustrations/map.png"/>
               </div>
+              <i class="icon-circle-arrow-right"></i>
             </div>
           </div>
           <div class="span4 step">
             <div class="step-inner">
-              <h3 class="text-center">Get Notified</h3>
+              <h3 class="text-center" style="color: rgb(247, 134, 134);">Get Notified</h3>
               <div class="step-img">
                 <img src="images/notify.png"/>
               </div>
+              <i class="icon-circle-arrow-right"></i>
             </div>
           </div>
         </div>
       </div>
     </div>
+  <script type="text/javascript" src="/js/forkit.js"></script>
   </script>
 
   <script type="text/template" id="layout-template">
     <div class="list-games">
       <div id='results' class="span3 todo mrm">
         <div class="todo-search">
-          <input class="todo-search-field" type="search" value placeholder="Search Games" style="text-align: left">
+          <input class="todo-search-field span11" type="search" value placeholder="Search Games">
         </div>
         <ul id="places"></ul>
         <button class="btn btn-large btn-block btn-primary" id="showMore">More</button>
@@ -101,28 +114,21 @@
   </script>
 
   <script type="text/template" id="loginView-template">
-    <div class="span6 offset3 login-form">
-      <h1 class="text-center">Login</h1>
-      <form class="form-horizontal">
-        <div class="control-group">
-          <div class="controls">
-            <input class="input-field login-field" placeholder="Enter your email" type="text" name="email" required/>
-            <label class="login-field-icon fui-man-16" for="login-name"></label>
-          </div>
-        </div>
-        <div class="control-group">
-          <div class="controls">
-            <input class="input-field login-field" id="login-pass" placeholder="Password" type="password" name="password" required>
-            <label class="login-field-icon fui-lock-16" for="login-pass"></label>
-          </div>
-        </div>
-        <div class="control-group">
-          <div class="controls">
-            <button id="login" class="btn btn-primary btn-large btn-block">Login</button>
-          </div>
-        </div>
-      </form>
+  <div class="login-container">
+    <div class="login-form">
+      <img src="/images/noun_project_2034.svg" class="login-ball">
+
+      <div class="control-group">
+        <input type="text" class="login-field input-field" value="" placeholder="Enter your email" name="email" required />
+        <label class="login-field-icon fui-man-16" for="login-name"></label>
+      </div>
+      <div class="control-group">
+        <input type="password" class="login-field input-field" name="password" placeholder="Password" id="login-pass" required />
+        <label class="login-field-icon fui-lock-16" for="login-pass"></label>
+      </div>
+      <a class="btn btn-success btn-large btn-block" href="#" id="login">Login</a>
     </div>
+  </div>
   </script>
 
   <script type="text/template" id="registerView-template">
@@ -131,29 +137,29 @@
       <h1 class="text-center">Register</h1>
       <form class="form-horizontal">
         <div class="control-group">
-          <div class="control-label" for="display_name">Full Name:</div>
+          <div class="control-label" for="display_name"></div>
           <div class="controls">
-            <input class="input-field" type="text" name="display_name" required/>
+            <input class="input-field" type="text" name="display_name" placeholder="Full Name" required/>
           </div>
         </div>
         <div class="control-group">
-          <div class="control-label" for="email">Email:</div>
+          <div class="control-label" for="email"></div>
           <div class="controls">
-            <input class="input-field" type="text" name="email" required/>
+            <input class="input-field" type="text" name="email" placeholder="Email" required/>
           </div>
         </div>
         <div class="control-group">
-          <div class="control-label" for="inputPhone">Phone:</div>
+          <div class="control-label" for="inputPhone"></div>
           <div class="controls">
-            +1 <input class="input-mini input-field" type='tel' pattern='\d{3}' name="phone1" required/>-
-            <input class="input-mini input-field" type='tel' pattern='\d{3}' name="phone2" required/>-
-            <input class="input-mini input-field" type='tel' pattern='\d{4}' name="phone3" required/>
+            <input class="input-mini input-field" type='tel' pattern='\d{3}' name="phone1" placeholder="123" required/>-
+            <input class="input-mini input-field" type='tel' pattern='\d{3}' name="phone2" placeholder="555" required/>-
+            <input class="input-mini input-field" type='tel' pattern='\d{4}' name="phone3" placeholder="5555" required/>
           </div>
         </div>
         <div class="control-group">
-          <div class="control-label" for="inputPassword">Password: </div>
+          <div class="control-label" for="inputPassword"></div>
           <div class="controls">
-            <input class="input-field" type="password" name="password" required/>
+            <input class="input-field" type="password" name="password" placeholder="Password" required/>
           </div>
         </div>
         <div class="control-group">
@@ -163,11 +169,12 @@
         </div>
       </form>
     </div>
-    </div>
+  </div>
   </script>
 
   <script type="text/template" id="headerView-template">
     <div class="container-fluid header">
+
       <div class="row-fluid">
         <div class="navbar header navbar-static-top navbar-inverse">
           <div class="navbar-inner span10 offset1 header-inner" id="header-inner">
@@ -210,8 +217,8 @@
       </div>
       <div class="footer-right right">
         <ul>
-          <li><a href="/about">About</a></li>
-          <li><a href="/contact">Contact</a></li>
+          <li><a href="http://www.github.com/3divs/">About</a></li>
+          <li><a href="http://www.github.com/3divs/">Contact</a></li>
         </ul>
       </div>
     </div>
@@ -219,63 +226,43 @@
 
   <script type="text/template" id="create-gameView-template">
     <h1 class="createformtitle" style="text-align:center">Create a New Game</h1>
-      <form action="/game" method="POST" class="span5">
-        <table class="createform">
-        <tr class="what">
-        <td rowspan="2" class="span2 formrow">WHAT</td>
-        <td>
-        Game Name: <input type="textbox" placeholder="Game Name" name="gameName"></input>
-        </td>
-        </tr>
-        <tr>
-        <td>
-        Game Type: <select>
-                    <option>select a game</option>
-                    <option value="flag football">flag football</option>
-                    <option value="volleyball">volleyball</option>
-                    <option value="basketball">basketball</option>
-                    <option value="baseball">baseball</option>
-                    <option value="soccer">soccer</option>
-                    <option value="tag">tag</option>
-                  </select>
-        </td>
-        </tr>
-        <tr class="when">
-        <td rowspan="2" class="span2 formrow">WHEN</td>
-        <td>
-        Game Date: <input type="date" class="span4" name="gameDate"></input>
-        </td>
-        </tr>
-        <tr>
-        <td>
-        Game Time: <input type="time" class="span4" name="gameTime"></input>
-        </td>
-        </tr>
-        <tr class="where">
-        <td class="span2 formrow">WHERE</td>
-        <td>Use the map to navigate to your game&#39s location and click on the map to place a marker at the exact spot for your game</td>
-        </tr>
-        <tr class="who">
-        <td rowspan="3" class="span2 formrow">WHO</td>
-        <td>
-          Min. # of Players: <input type="number" class="span2" name="minimumPlayers"></input>
-          Max. Player #: <input type="number" class="span2" name="PlayerLimit"></input>
-        </td>
-        </tr>
-        <tr>
-        <td>
-          Player Phone #s (+1): <input type="textbox" class='players' name="players"></input><img src="..." class="icon-plus"><br>
-        </td>
-        </tr>
-        <tr>
-        <td>
-        <input type='textbox' name='playerArray' class='invitees' style='display:none'></input><div class='inviteeList'>Invited Players</div>
-        </td>
-        </tr>
-        </table>
-          <input type='textbox' class='lat' name='latitude' style='display:none'></input><br>
-          <input type='textbox' class='lon' name='longitude' style='display:none'></input>
-          <input type="submit"></input>
+      <form action="/game" method="POST" class="createform span6">
+        <div class="todo question what visible">
+          <h1 class="todo-name questionheader">WHAT</h1>
+            <h4>Game Name:</h4>
+              <input type="textbox" name="gameName" class="gamename" placeholder="Give your game a custom name"></input><br>
+            <h4>Game Type:</h4>
+              <input type="textbox" name="gameType" class="gametype" placeholder="What are you playing? (e.g. basketball, tag, etc.)"></input></div>
+        </div>
+        <div class="todo question when hidden">
+          <h1 class="todo-name questionheader">WHEN</h1>
+            <h4>Game Date:</h4>
+              <input type="date" class="span6" name="gameDate"></input>
+            <h4>Game Time:</h4>
+              <input type="time" class="span6" name="gameTime"></input>
+        </div>
+        <div class="todo question where hidden">
+          <h3 class="todo-name questionheader">WHERE</h3>
+            <h4>Use the map to navigate to your game&#39s location and click on the map to place a marker at the exact spot for your game</h4>
+              <div><input type='textbox' class='lat' name='latitude' style='display:none'></input></div>
+              <div><input type='textbox' class='lon' name='longitude' style='display:none'></input></div>
+        </div>
+        <div class="todo question who hidden"><h3 class="todo-name questionheader">WHO</h3>
+          <h4>Min. # of Players:<input type="number" class="numplayer" name="minimumPlayers"></input></h4>
+          <h4>Max. # of Players:<input type="number" class="numplayer" name="PlayerLimit"></input></h4>
+          <h4>Player Phone #s:<input type="textbox" class='players' name="players" placeholder="Click on + to add a phone #"></input><span class="fui-plus-16 addphone"></span></h4>
+          <div><input type='textbox' name='playerArray' class='invitees' style='display:none'></input></div>
+        </div>
+        <div class="todo question submit hidden">
+          <div><input type="submit" class="submitbtn btn btn-large btn-primary" value="Create game and send invites"></input></div>
+        </div>
+        <div class="nextprevious">
+          <div class="span2 nextbutton"><button class="btn btn-info btn-large" type="button">Next</button></div>
+          <div class="span2 previousbutton buttonhidden"><button class="btn btn-info btn-large" type="button">Previous</button></div>
+        </div>
+        <div class="inviteelist todo">       
+          <div class="todo-name"><strong>Invited Players</strong></div>
+        </div>
       </form>
   </script>
 
@@ -304,8 +291,8 @@
   </script>
 
   <script type="text/template" id="gamesView-template">
-    <div class="games span10 offset1">
-      <h1 class="span10 text-center">My Games</h1>
+    <div class="games span11 offset1">
+      <h1 class="span11 text-center">My Games</h1>
       <div id="games"></div>
     </div>
   </script>
@@ -409,9 +396,9 @@
   </script>
 
   <script type="text/template" id="teamsView-template">
-    <button class="btn btn-large btn-info" id="createTeam"><span class="fui-plus-24"/>Create Team</button>
-    <div class="teams span10 offset1">
-      <h1 class="span10 text-center">My Teams</h1>
+    <button class="btn btn-info" id="createTeam"><span class="fui-plus-24"/>Create Team</button>
+    <div class="teams span11 offset1">
+      <h1 class="span11 text-center">My Teams</h1>
       <div id="teams"></div>
     </div>
   </script>
@@ -445,15 +432,15 @@
               </form>
             </div>
           </ol>
-              <div class="sms-buttons">
-      <button class="btn btn-info btn-danger text-center btn-small" id="createSms">Group Text</button>
-      <div class="sms-form">
-        <span class="alert alert-warning sms-warning">NOTE: Message will be sent to the entire roster</span>
-        <button class="btn btn-success btn-mini" id="sendSms">Send</button>
-        <button class="btn btn-danger btn-mini" id="cancelSms">Cancel</button>
-        <textarea rows="3" cols="50" class="sms-input"/>
-      </div>
-    </div>
+          <div class="sms-buttons">
+            <button class="btn btn-info btn-danger text-center btn-small" id="createSms">Group Text</button>
+            <div class="sms-form">
+              <span class="alert alert-warning sms-warning">NOTE: Message will be sent to the entire roster</span>
+              <button class="btn btn-success btn-mini" id="sendSms">Send</button>
+              <button class="btn btn-danger btn-mini" id="cancelSms">Cancel</button>
+              <textarea rows="3" cols="50" class="sms-input"/>
+            </div>
+          </div>
         </div>
       </ul>
     </div>
@@ -464,7 +451,7 @@
   <div id="header"></div>
   <div class="container-fluid">
     <div class="row-fluid">
-      <div class="span10 offset1">
+      <div class="span10 offset1" style="margin-top: 30px">
         <div id="main">Hello World!</div>
       </div>
     </div>
