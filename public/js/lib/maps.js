@@ -13,7 +13,7 @@ var markerArray = [];
 // Content for infobox
 var boxText = document.createElement("div");
 boxText.setAttribute('class', "infobox");
-boxText.style.cssText = "text-align: center; height: 20px; border: 1px solid black; margin-top: 8px; background: #34495e; padding: 10px; color: white; border-radius: 10px; width: auto";
+boxText.style.cssText = "text-align: center; height: auto; border: 1px solid black; margin-top: 8px; background: #34495e; padding: 10px; color: white; border-radius: 10px; width: auto";
 
 function initialize(gameData) {
   var mapOptions = {
@@ -99,15 +99,16 @@ function initialize(gameData) {
         min: gameData.at(i).get('minimumPlayers'),
         code: gameData.at(i).get('gameCode'),
         animation: google.maps.Animation.DROP,
-        date1: gameData.at(i).get('date')
+        date1: gameData.at(i).get('date'),
+        description: gameData.at(i).get('gameDescription'),
+        type: gameData.at(i).get('gameType')
       });
-      var content = createMarker.title;
-      console.log(createMarker.date1)
+      var content = createMarker.description + '<br /> on ' + moment(createMarker.date).format("LL");
       makeInfoWindowEvent(map, infowindow, content, createMarker);
       markerArray.push(createMarker);
       gameList.innerHTML += '<li data-id=' + createMarker.__gm_id + '>' +
-        '<span class="gamelist-title todo-name">' + createMarker.title + '</span>' +
-        '<button class="btn-mini btn" data-code=' + createMarker.code +'>Join Game</button></li>';
+        '<span class="gamelist-title todo-name"></span>' +
+        '<button class="btn-mini btn" data-code=' + createMarker.code +'>Join</button> ' + createMarker.type + ' <br /><span class="dateText"> ' + moment(createMarker.date).fromNow() + '<span></li>';
     }
   });
 
@@ -128,7 +129,7 @@ function initialize(gameData) {
         holder = markerArray[i];
       }
     }
-    boxText.innerHTML = holder.title;
+    boxText.innerHTML = holder.description + '<br /> on ' + moment(holder.date).format("LL");
     ib.open(map, holder);
   });
 
@@ -166,7 +167,7 @@ function initialize(gameData) {
           holder = markerArray[i];
         }
       }
-      boxText.innerHTML = holder.title;
+      boxText.innerHTML = holder.description + '<br /> on ' + moment(holder.date).format("LL");
       ib.open(map, holder);
 
       $('.todo-search-field').val("");
