@@ -94,12 +94,12 @@ module.exports = function(app){
       gameName : req.body.gameName,
       gameType : req.body.gameType,
       coord: {lat: req.body.latitude, lon: req.body.longitude},
-      gameLocation: req.body.gameLocation,
       minimumPlayers : req.body.minimumPlayers,
       playerLimit: req.body.playerLimit
     });
-    newGame.save();
-    res.redirect('/#games');
+    newGame.save(function(err, data) {
+      res.redirect('/send-sms/' + data._id);
+    });
   });
 
   app.put('/game', function(req, res, next){
@@ -151,25 +151,29 @@ var twilioPhoneNumber = config.twilioNumber;
 // make sure to authenticate access to this page for the Manager only...
   app.get('/send-sms/:id', function(req, res) {
     if(!req.user) return res.send(401);
-    Game.findOne({ _id: req.params.id, manager: req.user._id }, function(err, game) {
+    Game.findOne({ _id: req.params.id, }, function(err, game) {
       if (err)
         throw error; // we need a 404 error page to serve if game and user ID don't exist...
       if(!game) return res.send(404);
-      console.log('game', game);
-      console.log('phone numbers', game.invitedPlayers);
-      var gameMessage = game.manager + ' wants you to play ' +
-        game.gameType + " on " + game.gameTime + " at " +
-        game.gameLocation + '. Reply ' + game.gameCode +
-        '#y to join or ' + game.gameCode + '#n to sit this one out.';
-        if (gameMessage.length < 144) {
-          gameMessage = gameMessage + ' ~OpenRecess.com';
-        }
-      for (var i = 0; i < game.invitedPlayers.length; i++){
-        console.log(gameMessage, game.invitedPlayers[i], twilioPhoneNumber);
-        twil.sendSMS(gameMessage, game.invitedPlayers[i], twilioPhoneNumber, req, res);
-        // Add to message database a item with requester, number sent to, message, messageSID, event
+      User.findOne({ _id: req.user._id}, function(err, manager){
+        console.log('game', game);
+        if (err)
+          throw error; // we need a 404 error page to serve if game and user ID don't exist...
+        if(!manager) return res.send(404);
+        var gameMessage = manager.display_name + ' wants you to play ' +
+          game.gameType + " at " + game.gameTime + ' on ' + moment(game.gameDate).format('LL') + '. Reply ' + game.gameCode +
+          '#y to join or ' + game.gameCode + '#n to sit this one out.';
+          if (gameMessage.length < 144) {
+            gameMessage = gameMessage + ' ~OpenRecess.com';
+          }
+        for (var i = 0; i < game.invitedPlayers.length; i++){
+          console.log(gameMessage, game.invitedPlayers[i], twilioPhoneNumber);
+          twil.sendSMS(gameMessage, game.invitedPlayers[i], twilioPhoneNumber, req, res);
+          // Add to message database a item with requester, number sent to, message, messageSID, event
       }
+      })
     });
+    res.redirect('/#games');
   });
 
   app.post('/retrieve-sms', twil.retrieveSMS);
