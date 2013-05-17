@@ -45,7 +45,7 @@ GameSchema.pre('save', function(next) {
   this.updatedAt = new Date();
 
   // Update confirmed player count
-  if(this.confirmedPlayers.length > 0) {
+  if(this.confirmedPlayers && this.confirmedPlayers.length > 0) {
     this.confirmedPlayersCount = this.confirmedPlayers.length;
 
     // Update player limit boolean

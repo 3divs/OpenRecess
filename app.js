@@ -19,8 +19,6 @@ mongoose.connect(config.db);
 var User = require('./models/user.js');
 var Game = require('./models/game.js');
 
-console.log('DB - ', config.db);
-
 // Setup express server
 var app = express();
 app.engine('handlebars', hbs({defaultLayout: 'main'}));
