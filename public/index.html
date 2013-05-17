@@ -182,8 +182,8 @@
               <a class="brand" href="#splash">OpenRecess</a>
             </div>
             <ul class="nav span8">
-              <li class="span3"><a href="#games">List Games</a></li>
-              <li class="span3"><a href="#game">Create Game</a></li>
+              <li class="span3"><a href="#games">View</a></li>
+              <li class="span3"><a href="#game">Create</a></li>
               <li class="span3"><a href="#manage">Manage</a></li>
               <% if(email) { %>
                 <li class="span3 dropdown">
@@ -225,7 +225,6 @@
   </script>
 
   <script type="text/template" id="create-gameView-template">
-    <h1 class="createformtitle" style="text-align:center">Create a New Game</h1>
       <form action="/game" method="POST" class="createform span6">
         <div class="todo question what visible">
           <h1 class="todo-name questionheader">WHAT</h1>
@@ -256,12 +255,12 @@
         <div class="todo question submit hidden">
           <div><input type="submit" class="submitbtn btn btn-large btn-primary" value="Create game and send invites"></input></div>
         </div>
+        <div class="inviteelist todo hidden">
+          <div class="todo-name"><strong>Invited Players</strong></div>
+        </div>
         <div class="nextprevious">
           <div class="span2 nextbutton"><button class="btn btn-info btn-large" type="button">Next</button></div>
           <div class="span2 previousbutton buttonhidden"><button class="btn btn-info btn-large" type="button">Previous</button></div>
-        </div>
-        <div class="inviteelist todo">
-          <div class="todo-name"><strong>Invited Players</strong></div>
         </div>
       </form>
   </script>
@@ -452,7 +451,7 @@
   <div class="container-fluid">
     <div class="row-fluid">
       <div class="span10 offset1" style="margin-top: 30px">
-        <div id="main">Hello World!</div>
+        <div id="main"></div>
       </div>
     </div>
   </div>
