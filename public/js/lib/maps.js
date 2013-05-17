@@ -100,11 +100,10 @@ function initialize(gameData) {
         code: gameData.at(i).get('gameCode'),
         animation: google.maps.Animation.DROP,
         date1: gameData.at(i).get('date'),
-        description: gameData.at(i).get('gameDescription'),
         type: gameData.at(i).get('gameType')
       });
       
-      var content = createMarker.description + '<br /> on ' + moment(createMarker.date).format("LL");
+      var content = createMarker.title + '<br /> on ' + moment(createMarker.date).format("LL") + '<br />at ' + createMarker.time;
       makeInfoWindowEvent(map, infowindow, content, createMarker);
       markerArray.push(createMarker);
       gameList.innerHTML += '<li data-id=' + createMarker.__gm_id + '>' +
@@ -130,7 +129,7 @@ function initialize(gameData) {
         holder = markerArray[i];
       }
     }
-    boxText.innerHTML = holder.description + '<br /> on ' + moment(holder.date).format("LL");
+    boxText.innerHTML = holder.title + '<br /> on ' + moment(holder.date).format("LL") + '<br />at ' + holder.time;
     ib.open(map, holder);
   });
 
@@ -168,7 +167,7 @@ function initialize(gameData) {
           holder = markerArray[i];
         }
       }
-      boxText.innerHTML = holder.description + '<br /> on ' + moment(holder.date).format("LL");
+      boxText.innerHTML = holder.title + '<br /> on ' + moment(holder.date).format("LL") + '<br />at ' + holder.time;
       ib.open(map, holder);
 
       $('.todo-search-field').val("");

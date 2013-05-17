@@ -72,7 +72,7 @@ var rsvpUser = function(digits, code){
       $inc : { confirmedPlayersCount : 1 }
     },
     function(err, thisGame){
-      if(err) throw 'wtf?';
+      if(err) throw 'Error';
       if (!thisGame) {
         exports.sendSMS('Thanks for the message. Either you already RSVP\'d to this game or you aren\'t authorized to join. ~OpenRecess.com.', digits, twilioPhoneNumber);
       } else {

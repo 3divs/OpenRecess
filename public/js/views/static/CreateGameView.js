@@ -18,6 +18,9 @@ var CreateGameView = Marionette.ItemView.extend({
       }
       $('.invitees').val(numberArray);
       $('.inviteelist').append('<div>+1 (' + value.slice(0,3) + ')' + ' ' + value.slice(3,6) + '-' + value.slice(6,10) + ' </div>');
+      if($('.inviteelist').hasClass('hidden')) {
+        $('.inviteelist').removeClass('hidden');
+      }
     },
 
     'click .nextbutton': function() {
@@ -28,7 +31,6 @@ var CreateGameView = Marionette.ItemView.extend({
       }
       $('.visible').slideToggle("fast").addClass('hidden').removeClass('visible').next().slideToggle("fast").removeClass("hidden").addClass('visible');
     },
-
     'click .previousbutton': function() {
       if($('.nextbutton').hasClass('buttonhidden')) {
         $('.nextbutton').removeClass('buttonhidden');
