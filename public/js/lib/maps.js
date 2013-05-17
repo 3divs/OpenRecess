@@ -103,6 +103,7 @@ function initialize(gameData) {
         description: gameData.at(i).get('gameDescription'),
         type: gameData.at(i).get('gameType')
       });
+      
       var content = createMarker.description + '<br /> on ' + moment(createMarker.date).format("LL");
       makeInfoWindowEvent(map, infowindow, content, createMarker);
       markerArray.push(createMarker);
