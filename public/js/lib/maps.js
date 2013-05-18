@@ -99,10 +99,9 @@ function initialize(gameData) {
         min: gameData.at(i).get('minimumPlayers'),
         code: gameData.at(i).get('gameCode'),
         animation: google.maps.Animation.DROP,
-        date1: gameData.at(i).get('date'),
         type: gameData.at(i).get('gameType')
       });
-      
+
       var content = createMarker.title + '<br /> on ' + moment(createMarker.date).format("LL") + '<br />at ' + createMarker.time;
       makeInfoWindowEvent(map, infowindow, content, createMarker);
       markerArray.push(createMarker);
@@ -120,6 +119,7 @@ function initialize(gameData) {
         scrollTop: "+=" + step + "px"
     });
   });
+
   // Connect side-panel with events on the map
   var holder;
   $('#results').on('click', 'li', function(){
@@ -161,9 +161,9 @@ function initialize(gameData) {
   // TODO: use regex to search for games.  Convert markerArray to lowercase
   $('.todo-search-field').keypress(function (e) {
     if (e.which == 13) {
-      var search = $('.todo-search-field').val();
+      var search = $('.todo-search-field').val().toLowerCase();
       for (var i = 0; i < markerArray.length; i++) {
-        if (search === markerArray[i].title) {
+        if (search === markerArray[i].type.toLowerCase()) {
           holder = markerArray[i];
         }
       }
@@ -185,10 +185,11 @@ function initialize(gameData) {
 }
 
 var handleNoGeolocation = function(errorFlag) {
+  var content;
   if (errorFlag) {
-    var content = 'Error: The Geolocation service failed.';
+    content = 'Error: The Geolocation service failed.';
   } else {
-    var content = 'Error: Your browser doesn\'t support geolocation.';
+    content = 'Error: Your browser doesn\'t support geolocation.';
   }
   // If GeoLocation is not possible, defaults to San Francisco area.
   var options = {
