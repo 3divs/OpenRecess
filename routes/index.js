@@ -117,9 +117,12 @@ module.exports = function(app){
       $inc : { confirmedPlayersCount : 1 }
     },
     function(err, thisGame){
-      if(err) throw 'no such game found';
-      console.log(thisGame);
-      twil.sendSMS('Game on for ' + thisGame.gameType + '#' + thisGame.gameCode + ' on ' + thisGame.gameDate + ' at ' + thisGame.gameTime + '. Stay tuned for more text message updates.', digits, twilioPhoneNumber);
+      if(err) {
+        return 'no such game found';
+      } else {
+        console.log(thisGame);
+        twil.sendSMS('Game on for ' + thisGame.gameType + '#' + thisGame.gameCode + ' on ' + moment(thisGame.gameDate).format('LL') + ' at ' + thisGame.gameTime + '. Stay tuned for more text message updates.', digits, twilioPhoneNumber);
+      }
     });
     res.json(200, 'Done and done');
   });
