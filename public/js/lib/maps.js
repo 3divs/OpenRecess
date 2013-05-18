@@ -71,7 +71,7 @@ function initialize(gameData) {
             scaledSize: new google.maps.Size(25, 25)
           };
 
-          var marker = new google.maps.Marker({
+          marker = new google.maps.Marker({
             map: map,
             icon: image,
             title: place.name,
