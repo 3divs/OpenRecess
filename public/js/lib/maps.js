@@ -149,7 +149,7 @@ function initialize(gameData) {
         dataType: 'json',
         error: function(error) { alert(error); },
         success: function() {
-          $(e.target).closest('button').text('Joined').css('background-color','green');
+          $(e.target).closest('button').text('Joined').css('background-color','green').removeClass('btn-mini').append('<br>');
         }
       });
     } else {
