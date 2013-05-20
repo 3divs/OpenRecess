@@ -119,6 +119,10 @@ App.addInitializer(function() {
   App.currentUser.on('redirectLogin', function() {
     App.router.navigate('login', true);
   });
+
+  App.currentUser.on('redirect', function(page) {
+    App.router.navigate(page, true);
+  });
 });
 
 
