@@ -98,8 +98,9 @@ module.exports = function(app){
       playerLimit: req.body.playerLimit
     });
     newGame.save(function(err, data) {
-      res.redirect('/send-sms/' + data._id);
+      app.get('/send-sms/' + data._id);
     });
+    res.redirect('/');
   });
 
   app.put('/game', function(req, res, next){

@@ -39,6 +39,14 @@ var CreateGameView = Marionette.ItemView.extend({
       }
       $('.visible').slideToggle("fast").addClass('hidden').removeClass('visible').prev().slideToggle("fast").removeClass("hidden").addClass('visible');
     }
+    // 'click #createGameAndSend': 'createGame'
+  },
+
+  createGame: function(e) {
+    e.preventDefault();
+    _.each(this.$('.input-field'), function(input) {
+      console.log($(input).val());
+    });
   }
 });
 
