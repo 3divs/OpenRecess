@@ -38,7 +38,50 @@ var CreateGameView = Marionette.ItemView.extend({
         $('.previousbutton').addClass('buttonhidden');
       }
       $('.visible').slideToggle("fast").addClass('hidden').removeClass('visible').prev().slideToggle("fast").removeClass("hidden").addClass('visible');
-    }
+    },
+    'click #createGameAndSend': 'createGame'
+  },
+
+  displayErrors: function(className, html) {
+    var $form = this.$('form');
+    $form.find('.alert').remove();
+    $form.prepend('\
+      <div class="alert ' + className + '" id="alert">' +
+        '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+          html +
+      '</div>'
+    );
+  },
+
+  createGame: function(e) {
+    e.preventDefault();
+    var params = {};
+    _.each(this.$('.input-field'), function(input) {
+      // console.log(input.name + ' - ' + $(input).val());
+      params[input.name] = $(input).val();
+    });
+
+    this.model.set(params);
+    var that = this;
+    this.model.save(null, {
+      error: function(model, response, options) {
+        that.displayErrors('alert-error', response.responseText) ;
+        // console.log('error - ', response.responseText);
+      },
+      success: function(model, response, options) {
+        that.displayErrors('alert-success', 'SUCCESS! Game created!');
+        // console.log('Success creating game - ', response);
+        $.ajax('/send-sms/' + response.gameId, {
+          success: function(response) {
+            console.log('sent sms - ', response);
+          },
+          error: function(err) {
+            console.log('error - ', err);
+          }
+        });
+        that.$('.input-field').val('');
+      }
+    });
   }
 });
 
