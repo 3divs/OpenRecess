@@ -28,12 +28,17 @@ var User = Backbone.Model.extend({
 
     // Fetch previous user profile if user closed window/tab
     var that = this;
-    var page = document.URL.match(/#(.*)/)[1];
+    var page;
+
+    if(document.URL.match(/#(.*)/))
+      page = document.URL.match(/#(.*)/)[1];
+    else
+      page = '/';
+
     $.ajax('/user/current', {
       type: 'GET',
       success: function(data) {
         that.set(data);
-        console.log(page);
         that.trigger('redirect', page);
       },
       error: function(err) {
