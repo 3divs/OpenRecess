@@ -1,6 +1,5 @@
 [
   {
-    "_id": 1234,
     "email": "test@test.com",
     "phone": "+17816401203",
     "display_name": "Test User 1",
@@ -10,7 +9,6 @@
     "gamesPlayed": []
   },
   {
-    "_id": 5678,
     "email": "test2@test.com",
     "phone": "+15133074346",
     "display_name": "Test User 2",

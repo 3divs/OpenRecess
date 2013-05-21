@@ -1,9 +1,18 @@
 var Game = Backbone.Model.extend({
+  idAttribute: '_id',
   url: '/game',
 
   defaults: {
-    type: 'Unknown',
-    gameType: 'Unknown'
+    // gameName: 'asdf',
+    // gameType: 'baseball',
+    // gameDate: '2013-01-01',
+    // gameTime: '01:00',
+    // latitude: 37.78299392223508,
+    // longitude: 122.41065368056297,
+    // minimumPlayers: 1,
+    // playerLimit: 1,
+    // playerArray: '+16502699118',
+    confirmedPlayersCount: 0
   },
 
   initialize: function() {
@@ -41,7 +50,5 @@ var Game = Backbone.Model.extend({
     this.validators.players = function(value) {
       return value.length > 0 ? {isValid: true} : {isValid: false, message: "" /* Field needs to be changed */ };
     };
-
   }
-
 });

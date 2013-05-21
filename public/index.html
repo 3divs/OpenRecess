@@ -225,44 +225,44 @@
   </script>
 
   <script type="text/template" id="create-gameView-template">
-      <form action="/game" method="POST" class="createform span6">
-        <div class="todo question what visible">
-          <h1 class="todo-name questionheader">WHAT</h1>
-            <h4>Game Name:</h4>
-              <input type="textbox" name="gameName" class="gamename input-field" placeholder="Give your game a custom name"></input><br>
-            <h4>Game Type:</h4>
-              <input type="textbox" name="gameType" class="gametype input-field" placeholder="What are you playing? (e.g. basketball, tag, etc.)"></input></div>
-        </div>
-        <div class="todo question when hidden">
-          <h1 class="todo-name questionheader">WHEN</h1>
-            <h4>Game Date:</h4>
-              <input type="date" class="span6 input-field" name="gameDate"></input>
-            <h4>Game Time:</h4>
-              <input type="time" class="span6 input-field" name="gameTime"></input>
-        </div>
-        <div class="todo question where hidden">
-          <h3 class="todo-name questionheader">WHERE</h3>
-            <h4>Use the map to navigate to your game&#39s location and click on the map to place a marker at the exact spot for your game</h4>
-              <div><input type='textbox' class='lat input-field' name='latitude' style='display:none'></input></div>
-              <div><input type='textbox' class='lon input-field' name='longitude' style='display:none'></input></div>
-        </div>
-        <div class="todo question who hidden"><h3 class="todo-name questionheader">WHO</h3>
-          <h4>Min. # of Players:<input type="number" class="numplayer input-field" name="minimumPlayers"></input></h4>
-          <h4>Max. # of Players:<input type="number" class="numplayer input-field" name="PlayerLimit"></input></h4>
-          <h4>Player Phone #s:<input type="textbox" class='players input-field' name="players" placeholder="Click on + to add a phone #"></input><span class="fui-plus-16 addphone"></span></h4>
-          <div><input type='textbox' name='playerArray' class='invitees input-field' style='display:none'></input></div>
-        </div>
-        <div class="todo question submit hidden">
-          <div><input type="submit" class="submitbtn btn btn-large btn-primary" value="Create game and send invites" id="createGameAndSend"></input></div>
-        </div>
-        <div class="inviteelist todo hidden">
-          <div class="todo-name"><strong>Invited Players</strong></div>
-        </div>
-        <div class="nextprevious">
-          <div class="span2 nextbutton"><button class="btn btn-info btn-large" type="button">Next</button></div>
-          <div class="span2 previousbutton buttonhidden"><button class="btn btn-info btn-large" type="button">Previous</button></div>
-        </div>
-      </form>
+    <form class="createform span6">
+      <div class="todo question what visible">
+        <h1 class="todo-name questionheader">WHAT</h1>
+          <h4>Game Name:</h4>
+            <input type="textbox" name="gameName" class="gamename input-field" placeholder="Give your game a custom name"></input><br>
+          <h4>Game Type:</h4>
+            <input type="textbox" name="gameType" class="gametype input-field" placeholder="What are you playing? (e.g. basketball, tag, etc.)"></input></div>
+      </div>
+      <div class="todo question when hidden">
+        <h1 class="todo-name questionheader">WHEN</h1>
+          <h4>Game Date:</h4>
+            <input type="date" class="span6 input-field" name="gameDate"></input>
+          <h4>Game Time:</h4>
+            <input type="time" class="span6 input-field" name="gameTime"></input>
+      </div>
+      <div class="todo question where hidden">
+        <h3 class="todo-name questionheader">WHERE</h3>
+          <h4>Use the map to navigate to your game&#39s location and click on the map to place a marker at the exact spot for your game</h4>
+            <div><input type='textbox' class='lat input-field' name='latitude' style='display:none'></input></div>
+            <div><input type='textbox' class='lon input-field' name='longitude' style='display:none'></input></div>
+      </div>
+      <div class="todo question who hidden"><h3 class="todo-name questionheader">WHO</h3>
+        <h4>Min. # of Players:<input type="number" class="numplayer input-field" name="minimumPlayers"></input></h4>
+        <h4>Max. # of Players:<input type="number" class="numplayer input-field" name="playerLimit"></input></h4>
+        <h4>Player Phone #s:<input type="textbox" class='players input-field' name="players" placeholder="Click on + to add a phone #"></input><span class="fui-plus-16 addphone"></span></h4>
+        <div><input type='textbox' name='playerArray' class='invitees input-field' style='display:none'></input></div>
+      </div>
+      <div class="todo question submit hidden">
+        <div><input type="submit" class="submitbtn btn btn-large btn-primary" value="Create game and send invites" id="createGameAndSend"></input></div>
+      </div>
+      <div class="inviteelist todo hidden">
+        <div class="todo-name"><strong>Invited Players</strong></div>
+      </div>
+      <div class="nextprevious">
+        <div class="span2 nextbutton"><button class="btn btn-info btn-large" type="button">Next</button></div>
+        <div class="span2 previousbutton buttonhidden"><button class="btn btn-info btn-large" type="button">Previous</button></div>
+      </div>
+    </form>
   </script>
 
   <script type="text/template" id="create-gameLayoutView">

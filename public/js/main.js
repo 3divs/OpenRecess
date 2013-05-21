@@ -33,6 +33,7 @@ var controller = {
     layout.gmap.show(new MapsView());
     initialize(games);
   },
+
   showSplash: function() {
     App.mainRegion.show(new SplashView());
   },
@@ -44,7 +45,7 @@ var controller = {
 
       var layout = new CreateGameLayoutView();
       App.mainRegion.show(layout);
-      layout.gameCreate.show(new CreateGameView());
+      layout.gameCreate.show(new CreateGameView({ model: new Game() }));
       layout.gmap.show(new MapsView());
       initialize(games);
     } else
@@ -76,6 +77,7 @@ var controller = {
       teams.fetch();
       games.fetch();
       // games.getMyGames();  // TODO: call this instead of games.fetch()
+      console.log(games);
 
       App.mainRegion.show(manageView);
       manageView.myGames.show(new GamesView({ collection: games }));

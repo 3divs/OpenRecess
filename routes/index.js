@@ -85,6 +85,7 @@ module.exports = function(app){
   app.post('/game', function(req, res, next) {
     // possible collision alert!: this generates a random 3 digit code for every game:
     var temp = Math.floor(Math.random() * 1000);
+    console.log(req.body);
     newGame = new Game({
       invitedPlayers: req.body.playerArray.split(','),
       manager: req.user._id,
@@ -98,9 +99,11 @@ module.exports = function(app){
       playerLimit: req.body.playerLimit
     });
     newGame.save(function(err, data) {
-      app.get('/send-sms/' + data._id);
+      if(err)
+        res.json(403, {err: 'Invalid params'});
+      else
+        res.json(200, {gameId: data._id});
     });
-    res.redirect('/');
   });
 
   app.put('/game', function(req, res, next){
@@ -130,7 +133,7 @@ module.exports = function(app){
 
   app.get('/games', function(req, res, next) {
     // TODO: implement error handling
-    console.log(req.xhr);
+    console.log('Getting All Games');
 
     // Return all games
     Game.find({}, function(err, results) {
@@ -143,7 +146,7 @@ module.exports = function(app){
           res.render('games', context);
         },
         json: function() {
-          console.log('json response');
+          console.log('json response - ', results.length);
           res.json(results);
         }
       });
@@ -154,16 +157,17 @@ var twilioPhoneNumber = config.twilioNumber;
 //add the actual id to this URL and later request params.id in Games.findById(params.id)
 // make sure to authenticate access to this page for the Manager only...
   app.get('/send-sms/:id', function(req, res) {
-    if(!req.user) return res.send(401);
+    console.log(req.params);
+    if(!req.user) return res.json(401, 'No User');
     Game.findOne({ _id: req.params.id, }, function(err, game) {
       if (err)
         throw error; // we need a 404 error page to serve if game and user ID don't exist...
-      if(!game) return res.send(404);
+      if(!game) return res.json(404, 'No Game');
       User.findOne({ _id: req.user._id}, function(err, manager){
         console.log('game', game);
         if (err)
           throw error; // we need a 404 error page to serve if game and user ID don't exist...
-        if(!manager) return res.send(404);
+        if(!manager) return res.json(404, 'No Manager');
         var gameMessage = manager.display_name + ' wants you to play ' +
           game.gameType + " at " + game.gameTime + ' on ' + moment(game.gameDate).format('LL') + '. Reply ' + game.gameCode +
           '#y to join or ' + game.gameCode + '#n to sit this one out.';
@@ -175,9 +179,9 @@ var twilioPhoneNumber = config.twilioNumber;
           twil.sendSMS(gameMessage, game.invitedPlayers[i], twilioPhoneNumber, req, res);
           // Add to message database a item with requester, number sent to, message, messageSID, event
       }
-      })
+      res.json(200, 'Success');
+      });
     });
-    res.redirect('/#games');
   });
 
   app.post('/retrieve-sms', twil.retrieveSMS);
