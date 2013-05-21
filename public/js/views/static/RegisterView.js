@@ -43,7 +43,7 @@ var RegisterView = Marionette.ItemView.extend({
         },
         success: function(model, response, options) {
           that.displayErrors('alert-success', 'SUCCESS! Account created!');
-          that.$('input').val('');
+          that.$('.input-field').val('');
         }
       });
     } else {

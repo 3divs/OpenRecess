@@ -18,7 +18,6 @@ var LoginView = Marionette.ItemView.extend({
   },
 
   checkLogin: function(e) {
-    console.log('check login');
     if(e.which === 13)
       this.loginUser(e);
   },
