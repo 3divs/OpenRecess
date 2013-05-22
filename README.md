@@ -48,3 +48,11 @@ To install and run this project, follow the following steps:
 `grunt`
 
 NOTE: You will need to setup LocalTunnel and specify your own Twilio API key in order to get text messaging to work.
+
+##Contributors
+
+1. Mark Lee <marklee22@gmail.com>
+1. Jason Kang <jasonk54@gmail.com>
+1. Dan Sell <dan.s.sell@gmail.com>
+1. Andrew Magliozzi <andrew.magliozzi@gmail.com>
+
